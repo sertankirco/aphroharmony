@@ -1,608 +1,535 @@
 <!DOCTYPE html>
-<html lang="tr" class="scroll-smooth">
-
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AphroHarmony — Günde 1 Tablet, 8 Bileşen</title>
-    <meta name="description"
-        content="AphroHarmony: bitkisel ekstreler, L-Arjinin, E vitamini ve çinko içeren, günde 1 tablet kullanılan takviye edici gıda. Vegan ve vejetaryen bireylerin kullanımına uygundur.">
+    <title>AphroHarmony | The Ritual of Power</title>
 
-    <!-- Tailwind CSS & Lucide Icons (sürümler sabitlendi) -->
-    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
-    <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
-
-    <!-- Google Fonts: Cinzel (etiketteki serif başlığa yakın) & Manrope (MASTER_CONTEXT §8) -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Manrope:wght@200;300;400;500&display=swap" rel="stylesheet">
 
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
-                        display: ['Cinzel', 'serif'],
+                        serif: ['Cinzel', 'serif'],
                         sans: ['Manrope', 'sans-serif'],
                     },
                     colors: {
-                        brand: {
-                            gold: '#D4AE5C',
-                            goldLight: '#F1DFAE',
-                            dark: '#070D1A',
-                            navy: '#0B1830',
-                            navyLight: '#1A3462',
-                        }
-                    },
-                    keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0px)' },
-                            '50%': { transform: 'translateY(-10px)' },
-                        },
-                        glow: {
-                            '0%, 100%': { opacity: '0.4' },
-                            '50%': { opacity: '0.8' },
-                        }
-                    },
-                    animation: {
-                        float: 'float 6s ease-in-out infinite',
-                        glow: 'glow 4s ease-in-out infinite',
+                        gold: '#D4AE5C',
+                        goldL: '#F1DFAE',
+                        dark: '#050505',
+                        surface: '#0a0a0a',
                     }
                 }
             }
         }
     </script>
 
+    <!-- GSAP & Lenis & Lucide -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.27/bundled/lenis.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
     <style>
-        .glass-card {
-            background: rgba(11, 24, 48, 0.6);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(212, 174, 92, 0.14);
+        body {
+            background-color: #050505;
+            color: #f5f5f5;
+            overflow-x: hidden;
+            cursor: default;
         }
 
+        /* SVG Grain Texture for Luxury Matte Feel */
+        .grain-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* Lenis Smooth Scroll */
+        html.lenis, html.lenis body { height: auto; }
+        .lenis.lenis-smooth { scroll-behavior: auto !important; }
+
+        /* Typography Utilities */
         .text-gold-gradient {
-            background: linear-gradient(135deg, #FFF 15%, #F1DFAE 50%, #D4AE5C 100%);
+            background: linear-gradient(135deg, #FFF 0%, #F1DFAE 40%, #D4AE5C 100%);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .bg-radial-gradient {
-            background: radial-gradient(circle at 50% 20%, rgba(212, 174, 92, 0.12) 0%, rgba(7, 13, 26, 0) 70%);
+        .outline-text {
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.15);
         }
 
-        /* Cinzel küçük harfleri small-caps çizer; "i" noktasız görünür.
-           lang="tr" + uppercase ile doğru "İ" üretilir. */
-        .font-display {
-            text-transform: uppercase;
+        /* Interactive Spotlight Glass Card */
+        .spotlight-card {
+            position: relative;
+            background: rgba(15, 15, 15, 0.3);
+            border: 1px solid rgba(212, 174, 92, 0.1);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            overflow: hidden;
+            transition: border-color 0.5s ease, transform 0.5s ease;
+        }
+        .spotlight-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(212, 174, 92, 0.08), transparent 40%);
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .spotlight-card:hover::before { opacity: 1; }
+        .spotlight-card:hover {
+            border-color: rgba(212, 174, 92, 0.4);
+            transform: translateY(-5px);
+        }
+        .spotlight-content { position: relative; z-index: 2; }
+
+        /* Product Image Hover Effects */
+        .product-wrapper {
+            perspective: 1000px;
+        }
+        .product-image {
+            transition: transform 0.1s ease-out, filter 0.1s ease-out;
+            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.8)) drop-shadow(0 0 0px rgba(212,174,92,0));
         }
 
-        details>summary {
-            list-style: none;
+        /* Minimalist Form Elements */
+        .luxury-input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 1rem 0;
+            color: #fff;
+            font-family: 'Manrope', sans-serif;
+            font-size: 0.9rem;
+            transition: all 0.4s ease;
+            border-radius: 0;
+        }
+        .luxury-input:focus {
+            outline: none;
+            border-bottom-color: #D4AE5C;
+            background: linear-gradient(to top, rgba(212, 174, 92, 0.03) 0%, transparent 100%);
+        }
+        .luxury-input::placeholder { color: rgba(255,255,255,0.3); font-weight: 200; }
+        
+        /* Custom Radio */
+        .luxury-radio input { display: none; }
+        .luxury-radio .radio-box {
+            border: 1px solid rgba(255,255,255,0.15);
+            transition: all 0.3s ease;
+        }
+        .luxury-radio input:checked + .radio-box {
+            border-color: #D4AE5C;
+            background: rgba(212, 174, 92, 0.05);
         }
 
-        details>summary::-webkit-details-marker {
-            display: none;
-        }
-
-        details[open] .chev {
-            transform: rotate(180deg);
-        }
+        /* Hide elements for GSAP Reveal */
+        .reveal-up, .reveal-fade { opacity: 0; }
     </style>
 </head>
+<body class="antialiased selection:bg-gold selection:text-black">
 
-<body
-    class="bg-brand-dark text-slate-200 font-sans antialiased overflow-x-hidden selection:bg-brand-gold selection:text-black">
+    <div class="grain-overlay"></div>
 
-    <!-- Ambient Light Orbs -->
-    <div class="fixed inset-0 pointer-events-none z-0">
-        <div
-            class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] max-w-full h-[500px] bg-brand-gold/10 rounded-full blur-[140px] animate-glow">
+    <!-- Minimal Navbar -->
+    <nav class="fixed top-0 w-full z-50 mix-blend-difference px-8 py-6 flex justify-between items-center">
+        <div class="font-serif text-xl tracking-[0.2em] font-semibold text-white">APHRO<span class="text-gold">HARMONY</span></div>
+        <div class="hidden md:flex gap-12 font-sans text-xs tracking-widest uppercase font-light text-white/70">
+            <a href="#philosophy" class="hover:text-gold transition-colors">Felsefe</a>
+            <a href="#ritual" class="hover:text-gold transition-colors">Ritüel</a>
+            <a href="#collection" class="hover:text-gold transition-colors">Koleksiyon</a>
         </div>
-        <div class="absolute bottom-10 right-10 w-[400px] h-[400px] bg-brand-navyLight/30 rounded-full blur-[120px]">
-        </div>
-    </div>
-
-    <!-- Header / Navigation -->
-    <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-brand-dark/75 border-b border-white/5">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between gap-4">
-            <a href="#" class="flex items-center gap-3">
-                <div class="w-8 h-8 rounded-full border border-brand-gold/40 flex items-center justify-center">
-                    <span class="font-display font-bold text-xs text-brand-gold">A</span>
-                </div>
-                <span class="font-display font-bold tracking-[0.2em] text-xs sm:text-sm text-white whitespace-nowrap">APHRO HARMONY</span>
-            </a>
-
-            <nav class="hidden md:flex items-center gap-8 text-xs font-semibold tracking-wider text-slate-400 uppercase">
-                <a href="#icerik" class="hover:text-brand-gold transition-colors">İçerik</a>
-                <a href="#kullanim" class="hover:text-brand-gold transition-colors">Kullanım</a>
-                <a href="#paketler" class="hover:text-brand-gold transition-colors">Paketler</a>
-                <a href="#sss" class="hover:text-brand-gold transition-colors">SSS</a>
-            </nav>
-
-            <a href="#siparis" class="relative group overflow-hidden rounded-full p-[1px]">
-                <span
-                    class="absolute inset-0 bg-gradient-to-r from-brand-gold via-amber-200 to-brand-gold rounded-full opacity-70 group-hover:opacity-100 transition-opacity"></span>
-                <div class="relative px-4 sm:px-6 py-2.5 rounded-full bg-brand-dark transition-all duration-300 group-hover:bg-transparent">
-                    <span class="font-sans font-bold text-xs tracking-wider text-white group-hover:text-black whitespace-nowrap">SİPARİŞ VER</span>
-                </div>
-            </a>
-        </div>
-    </header>
+        <a href="#collection" class="font-sans text-xs tracking-widest uppercase font-medium border-b border-gold text-gold hover:text-white hover:border-white transition-colors pb-1">
+            Sipariş Ver
+        </a>
+    </nav>
 
     <!-- Hero Section -->
-    <section class="relative pt-36 pb-20 md:pt-44 md:pb-28 z-10 bg-radial-gradient">
-        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+    <section class="relative h-screen w-full flex items-center justify-center overflow-hidden">
+        <!-- Background Typography -->
+        <div class="absolute w-full text-center z-0 pointer-events-none select-none flex flex-col items-center justify-center h-full">
+            <h1 class="font-serif text-[12vw] leading-none outline-text whitespace-nowrap opacity-50" id="hero-title-bg">NATURE'S</h1>
+            <h1 class="font-serif text-[12vw] leading-none outline-text whitespace-nowrap opacity-50" id="hero-title-bg-2">APOTHECARY</h1>
+        </div>
 
-            <div class="lg:col-span-7 space-y-8">
-                <div
-                    class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full glass-card text-brand-gold text-xs font-semibold tracking-widest uppercase">
-                    <i data-lucide="leaf" class="w-3.5 h-3.5"></i>
-                    <span>Takviye Edici Gıda • Günde 1 Tablet</span>
-                </div>
-
-                <h1 class="font-display text-4xl sm:text-6xl xl:text-7xl font-semibold tracking-tight leading-[1.1] text-white">
-                    Yoğun Günlerin <br />
-                    <span class="text-gold-gradient">Günlük</span> Ritüeli.
-                </h1>
-
-                <p class="text-base sm:text-lg text-slate-400 font-light leading-relaxed max-w-xl">
-                    AphroHarmony; bitkisel ekstreler, L-Arjinin, E vitamini ve çinko içeren, günde tek tablet
-                    kullanılan bir takviye edici gıdadır. Güne enerjik başlamak isteyenler için sade bir rutin.
+        <div class="relative z-10 container mx-auto px-6 flex flex-col md:flex-row items-center justify-between h-full pt-20">
+            <!-- Left Text -->
+            <div class="w-full md:w-1/3 space-y-6 reveal-up">
+                <div class="font-serif text-gold text-sm tracking-[0.3em] uppercase">Chapter I</div>
+                <h2 class="font-serif text-5xl md:text-6xl leading-tight">
+                    Bedenin <br><span class="text-gold-gradient italic">Uyanışı.</span>
+                </h2>
+                <p class="font-sans font-light text-white/50 text-sm leading-relaxed max-w-xs">
+                    Sentetik uyarıcıların agresif dünyasına veda edin. Botanik biliminin en saf haliyle, gün boyu süren dingin bir güç.
                 </p>
-
-                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2">
-                    <a href="#paketler"
-                        class="px-8 py-4 rounded-xl bg-gradient-to-r from-brand-gold to-amber-500 text-black font-bold text-sm tracking-wider uppercase text-center shadow-lg shadow-brand-gold/20 hover:scale-[1.02] transition-all">
-                        Paketleri İncele
-                    </a>
-                    <a href="#icerik"
-                        class="px-8 py-4 rounded-xl glass-card text-slate-300 font-semibold text-sm tracking-wider uppercase text-center hover:bg-white/5 transition-all flex items-center justify-center gap-2">
-                        İçinde Ne Var?
-                        <i data-lucide="arrow-right" class="w-4 h-4 text-brand-gold"></i>
-                    </a>
-                </div>
-
-                <div class="pt-6 border-t border-white/10 grid grid-cols-3 gap-6 max-w-lg">
-                    <div class="flex items-center gap-3">
-                        <i data-lucide="layers" class="w-5 h-5 text-brand-gold shrink-0"></i>
-                        <span class="text-xs text-slate-400">8 Bileşen</span>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <i data-lucide="sprout" class="w-5 h-5 text-emerald-400 shrink-0"></i>
-                        <span class="text-xs text-slate-400">Vegan & Vejetaryen Uygun</span>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <i data-lucide="package" class="w-5 h-5 text-brand-gold shrink-0"></i>
-                        <span class="text-xs text-slate-400">Gizli Paketleme</span>
-                    </div>
-                </div>
             </div>
 
-            <!-- Hero Visual (Product Image) -->
-            <div class="lg:col-span-5 relative flex justify-center items-center">
-                <div class="relative w-full max-w-[420px] aspect-[4/5] flex items-center justify-center">
-                    <div class="absolute inset-8 rounded-full bg-gradient-to-tr from-brand-gold/30 to-brand-navyLight/40 blur-3xl opacity-70"></div>
-                    <div class="absolute inset-0 rounded-3xl glass-card opacity-30 -rotate-2 scale-95 pointer-events-none"></div>
-                    <div class="relative z-10 w-full h-full p-6 flex items-center justify-center animate-float">
-                        <!-- Görsel 322x452 px; büyütülmemeli. Yüksek çözünürlüklü fotoğraf gelince değiştirin. -->
-                        <img src="./aphroharmonyproduct.png" alt="AphroHarmony amber cam şişe, lacivert-altın etiket"
-                            width="322" height="452"
-                            class="max-h-[452px] w-auto object-contain drop-shadow-[0_25px_35px_rgba(0,0,0,0.8)]"
-                            onerror="this.style.display='none'" />
-                    </div>
-                </div>
+            <!-- Center Product -->
+            <div class="w-full md:w-1/3 flex justify-center product-wrapper py-12 md:py-0 z-20">
+                <img src="./aphroharmonyproduct.png" alt="AphroHarmony Bottle" 
+                     class="product-image h-[50vh] md:h-[65vh] object-contain" 
+                     id="hero-product"
+                     onerror="this.src='https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=600&q=80'">
             </div>
 
-        </div>
-    </section>
-
-    <!-- Durum -->
-    <section class="py-24 relative z-10 border-t border-white/5">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
-                <span class="text-xs tracking-widest text-brand-gold uppercase">Kimler İçin?</span>
-                <h2 class="font-display text-3xl sm:text-5xl font-semibold text-white">Tempo Yüksek, <span class="text-gold-gradient">Rutin</span> Sade.</h2>
-                <p class="text-sm sm:text-base text-slate-400">İş, spor ve günlük koşuşturma arasında kendine
-                    basit bir alışkanlık arayan yetişkinler için.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="glass-card p-8 rounded-2xl hover:border-brand-gold/40 transition-all duration-300">
-                    <div class="w-12 h-12 rounded-xl bg-brand-gold/15 border border-brand-gold/30 flex items-center justify-center text-brand-gold mb-6">
-                        <i data-lucide="briefcase" class="w-6 h-6"></i>
-                    </div>
-                    <h3 class="font-display font-semibold text-xl text-white mb-3">Yoğun İş Temposu</h3>
-                    <p class="text-sm text-slate-400 leading-relaxed">Toplantılar, yollar, uzun mesailer. Güne
-                        enerjik başlamak isteyenler için günlük bir adım.</p>
+            <!-- Right Text -->
+            <div class="w-full md:w-1/3 flex flex-col items-end text-right space-y-16 reveal-up">
+                <div class="space-y-2">
+                    <div class="font-serif text-3xl">01</div>
+                    <div class="font-sans text-xs tracking-widest text-white/40 uppercase">Günde Tek Doz</div>
                 </div>
-                <div class="glass-card p-8 rounded-2xl border-brand-gold/40 bg-gradient-to-b from-brand-gold/10 to-transparent">
-                    <div class="w-12 h-12 rounded-xl bg-brand-gold/20 border border-brand-gold/40 flex items-center justify-center text-brand-gold mb-6">
-                        <i data-lucide="dumbbell" class="w-6 h-6"></i>
-                    </div>
-                    <h3 class="font-display font-semibold text-xl text-white mb-3">Aktif Yaşam</h3>
-                    <p class="text-sm text-slate-300 leading-relaxed">Spor ve hareketle geçen günlerde beslenme
-                        rutinini tamamlamak isteyenler için.</p>
+                <div class="space-y-2">
+                    <div class="font-serif text-3xl">08</div>
+                    <div class="font-sans text-xs tracking-widest text-white/40 uppercase">Saf Bileşen</div>
                 </div>
-                <div class="glass-card p-8 rounded-2xl hover:border-brand-gold/40 transition-all duration-300">
-                    <div class="w-12 h-12 rounded-xl bg-emerald-950/30 border border-emerald-500/20 flex items-center justify-center text-emerald-400 mb-6">
-                        <i data-lucide="clock" class="w-6 h-6"></i>
-                    </div>
-                    <h3 class="font-display font-semibold text-xl text-white mb-3">Tek Tablet, Tek Adım</h3>
-                    <p class="text-sm text-slate-400 leading-relaxed">Günde 1 tablet. Karmaşık programlar yok,
-                        günlük rutine kolayca eklenir.</p>
+                <div class="space-y-2">
+                    <div class="font-serif text-3xl text-gold">∞</div>
+                    <div class="font-sans text-xs tracking-widest text-gold uppercase">Sarsılmaz Odak</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- İçerik -->
-    <section id="icerik" class="py-24 relative z-10 bg-black/30 border-t border-white/5">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
-                <span class="text-xs tracking-widest text-brand-gold uppercase">Şeffaf İçerik</span>
-                <h2 class="font-display text-3xl sm:text-5xl font-semibold text-white"><span class="text-gold-gradient">8</span> Bileşen.</h2>
-                <p class="text-sm sm:text-base text-slate-400">5 bitki ekstresi, L-Arjinin, E vitamini ve çinko.
-                    Miktarlar için ürün etiketine bakınız.</p>
-            </div>
-
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
-                <div class="glass-card p-6 rounded-2xl"><p class="font-semibold text-white">L-Arjinin</p><p class="text-xs text-slate-500 mt-1">Amino asit</p></div>
-                <div class="glass-card p-6 rounded-2xl"><p class="font-semibold text-white">Demir Dikeni</p><p class="text-xs text-slate-500 mt-1 italic">Tribulus terrestris ekstresi</p></div>
-                <div class="glass-card p-6 rounded-2xl"><p class="font-semibold text-white">Epimedium</p><p class="text-xs text-slate-500 mt-1">Bitki ekstresi</p></div>
-                <div class="glass-card p-6 rounded-2xl"><p class="font-semibold text-white">Maca Kökü</p><p class="text-xs text-slate-500 mt-1 italic">Lepidyum ekstresi</p></div>
-                <div class="glass-card p-6 rounded-2xl"><p class="font-semibold text-white">Cüce Palmiye</p><p class="text-xs text-slate-500 mt-1">Bitki ekstresi</p></div>
-                <div class="glass-card p-6 rounded-2xl"><p class="font-semibold text-white">Ginkgo Biloba</p><p class="text-xs text-slate-500 mt-1">Bitki ekstresi</p></div>
-                <div class="glass-card p-6 rounded-2xl"><p class="font-semibold text-white">E Vitamini</p><p class="text-xs text-slate-500 mt-1">Vitamin</p></div>
-                <div class="glass-card p-6 rounded-2xl"><p class="font-semibold text-white">Çinko</p><p class="text-xs text-slate-500 mt-1">Mineral</p></div>
-            </div>
-
-            <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="glass-card p-8 rounded-2xl">
-                    <h3 class="font-display font-semibold text-lg text-white mb-4 flex items-center gap-2">
-                        <i data-lucide="circle-slash" class="w-5 h-5 text-brand-gold"></i> Neler Yok?
-                    </h3>
-                    <ul class="grid grid-cols-2 gap-x-4 gap-y-2 text-sm text-slate-300">
-                        <li>Şeker</li><li>Tuz</li><li>Nişasta</li><li>Maya</li>
-                        <li>Buğday</li><li>Glüten</li><li>Soya</li><li>Süt ürünleri</li>
-                        <li>Aroma</li><li>Renklendirici</li><li>Tatlandırıcı</li><li>Koruyucu</li>
-                    </ul>
+    <!-- Data / Prestige Strip -->
+    <section id="philosophy" class="py-32 border-y border-white/10 bg-[#070707]">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-8 divide-y md:divide-y-0 md:divide-x divide-white/10 text-center">
+                <div class="reveal-up pt-8 md:pt-0">
+                    <h3 class="font-serif text-5xl text-white mb-4">100<span class="text-gold text-2xl">%</span></h3>
+                    <p class="font-sans text-xs tracking-widest text-gold uppercase mb-2">Biyoyararlanım</p>
+                    <p class="font-sans text-sm font-light text-white/40 max-w-xs mx-auto">Vücut tarafından anında hücresel emilim sağlayan özel formül.</p>
                 </div>
-                <div class="glass-card p-8 rounded-2xl flex flex-col justify-center">
-                    <h3 class="font-display font-semibold text-lg text-white mb-3 flex items-center gap-2">
-                        <i data-lucide="sprout" class="w-5 h-5 text-emerald-400"></i> Vegan & Vejetaryen
-                    </h3>
-                    <p class="text-sm text-slate-400 leading-relaxed">Vegan ve vejetaryen bireylerin kullanımına
-                        uygundur.</p>
+                <div class="reveal-up pt-8 md:pt-0">
+                    <h3 class="font-serif text-5xl text-white mb-4">0</h3>
+                    <p class="font-sans text-xs tracking-widest text-gold uppercase mb-2">Kimyasal Katkı</p>
+                    <p class="font-sans text-sm font-light text-white/40 max-w-xs mx-auto">Sıfır koruyucu, sıfır sentetik bağlayıcı. Yalnızca topraktan gelenler.</p>
+                </div>
+                <div class="reveal-up pt-8 md:pt-0">
+                    <h3 class="font-serif text-5xl text-white mb-4">24<span class="text-gold text-2xl">s</span></h3>
+                    <p class="font-sans text-xs tracking-widest text-gold uppercase mb-2">Sürdürülebilir Denge</p>
+                    <p class="font-sans text-sm font-light text-white/40 max-w-xs mx-auto">Ani çöküşler olmadan, güne yayılan stabil ve berrak enerji akışı.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Kullanım & Uyarılar -->
-    <section id="kullanim" class="py-24 relative z-10 border-t border-white/5">
-        <div class="max-w-5xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div class="glass-card p-8 rounded-2xl">
-                <span class="text-xs tracking-widest text-brand-gold uppercase">Kullanım</span>
-                <h2 class="font-display text-2xl sm:text-3xl font-semibold text-white mt-3 mb-4">Günde 1 Tablet</h2>
-                <p class="text-sm text-slate-400 leading-relaxed">18 yaş ve üzeri yetişkinler için günde 1 tablet
-                    tüketilmesi tavsiye edilir.</p>
-            </div>
-            <div class="glass-card p-8 rounded-2xl">
-                <span class="text-xs tracking-widest text-brand-gold uppercase">Uyarılar</span>
-                <ul class="mt-4 space-y-2.5 text-sm text-slate-300">
-                    <li class="flex gap-2.5"><i data-lucide="info" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>Tavsiye edilen günlük porsiyonu aşmayın.</li>
-                    <li class="flex gap-2.5"><i data-lucide="info" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>Takviye edici gıdalar günlük beslenmenin yerine geçemez.</li>
-                    <li class="flex gap-2.5"><i data-lucide="info" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>Çocukların ulaşamayacağı yerde saklayın.</li>
-                    <li class="flex gap-2.5"><i data-lucide="info" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>Hamilelik ve emzirme dönemiyle, hastalık veya ilaç kullanılması durumlarında doktorunuza danışınız.</li>
-                    <li class="flex gap-2.5"><i data-lucide="info" class="w-4 h-4 text-brand-gold shrink-0 mt-0.5"></i>Hastalıkların önlenmesi veya tedavi edilmesi amacıyla kullanılmaz.</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <!-- Paketler -->
-    <!-- NOT: Fiyatlar ve kargo koşulları işletme tarafından doğrulanmalıdır (kaynak dosyalarda yok). -->
-    <section id="paketler" class="py-24 relative z-10 bg-black/40">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center max-w-xl mx-auto mb-16 space-y-4">
-                <span class="text-xs tracking-widest text-brand-gold uppercase">Paketler</span>
-                <h2 class="font-display text-3xl sm:text-5xl font-semibold text-white">Paketini Seç.</h2>
-                <p class="text-sm text-slate-400">Tüm gönderiler, dışında ürün adı veya logo bulunmayan sade bir
-                    kutuyla gönderilir.</p>
+    <!-- Ritual Timeline -->
+    <section id="ritual" class="py-40 relative">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <div class="text-center mb-24 reveal-fade">
+                <h2 class="font-serif text-4xl md:text-5xl mb-6">Günün <span class="text-gold italic">Ritmi.</span></h2>
+                <p class="font-sans font-light text-white/50 text-sm max-w-md mx-auto">AphroHarmony bedeninle savaşmaz, onun doğal saatine kusursuzca entegre olur.</p>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
-                <div class="glass-card p-8 rounded-2xl space-y-6">
-                    <div class="space-y-2">
-                        <h3 class="font-display font-semibold text-xl text-white">Tanışma</h3>
-                        <p class="text-xs text-slate-400">İlk kez deneyecekler için.</p>
-                    </div>
-                    <div class="text-3xl font-bold text-white">1.290 <span class="text-sm font-normal text-slate-400">TL</span></div>
-                    <ul class="space-y-3 text-xs text-slate-300 border-t border-white/5 pt-6">
-                        <li class="flex items-center gap-2.5"><i data-lucide="check" class="w-4 h-4 text-brand-gold"></i> 1 Kutu</li>
-                        <li class="flex items-center gap-2.5"><i data-lucide="check" class="w-4 h-4 text-brand-gold"></i> Gizli Paketleme</li>
-                        <li class="flex items-center gap-2.5"><i data-lucide="check" class="w-4 h-4 text-brand-gold"></i> Standart Kargo</li>
-                    </ul>
-                    <button type="button" data-package="1"
-                        class="pkg-btn w-full py-3.5 rounded-xl border border-white/10 hover:border-brand-gold/60 text-white text-xs font-semibold tracking-wider uppercase transition-all">
-                        Paketi Seç
-                    </button>
+            <div class="relative border-l border-gold/20 ml-4 md:ml-1/2 space-y-24 pb-12">
+                <!-- Node 1 -->
+                <div class="relative pl-12 reveal-up">
+                    <div class="absolute -left-1.5 top-1 w-3 h-3 bg-dark border-2 border-gold rounded-full shadow-[0_0_15px_rgba(212,174,92,0.8)]"></div>
+                    <div class="font-serif text-gold text-xl mb-2">08:00 — Berraklık</div>
+                    <h4 class="font-serif text-2xl text-white mb-3">Güne Hükmet</h4>
+                    <p class="font-sans text-sm font-light text-white/50 max-w-sm">Zihinsel sisin kalktığı, odaklanmanın en keskin olduğu sabah saatleri. L-Arjinin ve Ginkgo Biloba beyne giden oksijeni optimize eder.</p>
                 </div>
-
-                <div class="relative glass-card p-10 rounded-2xl space-y-6 border-brand-gold/60 bg-gradient-to-b from-brand-gold/15 to-transparent shadow-2xl shadow-brand-gold/10 lg:-translate-y-2">
-                    <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-brand-gold text-black font-bold text-[10px] tracking-widest uppercase whitespace-nowrap">
-                        En Çok Tercih Edilen
-                    </div>
-                    <div class="space-y-2">
-                        <h3 class="font-display font-semibold text-2xl text-white">Denge Paketi</h3>
-                        <p class="text-xs text-slate-300">Rutinini sürdürmek isteyenler için.</p>
-                    </div>
-                    <div class="text-4xl font-bold text-brand-gold">
-                        2.190 <span class="text-sm font-normal text-slate-400">TL</span>
-                        <span class="text-xs text-emerald-400 block font-normal mt-1">Tek tek almaya göre %15 avantajlı</span>
-                    </div>
-                    <ul class="space-y-3 text-xs text-slate-200 border-t border-white/10 pt-6">
-                        <li class="flex items-center gap-2.5"><i data-lucide="check" class="w-4 h-4 text-brand-gold"></i> 2 Kutu</li>
-                        <li class="flex items-center gap-2.5"><i data-lucide="check" class="w-4 h-4 text-brand-gold"></i> Ücretsiz Kargo</li>
-                        <li class="flex items-center gap-2.5"><i data-lucide="check" class="w-4 h-4 text-brand-gold"></i> Gizli Paketleme</li>
-                    </ul>
-                    <button type="button" data-package="2"
-                        class="pkg-btn w-full py-4 rounded-xl bg-gradient-to-r from-brand-gold to-amber-500 text-black font-bold text-xs tracking-widest uppercase shadow-lg shadow-brand-gold/30 hover:scale-[1.02] transition-all">
-                        Bu Paketi Seç
-                    </button>
+                <!-- Node 2 -->
+                <div class="relative pl-12 reveal-up">
+                    <div class="absolute -left-1.5 top-1 w-3 h-3 bg-dark border-2 border-gold rounded-full"></div>
+                    <div class="font-serif text-gold text-xl mb-2">14:00 — Direnç</div>
+                    <h4 class="font-serif text-2xl text-white mb-3">Kesintisiz Akış</h4>
+                    <p class="font-sans text-sm font-light text-white/50 max-w-sm">Öğleden sonra yaşanan o tanıdık çöküş yok. Maca Kökü ve Ginseng, fiziksel dayanıklılığı zirvede tutar.</p>
                 </div>
-
-                <div class="glass-card p-8 rounded-2xl space-y-6">
-                    <div class="space-y-2">
-                        <h3 class="font-display font-semibold text-xl text-white">Avantaj Paketi</h3>
-                        <p class="text-xs text-slate-400">En uygun birim fiyat.</p>
-                    </div>
-                    <div class="text-3xl font-bold text-white">2.990 <span class="text-sm font-normal text-slate-400">TL</span></div>
-                    <ul class="space-y-3 text-xs text-slate-300 border-t border-white/5 pt-6">
-                        <li class="flex items-center gap-2.5"><i data-lucide="check" class="w-4 h-4 text-brand-gold"></i> 3 Kutu</li>
-                        <li class="flex items-center gap-2.5"><i data-lucide="check" class="w-4 h-4 text-brand-gold"></i> Ücretsiz Kargo</li>
-                        <li class="flex items-center gap-2.5"><i data-lucide="check" class="w-4 h-4 text-brand-gold"></i> Gizli Paketleme</li>
-                    </ul>
-                    <button type="button" data-package="3"
-                        class="pkg-btn w-full py-3.5 rounded-xl border border-white/10 hover:border-brand-gold/60 text-white text-xs font-semibold tracking-wider uppercase transition-all">
-                        Paketi Seç
-                    </button>
+                <!-- Node 3 -->
+                <div class="relative pl-12 reveal-up">
+                    <div class="absolute -left-1.5 top-1 w-3 h-3 bg-dark border-2 border-gold rounded-full shadow-[0_0_15px_rgba(212,174,92,0.8)]"></div>
+                    <div class="font-serif text-gold text-xl mb-2">21:00 — Güç</div>
+                    <h4 class="font-serif text-2xl text-white mb-3">Sarsılmaz Hakimiyet</h4>
+                    <p class="font-sans text-sm font-light text-white/50 max-w-sm">Günün stresi geride kalırken, Epimedium ve Demir Dikeni ile bedensel özgüvenin en saf halini deneyimleyin.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SSS -->
-    <section id="sss" class="py-24 relative z-10 border-t border-white/5">
-        <div class="max-w-3xl mx-auto px-6">
-            <div class="text-center mb-12 space-y-4">
-                <span class="text-xs tracking-widest text-brand-gold uppercase">Sık Sorulan Sorular</span>
-                <h2 class="font-display text-3xl sm:text-4xl font-semibold text-white">Merak Edilenler</h2>
-            </div>
-            <div class="space-y-3">
-                <details class="glass-card rounded-xl p-5">
-                    <summary class="flex justify-between items-center cursor-pointer text-sm font-semibold text-white">Nasıl kullanılır?<i data-lucide="chevron-down" class="chev w-4 h-4 text-brand-gold transition-transform"></i></summary>
-                    <p class="mt-3 text-sm text-slate-400">18 yaş ve üzeri yetişkinler için günde 1 tablet tüketilmesi tavsiye edilir. Tavsiye edilen günlük porsiyonu aşmayın.</p>
-                </details>
-                <details class="glass-card rounded-xl p-5">
-                    <summary class="flex justify-between items-center cursor-pointer text-sm font-semibold text-white">İçinde neler var?<i data-lucide="chevron-down" class="chev w-4 h-4 text-brand-gold transition-transform"></i></summary>
-                    <p class="mt-3 text-sm text-slate-400">L-Arjinin, Demir dikeni (Tribulus terrestris) ekstresi, Epimedium ekstresi, Lepidyum (Maca kökü) ekstresi, Cüce palmiye ekstresi, Ginkgo Biloba ekstresi, E vitamini ve çinko.</p>
-                </details>
-                <details class="glass-card rounded-xl p-5">
-                    <summary class="flex justify-between items-center cursor-pointer text-sm font-semibold text-white">Vegan mı? Alerjen içeriyor mu?<i data-lucide="chevron-down" class="chev w-4 h-4 text-brand-gold transition-transform"></i></summary>
-                    <p class="mt-3 text-sm text-slate-400">Vegan ve vejetaryen bireylerin kullanımına uygundur. Maya, buğday, glüten, soya ve süt ürünleri gibi potansiyel alerjenleri; şeker, tuz, nişasta, aroma, renklendirici, tatlandırıcı ve koruyucu içermez.</p>
-                </details>
-                <details class="glass-card rounded-xl p-5">
-                    <summary class="flex justify-between items-center cursor-pointer text-sm font-semibold text-white">Kimler danışmalı?<i data-lucide="chevron-down" class="chev w-4 h-4 text-brand-gold transition-transform"></i></summary>
-                    <p class="mt-3 text-sm text-slate-400">Hamilelik ve emzirme dönemiyle, hastalık veya ilaç kullanılması durumlarında doktorunuza danışınız.</p>
-                </details>
-                <details class="glass-card rounded-xl p-5">
-                    <summary class="flex justify-between items-center cursor-pointer text-sm font-semibold text-white">Paketin üzerinde ürün adı yazar mı?<i data-lucide="chevron-down" class="chev w-4 h-4 text-brand-gold transition-transform"></i></summary>
-                    <p class="mt-3 text-sm text-slate-400">Hayır. Gönderiler, dışında ürün adı veya logo bulunmayan sade bir kutuyla gönderilir.</p>
-                </details>
-            </div>
-        </div>
-    </section>
-
-    <!-- Sipariş Formu -->
-    <section id="siparis" class="py-24 relative z-10 border-t border-white/5">
-        <div class="max-w-4xl mx-auto px-6">
-            <div class="glass-card p-8 md:p-14 rounded-3xl relative overflow-hidden">
-                <div class="max-w-md mx-auto text-center space-y-3 mb-10">
-                    <span class="text-xs tracking-widest text-brand-gold uppercase">Son Adım</span>
-                    <h2 class="font-display text-3xl font-semibold text-white">Siparişini Oluştur</h2>
-                    <p class="text-xs sm:text-sm text-slate-400">Formu doldurun; siparişinizi onaylamak için sizi
-                        arayalım.</p>
+    <!-- Collection / Pricing -->
+    <section id="collection" class="py-32 bg-[#070707]">
+        <div class="container mx-auto px-6 max-w-6xl">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-20 reveal-fade">
+                <div>
+                    <h2 class="font-serif text-4xl md:text-5xl mb-4">Özel <span class="text-gold italic">Seçki.</span></h2>
+                    <p class="font-sans font-light text-white/50 text-sm">Gizlilik esasıyla, imza niteliğinde faturasız lüks kutularda.</p>
                 </div>
+            </div>
 
-                <form id="orderForm" class="space-y-6" novalidate>
-                    <!-- Spam koruması: gerçek kullanıcılar bu alanı görmez -->
-                    <input type="text" name="website" id="website" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true">
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="space-y-2">
-                            <label for="name" class="text-xs font-semibold tracking-wider text-slate-300 uppercase">Adınız Soyadınız</label>
-                            <input type="text" id="name" name="name" required autocomplete="name" placeholder="Ad Soyad"
-                                class="w-full px-4 py-3.5 rounded-xl bg-black/50 border border-white/10 focus:border-brand-gold focus:outline-none text-sm text-white placeholder-slate-600 transition-colors">
-                        </div>
-                        <div class="space-y-2">
-                            <label for="phone" class="text-xs font-semibold tracking-wider text-slate-300 uppercase">Telefon Numaranız</label>
-                            <input type="tel" id="phone" name="phone" required autocomplete="tel" inputmode="tel" placeholder="05XX XXX XX XX"
-                                class="w-full px-4 py-3.5 rounded-xl bg-black/50 border border-white/10 focus:border-brand-gold focus:outline-none text-sm text-white placeholder-slate-600 transition-colors">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="cards-container">
+                
+                <!-- Card 1 -->
+                <div class="spotlight-card p-10 rounded-sm flex flex-col h-full reveal-up cursor-pointer" onclick="document.getElementById('pkg1').click(); document.getElementById('orderForm').scrollIntoView({behavior: 'smooth'})">
+                    <div class="spotlight-content flex flex-col h-full">
+                        <div class="font-sans text-xs tracking-[0.2em] text-white/40 uppercase mb-6">I. Edisyon</div>
+                        <h3 class="font-serif text-2xl text-white mb-2">Tanışma</h3>
+                        <p class="font-sans text-sm font-light text-white/50 mb-12 flex-grow">Bedenin yeni ritmine adaptasyonu için 1 aylık kür.</p>
+                        <div class="border-t border-white/10 pt-6 mt-auto">
+                            <div class="font-serif text-3xl text-gold">1.290 ₺</div>
+                            <div class="font-sans text-xs text-white/40 mt-2 flex items-center gap-2"><i data-lucide="check" class="w-3 h-3"></i> Standart Kargo</div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="space-y-2">
-                        <label for="selectedPackage" class="text-xs font-semibold tracking-wider text-slate-300 uppercase">Seçilen Paket</label>
-                        <select id="selectedPackage" name="package"
-                            class="w-full px-4 py-3.5 rounded-xl bg-black/50 border border-white/10 focus:border-brand-gold focus:outline-none text-sm text-white transition-colors">
-                            <option value="2">Denge Paketi — 2 Kutu (2.190 TL)</option>
-                            <option value="1">Tanışma — 1 Kutu (1.290 TL)</option>
-                            <option value="3">Avantaj Paketi — 3 Kutu (2.990 TL)</option>
-                        </select>
+                <!-- Card 2 (Signature) -->
+                <div class="spotlight-card p-10 rounded-sm flex flex-col h-full reveal-up cursor-pointer !border-gold/30" onclick="document.getElementById('pkg2').click(); document.getElementById('orderForm').scrollIntoView({behavior: 'smooth'})">
+                    <div class="spotlight-content flex flex-col h-full">
+                        <div class="font-sans text-xs tracking-[0.2em] text-gold uppercase mb-6 flex justify-between">
+                            <span>II. Edisyon</span>
+                            <span class="px-2 py-1 bg-gold/10 text-[9px] border border-gold/20">İMZA KÜRÜ</span>
+                        </div>
+                        <h3 class="font-serif text-2xl text-white mb-2">Denge & Canlılık</h3>
+                        <p class="font-sans text-sm font-light text-white/50 mb-12 flex-grow">Kalıcı enerji ve hücresel adaptasyon için 2 aylık imza kürü.</p>
+                        <div class="border-t border-gold/20 pt-6 mt-auto">
+                            <div class="font-serif text-3xl text-gold">2.190 ₺</div>
+                            <div class="font-sans text-xs text-white/40 mt-2 flex items-center gap-2"><i data-lucide="zap" class="w-3 h-3 text-gold"></i> Aynı Gün VIP Kargo</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="spotlight-card p-10 rounded-sm flex flex-col h-full reveal-up cursor-pointer" onclick="document.getElementById('pkg3').click(); document.getElementById('orderForm').scrollIntoView({behavior: 'smooth'})">
+                    <div class="spotlight-content flex flex-col h-full">
+                        <div class="font-sans text-xs tracking-[0.2em] text-white/40 uppercase mb-6">III. Edisyon</div>
+                        <h3 class="font-serif text-2xl text-white mb-2">Maksimum Hakimiyet</h3>
+                        <p class="font-sans text-sm font-light text-white/50 mb-12 flex-grow">Uzun vadeli zihinsel ve fiziksel zirve için 3 aylık optimizasyon.</p>
+                        <div class="border-t border-white/10 pt-6 mt-auto">
+                            <div class="font-serif text-3xl text-gold">2.990 ₺</div>
+                            <div class="font-sans text-xs text-white/40 mt-2 flex items-center gap-2"><i data-lucide="check" class="w-3 h-3"></i> Öncelikli Kargo</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Luxury Reservation Form -->
+    <section class="py-32 relative">
+        <div class="container mx-auto px-6 max-w-3xl">
+            <div class="spotlight-card p-10 md:p-16 rounded-sm reveal-up" id="orderForm">
+                <div class="spotlight-content">
+                    <div class="text-center mb-12">
+                        <i data-lucide="key" class="w-6 h-6 text-gold mx-auto mb-4 opacity-50"></i>
+                        <h2 class="font-serif text-3xl text-white mb-2">Rezervasyon</h2>
+                        <p class="font-sans font-light text-white/40 text-xs tracking-widest uppercase">Gizlilik & Ayrıcalık</p>
                     </div>
 
-                    <div class="space-y-2">
-                        <label for="address" class="text-xs font-semibold tracking-wider text-slate-300 uppercase">Teslimat Adresi</label>
-                        <textarea id="address" name="address" rows="3" required autocomplete="street-address" placeholder="Mahalle, sokak, no, ilçe / il"
-                            class="w-full px-4 py-3.5 rounded-xl bg-black/50 border border-white/10 focus:border-brand-gold focus:outline-none text-sm text-white placeholder-slate-600 transition-colors"></textarea>
-                    </div>
+                    <form onsubmit="submitOrder(event)" class="space-y-8">
+                        
+                        <!-- Packages Radio -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                            <label class="luxury-radio cursor-pointer">
+                                <input type="radio" name="package" id="pkg1" value="I. Edisyon - Tanışma (1.290 TL)">
+                                <div class="radio-box p-4 text-center">
+                                    <div class="font-serif text-sm text-white">Tanışma</div>
+                                    <div class="font-sans text-xs text-white/40 mt-1">1 Kutu</div>
+                                </div>
+                            </label>
+                            <label class="luxury-radio cursor-pointer">
+                                <input type="radio" name="package" id="pkg2" value="II. Edisyon - Denge (2.190 TL)" checked>
+                                <div class="radio-box p-4 text-center">
+                                    <div class="font-serif text-sm text-gold">Denge & Canlılık</div>
+                                    <div class="font-sans text-xs text-gold/60 mt-1">2 Kutu</div>
+                                </div>
+                            </label>
+                            <label class="luxury-radio cursor-pointer">
+                                <input type="radio" name="package" id="pkg3" value="III. Edisyon - Hakimiyet (2.990 TL)">
+                                <div class="radio-box p-4 text-center">
+                                    <div class="font-serif text-sm text-white">Hakimiyet</div>
+                                    <div class="font-sans text-xs text-white/40 mt-1">3 Kutu</div>
+                                </div>
+                            </label>
+                        </div>
 
-                    <label class="flex items-start gap-3 text-xs text-slate-300 cursor-pointer">
-                        <input type="checkbox" id="kvkkConsent" name="kvkk" required class="mt-0.5 w-4 h-4 accent-[#D4AE5C] shrink-0">
-                        <span><a href="#kvkk" class="text-brand-gold underline">KVKK Aydınlatma Metni</a>'ni okudum; ad,
-                            telefon ve adres bilgilerimin siparişimin işlenmesi ve teslimatı amacıyla işlenmesini
-                            kabul ediyorum.</span>
-                    </label>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div>
+                                <input type="text" id="name" required class="luxury-input" placeholder="İsim Soyisim">
+                            </div>
+                            <div>
+                                <input type="tel" id="phone" required class="luxury-input" placeholder="Telefon Numarası">
+                            </div>
+                        </div>
 
-                    <div class="p-4 rounded-xl bg-brand-gold/5 border border-brand-gold/20 flex items-center gap-3">
-                        <i data-lucide="shield" class="w-5 h-5 text-brand-gold shrink-0"></i>
-                        <span class="text-xs text-slate-300">Paket üzerinde herhangi bir ürün adı veya logo yer almaz.
-                            Kart ekstrenizde şirket ticari unvanı görünür.</span>
-                    </div>
+                        <div>
+                            <input type="text" id="address" required class="luxury-input" placeholder="Teslimat Adresi (Faturasız gizli gönderim için)">
+                        </div>
 
-                    <p id="formError" class="hidden text-sm text-red-300 bg-red-950/40 border border-red-500/30 rounded-xl p-4" role="alert"></p>
-
-                    <button type="submit" id="submitBtn"
-                        class="w-full py-4 rounded-xl bg-gradient-to-r from-brand-gold to-amber-500 text-black font-bold text-sm tracking-widest uppercase hover:scale-[1.01] transition-all shadow-xl shadow-brand-gold/20 disabled:opacity-60 disabled:cursor-wait">
-                        Siparişi Gönder
-                    </button>
-                </form>
-
-                <div id="successMsg" class="hidden mt-6 p-6 rounded-2xl bg-emerald-950/40 border border-emerald-500/40 text-center space-y-2" role="status">
-                    <i data-lucide="check-circle" class="w-8 h-8 text-emerald-400 mx-auto"></i>
-                    <h4 class="font-display font-semibold text-lg text-white">Talebiniz Alındı</h4>
-                    <p class="text-xs text-slate-300">Siparişinizi onaylamak için en kısa sürede sizinle iletişime geçeceğiz.</p>
+                        <div class="pt-8">
+                            <button type="submit" class="w-full bg-white text-dark hover:bg-gold transition-colors duration-500 font-sans font-medium text-xs tracking-[0.2em] uppercase py-5 flex justify-center items-center gap-3">
+                                Talebi İlet <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="text-center font-sans font-light text-[10px] text-white/30 uppercase tracking-widest mt-6">
+                            Danışmanımız WhatsApp üzerinden gizlilik teyidi sağlayacaktır.
+                        </div>
+                    </form>
                 </div>
             </div>
-
-            <!-- KVKK Aydınlatma Metni — TASLAK: hukuki kontrol ve şirket bilgileri gereklidir -->
-            <details id="kvkk" class="mt-8 glass-card rounded-xl p-5 text-xs text-slate-400 leading-relaxed">
-                <summary class="cursor-pointer text-sm font-semibold text-white flex justify-between items-center">KVKK Aydınlatma Metni<i data-lucide="chevron-down" class="chev w-4 h-4 text-brand-gold transition-transform"></i></summary>
-                <div class="mt-4 space-y-3">
-                    <p><strong class="text-slate-300">Veri sorumlusu:</strong> [ŞİRKET TİCARİ UNVANI], [ADRES], [MERSİS NO], [E-POSTA].</p>
-                    <p><strong class="text-slate-300">İşlenen veriler:</strong> Ad soyad, telefon numarası, teslimat adresi ve seçilen paket bilgisi.</p>
-                    <p><strong class="text-slate-300">Amaç ve hukuki sebep:</strong> Siparişin alınması, teyidi, faturalandırılması ve teslimatı; 6698 sayılı KVKK m.5/2-c (sözleşmenin kurulması ve ifası) ve m.5/2-ç (hukuki yükümlülük).</p>
-                    <p><strong class="text-slate-300">Aktarım:</strong> Yalnızca teslimat için kargo firmasına ve yasal yükümlülükler kapsamında yetkili kurumlara.</p>
-                    <p><strong class="text-slate-300">Haklarınız:</strong> KVKK m.11 kapsamındaki taleplerinizi [E-POSTA] adresine iletebilirsiniz.</p>
-                </div>
-            </details>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="py-12 border-t border-white/5 relative z-10 text-center text-xs text-slate-500 space-y-3 px-6">
-        <p class="font-display tracking-widest text-slate-400 uppercase">AphroHarmony — Novacolin</p>
-        <p class="text-slate-400">Takviye edici gıdadır. Hastalıkların önlenmesi veya tedavi edilmesi amacıyla kullanılmaz.</p>
-        <p>© 2026 Tüm hakları saklıdır.</p>
+    <footer class="py-12 border-t border-white/5 bg-[#030303] text-center">
+        <div class="font-serif text-xl tracking-[0.2em] font-semibold text-white/20 mb-4">APHROHARMONY</div>
+        <p class="font-sans font-light text-[10px] text-white/30 uppercase tracking-widest">© 2026. L'ÉDITION SPÉCIALE. Takviye edici gıdadır.</p>
     </footer>
 
+    <!-- Scripts -->
     <script>
-        /*
-         * SİPARİŞ AYARLARI — en az birini doldurun, yoksa form sipariş kabul etmez.
-         *  endpoint : Google Apps Script web uygulaması URL'si (bkz. siparis-apps-script.gs)
-         *  whatsapp : Ülke koduyla, başında + olmadan (ör. "905XXXXXXXXX")
-         */
-        const ORDER_CONFIG = {
-            endpoint: '',
-            whatsapp: '',
-        };
-
-        const PACKAGES = {
-            '1': 'Tanışma — 1 Kutu (1.290 TL)',
-            '2': 'Denge Paketi — 2 Kutu (2.190 TL)',
-            '3': 'Avantaj Paketi — 3 Kutu (2.990 TL)',
-        };
-
+        // Init Lucide Icons
         lucide.createIcons();
 
-        document.querySelectorAll('.pkg-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.getElementById('selectedPackage').value = btn.dataset.package;
-                document.getElementById('siparis').scrollIntoView({ behavior: 'smooth' });
+        // Lenis Smooth Scroll Setup
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            direction: 'vertical',
+            gestureDirection: 'vertical',
+            smooth: true,
+            mouseMultiplier: 1,
+            smoothTouch: false,
+            touchMultiplier: 2,
+            infinite: false,
+        });
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // GSAP ScrollTrigger Integration with Lenis
+        gsap.registerPlugin(ScrollTrigger);
+        
+        // Spotlight Effect for Glass Cards
+        document.querySelectorAll('.spotlight-card').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
             });
         });
 
-        const form = document.getElementById('orderForm');
-        const errorBox = document.getElementById('formError');
-        const submitBtn = document.getElementById('submitBtn');
+        // 3D Tilt & Glow Effect for Hero Product
+        const productImg = document.getElementById('hero-product');
+        const heroSection = productImg.closest('section');
+        
+        heroSection.addEventListener('mousemove', (e) => {
+            const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+            const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+            
+            // Calculate distance from center for glow intensity
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+            const distX = Math.abs(centerX - e.pageX);
+            const distY = Math.abs(centerY - e.pageY);
+            const distance = Math.sqrt(distX*distX + distY*distY);
+            const maxDist = Math.sqrt(centerX*centerX + centerY*centerY);
+            const intensity = 1 - (distance / maxDist);
+            
+            productImg.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+            productImg.style.filter = `drop-shadow(0 20px 40px rgba(0,0,0,0.8)) drop-shadow(0 0 ${20 + (intensity * 40)}px rgba(212,174,92,${0.1 + (intensity * 0.4)}))`;
+        });
+        
+        heroSection.addEventListener('mouseleave', () => {
+            productImg.style.transform = `rotateY(0deg) rotateX(0deg)`;
+            productImg.style.filter = `drop-shadow(0 20px 40px rgba(0,0,0,0.8)) drop-shadow(0 0 0px rgba(212,174,92,0))`;
+        });
 
-        function showError(msg) {
-            errorBox.textContent = msg;
-            errorBox.classList.remove('hidden');
-        }
-
-        function normalizePhone(raw) {
-            const digits = raw.replace(/\D/g, '');
-            if (/^905\d{9}$/.test(digits)) return '0' + digits.slice(2);
-            if (/^05\d{9}$/.test(digits)) return digits;
-            if (/^5\d{9}$/.test(digits)) return '0' + digits;
-            return null;
-        }
-
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            errorBox.classList.add('hidden');
-
-            if (document.getElementById('website').value) return; // bot
-
-            const $ = (id) => document.getElementById(id);
-            const name = $('name').value.trim();
-            const phone = normalizePhone($('phone').value);
-            const address = $('address').value.trim();
-            const pkg = $('selectedPackage').value;
-
-            if (name.length < 3) return showError('Lütfen adınızı ve soyadınızı yazın.');
-            if (!phone) return showError('Lütfen geçerli bir cep telefonu numarası girin (05XX XXX XX XX).');
-            if (address.length < 10) return showError('Lütfen teslimat adresinizi eksiksiz yazın.');
-            if (!$('kvkkConsent').checked) return showError('Devam etmek için KVKK Aydınlatma Metni onayı gereklidir.');
-
-            if (!ORDER_CONFIG.endpoint && !ORDER_CONFIG.whatsapp) {
-                console.error('ORDER_CONFIG boş: endpoint veya whatsapp ayarlanmalı.');
-                return showError('Sipariş sistemi şu anda aktif değil. Lütfen daha sonra tekrar deneyin.');
-            }
-
-            const order = {
-                name, phone, address,
-                package: PACKAGES[pkg],
-                kvkkConsent: true,
-                createdAt: new Date().toISOString(),
-                page: location.href,
-            };
-
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Gönderiliyor...';
-
-            try {
-                if (ORDER_CONFIG.endpoint) {
-                    // text/plain: Apps Script için CORS ön kontrolünü (preflight) önler
-                    const res = await fetch(ORDER_CONFIG.endpoint, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                        body: JSON.stringify(order),
-                    });
-                    if (!res.ok) throw new Error('HTTP ' + res.status);
-                    const data = await res.json().catch(() => ({}));
-                    if (data.ok === false) throw new Error(data.error || 'Sunucu hatası');
-                } else {
-                    const text = `Yeni sipariş\nAd: ${name}\nTel: ${phone}\nPaket: ${order.package}\nAdres: ${address}`;
-                    window.open(`https://wa.me/${ORDER_CONFIG.whatsapp}?text=${encodeURIComponent(text)}`, '_blank');
-                }
-                form.classList.add('hidden');
-                document.getElementById('successMsg').classList.remove('hidden');
-            } catch (err) {
-                console.error(err);
-                showError('Sipariş gönderilemedi. Lütfen bağlantınızı kontrol edip tekrar deneyin.');
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Siparişi Gönder';
+        // GSAP Animations
+        // Background Hero Text Parallax
+        gsap.to("#hero-title-bg", {
+            xPercent: -20,
+            ease: "none",
+            scrollTrigger: {
+                trigger: "section",
+                start: "top top",
+                end: "bottom top",
+                scrub: true
             }
         });
+        gsap.to("#hero-title-bg-2", {
+            xPercent: 20,
+            ease: "none",
+            scrollTrigger: {
+                trigger: "section",
+                start: "top top",
+                end: "bottom top",
+                scrub: true
+            }
+        });
+
+        // Reveal Animations
+        const revealUps = document.querySelectorAll('.reveal-up');
+        revealUps.forEach(elem => {
+            gsap.fromTo(elem, 
+                { y: 50, opacity: 0 }, 
+                { 
+                    y: 0, 
+                    opacity: 1, 
+                    duration: 1.2, 
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: elem,
+                        start: "top 85%",
+                    }
+                }
+            );
+        });
+
+        const revealFades = document.querySelectorAll('.reveal-fade');
+        revealFades.forEach(elem => {
+            gsap.fromTo(elem, 
+                { opacity: 0 }, 
+                { 
+                    opacity: 1, 
+                    duration: 1.5, 
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: elem,
+                        start: "top 80%",
+                    }
+                }
+            );
+        });
+
+        // Form Submit Handler
+        function submitOrder(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const address = document.getElementById('address').value;
+            const packageInput = document.querySelector('input[name="package"]:checked');
+            const pkg = packageInput ? packageInput.value : "Belirtilmedi";
+            
+            const whatsappNumber = "905555555555"; // KENDI NUMARANIZI BURAYA YAZIN
+            
+            const message = `L'ÉDITION SPÉCIALE — SİPARİŞ REZERVASYONU\n\n*İsim:* ${name}\n*Telefon:* ${phone}\n*Seçilen Kür:* ${pkg}\n*Gizli Teslimat Adresi:* ${address}\n\nAphroHarmony ayrıcalığına adım attığınız için teşekkür ederiz. İşleminizi onaylamak için lütfen bu mesajı bize iletin.`;
+            
+            const encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank');
+        }
     </script>
 </body>
-
 </html>

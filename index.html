@@ -4,18 +4,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>APHROHARMONY — Luxury Wellness & Vitality</title>
 
-    <!-- Typography: Cinzel Decorative / Cinzel & Plus Jakarta Sans -->
+    <!-- ============ SEO BLOĞU — yeniden tasarımda korunmalı (bkz. DESIGN_BRIEF.md) ============ -->
+    <title>AphroHarmony | Günde 1 Tablet, 8 Bileşen, Takviye Edici Gıda</title>
+    <meta name="description" content="AphroHarmony: bitkisel ekstreler, L-Arjinin, E vitamini ve çinko içeren, günde 1 tablet kullanılan takviye edici gıda. Vegan uygundur. İçeriği inceleyin.">
+    <meta name="theme-color" content="#050608">
+    <!-- Yayın adresi farklıysa (özel alan adı vb.) aşağıdaki URL'leri güncelleyin -->
+    <link rel="canonical" href="https://sertankirco.github.io/aphroharmony/">
+    <meta property="og:type" content="product">
+    <meta property="og:locale" content="tr_TR">
+    <meta property="og:site_name" content="AphroHarmony">
+    <meta property="og:url" content="https://sertankirco.github.io/aphroharmony/">
+    <meta property="og:title" content="AphroHarmony | Günde 1 Tablet, 8 Bileşen">
+    <meta property="og:description" content="Bitkisel ekstreler, L-Arjinin, E vitamini ve çinko içeren, günde 1 tablet kullanılan takviye edici gıda. Vegan uygundur.">
+    <meta property="og:image" content="https://sertankirco.github.io/aphroharmony/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="AphroHarmony amber cam şişe, lacivert-altın etiket">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="AphroHarmony | Günde 1 Tablet, 8 Bileşen">
+    <meta name="twitter:description" content="Bitkisel ekstreler, L-Arjinin, E vitamini ve çinko içeren, günde 1 tablet kullanılan takviye edici gıda.">
+    <meta name="twitter:image" content="https://sertankirco.github.io/aphroharmony/og-image.png">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23050608' stroke='%23D4AF37' stroke-width='3'/%3E%3Ctext x='32' y='43' font-family='Georgia,serif' font-size='30' font-weight='700' fill='%23D4AF37' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E">
+    <link rel="preload" as="image" href="./assets/aphroharmony-product-640.webp" imagesrcset="./assets/aphroharmony-product-640.webp 640w, ./assets/aphroharmony-product-1059.webp 1059w" imagesizes="(min-width: 1024px) 420px, 80vw">
+    <!-- Structured data: fiyatlar doğrulanınca "offers" eklenebilir -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "AphroHarmony",
+        "brand": { "@type": "Brand", "name": "Novacolin" },
+        "mpn": "NOVAPRO",
+        "category": "Takviye edici gıda",
+        "image": "https://sertankirco.github.io/aphroharmony/assets/aphroharmony-product-1059.jpg",
+        "description": "L-Arjinin, Demir dikeni (Tribulus terrestris), Epimedium, Maca kökü, Cüce palmiye ve Ginkgo Biloba ekstreleri ile E vitamini ve çinko içeren takviye edici gıda. 18 yaş ve üzeri yetişkinler için günde 1 tablet tüketilmesi tavsiye edilir.",
+        "additionalProperty": [
+            { "@type": "PropertyValue", "name": "Kullanım", "value": "Günde 1 tablet" },
+            { "@type": "PropertyValue", "name": "Uygunluk", "value": "Vegan ve vejetaryen" }
+        ]
+    }
+    </script>
+    <!-- ============ /SEO BLOĞU ============ -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap"
         rel="stylesheet">
 
-    <!-- Core Libraries: Tailwind, Lucide, Lenis Smooth Scroll, GSAP -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Core Libraries (sürümler sabit) -->
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
@@ -46,24 +85,21 @@
     </script>
 
     <style>
-        /* Noise / Grain Texture Overlay */
         .bg-noise {
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E");
         }
 
-        /* Editorial Gold Text Gradient */
         .text-gold-luxury {
             background: linear-gradient(135deg, #FFFFFF 0%, #F5E8C7 45%, #D4AF37 80%, #AA820A 100%);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        /* Ambient Radial Lighting */
         .ambient-glow {
             background: radial-gradient(circle at 50% 30%, rgba(212, 175, 55, 0.15) 0%, rgba(5, 6, 8, 0) 70%);
         }
 
-        /* Glassmorphism Luxury Border */
         .lux-glass {
             background: rgba(14, 17, 24, 0.6);
             backdrop-filter: blur(20px);
@@ -76,6 +112,16 @@
             border-color: rgba(212, 175, 55, 0.35);
             box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.8), 0 0 30px -10px rgba(212, 175, 55, 0.15);
         }
+
+        /* Siyah zeminli ürün fotoğrafının kenarlarını sayfa zeminine eritir */
+        .product-photo {
+            -webkit-mask-image: radial-gradient(ellipse 60% 62% at 50% 48%, #000 62%, transparent 100%);
+            mask-image: radial-gradient(ellipse 60% 62% at 50% 48%, #000 62%, transparent 100%);
+        }
+
+        details > summary { list-style: none; }
+        details > summary::-webkit-details-marker { display: none; }
+        details[open] .chev { transform: rotate(180deg); }
     </style>
 </head>
 
@@ -83,449 +129,511 @@
     class="bg-lux-bg text-slate-300 font-sans antialiased overflow-x-hidden selection:bg-lux-gold selection:text-black bg-noise">
 
     <!-- Floating Dynamic Glow -->
-    <div class="fixed inset-0 pointer-events-none z-0">
+    <div class="fixed inset-0 pointer-events-none z-0" aria-hidden="true">
         <div id="cursorGlow"
             class="absolute w-[600px] h-[600px] rounded-full bg-lux-gold/5 blur-[160px] -translate-x-1/2 -translate-y-1/2 transition-transform duration-700 ease-out">
         </div>
-        <div
-            class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[600px] ambient-glow pointer-events-none">
-        </div>
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[600px] ambient-glow"></div>
     </div>
 
     <!-- Header -->
     <header
         class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 backdrop-blur-xl bg-lux-bg/60 border-b border-lux-border">
-        <div class="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 h-20 sm:h-24 flex items-center justify-between gap-4">
             <a href="#" class="flex items-center gap-3 group">
                 <span
                     class="w-8 h-8 rounded-full border border-lux-gold/40 flex items-center justify-center font-serif text-lux-gold text-xs group-hover:border-lux-gold transition-colors">A</span>
-                <span class="font-serif font-bold tracking-[0.3em] text-sm text-white">APHROHARMONY</span>
+                <span class="font-serif font-bold tracking-[0.3em] text-xs sm:text-sm text-white whitespace-nowrap">APHROHARMONY</span>
             </a>
 
-            <nav
-                class="hidden md:flex items-center gap-10 text-[11px] font-medium tracking-[0.2em] text-slate-400 uppercase">
-                <a href="#rituel" class="hover:text-lux-gold transition-colors">Ritüel & Bilim</a>
-                <a href="#karsilastirma" class="hover:text-lux-gold transition-colors">Denge vs Sentetik</a>
-                <a href="#koleksiyon" class="hover:text-lux-gold transition-colors">Koleksiyon</a>
+            <nav class="hidden md:flex items-center gap-10 text-[11px] font-medium tracking-[0.2em] text-slate-400 uppercase" aria-label="Ana menü">
+                <a href="#icerik" class="hover:text-lux-gold transition-colors">İçerik</a>
+                <a href="#kullanim" class="hover:text-lux-gold transition-colors">Kullanım</a>
+                <a href="#koleksiyon" class="hover:text-lux-gold transition-colors">Paketler</a>
+                <a href="#sss" class="hover:text-lux-gold transition-colors">SSS</a>
             </nav>
 
-            <a href="#koleksiyon"
-                class="relative group px-6 py-2.5 rounded-full border border-lux-gold/30 hover:border-lux-gold text-white text-[11px] font-serif tracking-[0.2em] uppercase transition-all duration-500 overflow-hidden">
+            <a href="#rezervasyon"
+                class="relative group px-5 sm:px-6 py-2.5 rounded-full border border-lux-gold/30 hover:border-lux-gold text-white text-[11px] font-serif tracking-[0.2em] uppercase transition-all duration-500 overflow-hidden whitespace-nowrap">
                 <span class="relative z-10">Sipariş Ver</span>
-                <div
-                    class="absolute inset-0 bg-lux-gold translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                </div>
-                <span
-                    class="absolute inset-0 z-20 flex items-center justify-center text-black font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300">Sipariş
-                    Ver</span>
+                <div class="absolute inset-0 bg-lux-gold translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                <span class="absolute inset-0 z-20 flex items-center justify-center text-black font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300" aria-hidden="true">Sipariş Ver</span>
             </a>
         </div>
     </header>
 
+    <main>
     <!-- Hero Section -->
-    <section class="relative min-h-screen pt-40 pb-24 flex items-center z-10">
+    <section class="relative min-h-screen pt-32 sm:pt-40 pb-24 flex items-center z-10">
         <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
 
-            <!-- Left Editorial Column -->
             <div class="lg:col-span-7 space-y-10 hero-reveal">
                 <div
                     class="inline-flex items-center gap-3 px-4 py-1.5 rounded-full lux-glass text-lux-gold text-[10px] font-mono tracking-[0.3em] uppercase">
-                    <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
-                    <span>Awwwards Özel Tasarım • %100 Doğal Formülasyon</span>
+                    <i data-lucide="leaf" class="w-3.5 h-3.5"></i>
+                    <span>Takviye Edici Gıda • Günde 1 Tablet</span>
                 </div>
 
-                <h1
-                    class="font-serif text-4xl sm:text-6xl xl:text-7xl font-semibold leading-[1.08] tracking-tight text-white">
-                    Tükenmeyen <br />
-                    <span class="text-gold-luxury italic font-normal">Canlılık</span>, Sarsılmaz Hakimiyet.
+                <h1 class="font-serif text-4xl sm:text-6xl xl:text-7xl font-semibold leading-[1.08] tracking-tight text-white">
+                    Yoğun Günlerin <br />
+                    <span class="text-gold-luxury italic font-normal">Günlük</span> Ritüeli.
                 </h1>
 
                 <p class="text-base sm:text-lg text-slate-400 font-light leading-relaxed max-w-xl">
-                    Yoğun günün ortasında ani çöküşlere ve sentetik takviyelerin çarpıntı riskine son verin. Doğanın saf
-                    sinerjisiyle tasarlanmış, vücudunuzla savaşmayan, onunla kusursuz uyum sağlayan günlük lüks ritüel.
+                    AphroHarmony; bitkisel ekstreler, L-Arjinin, E vitamini ve çinko içeren, günde tek tablet
+                    kullanılan bir takviye edici gıdadır. Güne enerjik başlamak isteyenler için sade bir rutin.
                 </p>
 
                 <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-5 pt-2">
                     <a href="#koleksiyon"
                         class="px-9 py-4 rounded-full bg-gradient-to-r from-lux-gold to-lux-goldLight text-black font-serif font-bold text-xs tracking-[0.2em] uppercase text-center hover:shadow-[0_0_35px_rgba(212,175,55,0.4)] hover:scale-[1.02] transition-all">
-                        Ritüeli Keşfet
+                        Paketleri İncele
                     </a>
-                    <a href="#rituel"
+                    <a href="#icerik"
                         class="px-9 py-4 rounded-full lux-glass text-slate-300 font-serif text-xs tracking-[0.2em] uppercase text-center hover:text-white transition-all flex items-center justify-center gap-3">
-                        Formül Detayı
+                        İçinde Ne Var?
                         <i data-lucide="arrow-right" class="w-4 h-4 text-lux-gold"></i>
                     </a>
                 </div>
 
-                <!-- Metric Bar -->
                 <div class="pt-10 border-t border-lux-border/60 grid grid-cols-3 gap-6 max-w-lg">
                     <div>
-                        <div class="font-serif text-2xl font-bold text-white tracking-wider">100%</div>
-                        <div class="text-[11px] text-slate-500 font-mono tracking-widest uppercase mt-1">Biyoyararlanım
-                        </div>
+                        <div class="font-serif text-2xl font-bold text-white tracking-wider">01</div>
+                        <div class="text-[11px] text-slate-500 font-mono tracking-widest uppercase mt-1">Günde Tek Tablet</div>
                     </div>
                     <div>
-                        <div class="font-serif text-2xl font-bold text-lux-gold tracking-wider">0 mg</div>
-                        <div class="text-[11px] text-slate-500 font-mono tracking-widest uppercase mt-1">Sentetik Katkı
-                        </div>
+                        <div class="font-serif text-2xl font-bold text-lux-gold tracking-wider">08</div>
+                        <div class="text-[11px] text-slate-500 font-mono tracking-widest uppercase mt-1">Bileşen</div>
                     </div>
                     <div>
-                        <div class="font-serif text-2xl font-bold text-white tracking-wider">24h</div>
-                        <div class="text-[11px] text-slate-500 font-mono tracking-widest uppercase mt-1">Dengeli Salınım
-                        </div>
+                        <div class="font-serif text-2xl font-bold text-white tracking-wider">18+</div>
+                        <div class="text-[11px] text-slate-500 font-mono tracking-widest uppercase mt-1">Yetişkinler İçin</div>
                     </div>
                 </div>
             </div>
 
-            <!-- Right 3D Visual Column -->
             <div class="lg:col-span-5 relative flex justify-center items-center">
                 <div class="relative w-full max-w-[440px] aspect-[4/5] flex items-center justify-center">
+                    <div class="absolute inset-4 rounded-full border border-lux-gold/10 animate-[spin_60s_linear_infinite] pointer-events-none" aria-hidden="true"></div>
+                    <div class="absolute inset-16 rounded-full border border-dashed border-lux-gold/15 animate-[spin_40s_linear_infinite_reverse] pointer-events-none" aria-hidden="true"></div>
+                    <div class="absolute inset-0 rounded-3xl ambient-glow blur-3xl opacity-50" aria-hidden="true"></div>
 
-                    <!-- Concentric Editorial Rings -->
-                    <div
-                        class="absolute inset-4 rounded-full border border-lux-gold/10 animate-[spin_60s_linear_infinite] pointer-events-none">
-                    </div>
-                    <div
-                        class="absolute inset-16 rounded-full border border-dashed border-lux-gold/15 animate-[spin_40s_linear_infinite_reverse] pointer-events-none">
-                    </div>
-                    <div
-                        class="absolute inset-0 rounded-3xl bg-radial-gradient from-lux-gold/10 to-transparent blur-3xl opacity-50">
-                    </div>
-
-                    <!-- Product Asset Container -->
                     <div id="productBox"
-                        class="relative z-10 w-full h-full p-8 flex flex-col items-center justify-center transition-transform duration-300 ease-out">
-                        <img src="./aphroharmonyproduct.png" alt="APHROHARMONY Exclusive Edition Bottle & Box"
-                            class="max-h-[420px] object-contain drop-shadow-[0_30px_60px_rgba(0,0,0,0.9)] cursor-pointer"
-                            onerror="this.src='https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80'" />
-                        <div class="mt-6 px-4 py-1.5 rounded-full lux-glass">
-                            <span class="text-[10px] font-mono tracking-[0.25em] text-lux-gold uppercase">Exclusive
-                                Batch — Limited Reserve</span>
+                        class="relative z-10 w-full h-full p-4 flex flex-col items-center justify-center transition-transform duration-300 ease-out">
+                        <picture>
+                            <source type="image/webp" srcset="./assets/aphroharmony-product-640.webp 640w, ./assets/aphroharmony-product-1059.webp 1059w" sizes="(min-width: 1024px) 420px, 80vw">
+                            <img src="./assets/aphroharmony-product-640.jpg"
+                                srcset="./assets/aphroharmony-product-640.jpg 640w, ./assets/aphroharmony-product-1059.jpg 1059w" sizes="(min-width: 1024px) 420px, 80vw"
+                                width="1059" height="1486" fetchpriority="high"
+                                alt="AphroHarmony amber cam şişe, lacivert-altın etiket, 60 tablet"
+                                class="product-photo max-h-[460px] w-auto object-contain" />
+                        </picture>
+                        <div class="mt-2 px-4 py-1.5 rounded-full lux-glass">
+                            <span class="text-[10px] font-mono tracking-[0.25em] text-lux-gold uppercase">60 Tablet • Novacolin</span>
                         </div>
                     </div>
-
                 </div>
             </div>
 
         </div>
     </section>
 
-    <!-- Problem / Solution Comparison Section -->
-    <section id="karsilastirma" class="py-32 relative z-10 border-t border-lux-border/40">
+    <!-- İçerik -->
+    <section id="icerik" class="py-32 relative z-10 border-t border-lux-border/40">
         <div class="max-w-7xl mx-auto px-6">
 
             <div class="text-center max-w-2xl mx-auto mb-20 space-y-4">
-                <span class="text-xs font-mono tracking-[0.3em] text-lux-gold uppercase">Biyolojik Uyum</span>
-                <h2 class="font-serif text-3xl sm:text-5xl font-bold text-white">Yapay Patlama Değil, <br /><span
-                        class="text-gold-luxury italic font-normal">Sürdürülebilir Güç.</span></h2>
-                <p class="text-sm text-slate-400">Piyasadaki sentetik uyarıcıların agresif yan etkileri ile
-                    AphroHarmony'nin doğal adaptif ritüelini karşılaştırın.</p>
+                <span class="text-xs font-mono tracking-[0.3em] text-lux-gold uppercase">Şeffaf İçerik</span>
+                <h2 class="font-serif text-3xl sm:text-5xl font-bold text-white">Etikette <br /><span class="text-gold-luxury italic font-normal">Ne Var?</span></h2>
+                <p class="text-sm text-slate-400">5 bitki ekstresi, L-Arjinin, E vitamini ve çinko. Miktarlar için ürün etiketine bakınız.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-
-                <!-- Synthetic Way Card -->
-                <div
-                    class="lux-glass p-10 rounded-3xl relative overflow-hidden border-red-500/20 bg-gradient-to-b from-red-950/10 to-transparent">
+                <div class="lux-glass p-10 rounded-3xl relative overflow-hidden border-lux-gold/50 bg-gradient-to-b from-lux-gold/10 to-transparent shadow-[0_0_50px_rgba(212,175,55,0.08)]">
                     <div class="flex items-center justify-between mb-8">
-                        <span class="text-[11px] font-mono tracking-widest text-red-400 uppercase">Geleneksel Sentetik
-                            İlaçlar</span>
-                        <i data-lucide="x-circle" class="w-5 h-5 text-red-400"></i>
+                        <h3 class="text-[11px] font-mono tracking-widest text-lux-gold uppercase">8 Bileşen</h3>
+                        <i data-lucide="layers" class="w-5 h-5 text-lux-gold"></i>
                     </div>
-                    <ul class="space-y-6 text-sm text-slate-300">
-                        <li class="flex items-start gap-4">
-                            <div class="w-1.5 h-1.5 rounded-full bg-red-400 mt-2 shrink-0"></div>
-                            <div><strong class="text-white block mb-0.5">Ani Çöküş & Damar Baskısı:</strong> Kan
-                                basıncında yapay dalgalanma yaratarak baş ağrısı ve yoğun yorgunluğa yol açar.</div>
-                        </li>
-                        <li class="flex items-start gap-4">
-                            <div class="w-1.5 h-1.5 rounded-full bg-red-400 mt-2 shrink-0"></div>
-                            <div><strong class="text-white block mb-0.5">Tolerans Bağımlılığı:</strong> Beden zamanla
-                                kimyasala alışır, her seferinde daha yüksek doz gerektirir.</div>
-                        </li>
-                        <li class="flex items-start gap-4">
-                            <div class="w-1.5 h-1.5 rounded-full bg-red-400 mt-2 shrink-0"></div>
-                            <div><strong class="text-white block mb-0.5">Sosyal Huzursuzluk:</strong> Eczane
-                                alışverişlerinde yaşanan çekinceler ve şeffaf olmayan paketleme stresi.</div>
-                        </li>
+                    <ul class="space-y-4 text-sm text-slate-200">
+                        <li class="flex items-start gap-4"><div class="w-1.5 h-1.5 rounded-full bg-lux-gold mt-2 shrink-0"></div><div><strong class="text-white">L-Arjinin</strong></div></li>
+                        <li class="flex items-start gap-4"><div class="w-1.5 h-1.5 rounded-full bg-lux-gold mt-2 shrink-0"></div><div><strong class="text-white">Demir dikeni</strong> <span class="text-slate-500 italic">(Tribulus terrestris) ekstresi</span></div></li>
+                        <li class="flex items-start gap-4"><div class="w-1.5 h-1.5 rounded-full bg-lux-gold mt-2 shrink-0"></div><div><strong class="text-white">Epimedium</strong> <span class="text-slate-500">ekstresi</span></div></li>
+                        <li class="flex items-start gap-4"><div class="w-1.5 h-1.5 rounded-full bg-lux-gold mt-2 shrink-0"></div><div><strong class="text-white">Maca kökü</strong> <span class="text-slate-500 italic">(Lepidyum) ekstresi</span></div></li>
+                        <li class="flex items-start gap-4"><div class="w-1.5 h-1.5 rounded-full bg-lux-gold mt-2 shrink-0"></div><div><strong class="text-white">Cüce palmiye</strong> <span class="text-slate-500">ekstresi</span></div></li>
+                        <li class="flex items-start gap-4"><div class="w-1.5 h-1.5 rounded-full bg-lux-gold mt-2 shrink-0"></div><div><strong class="text-white">Ginkgo Biloba</strong> <span class="text-slate-500">ekstresi</span></div></li>
+                        <li class="flex items-start gap-4"><div class="w-1.5 h-1.5 rounded-full bg-lux-gold mt-2 shrink-0"></div><div><strong class="text-white">E vitamini</strong></div></li>
+                        <li class="flex items-start gap-4"><div class="w-1.5 h-1.5 rounded-full bg-lux-gold mt-2 shrink-0"></div><div><strong class="text-white">Çinko</strong></div></li>
                     </ul>
                 </div>
 
-                <!-- AphroHarmony Way Card -->
-                <div
-                    class="lux-glass p-10 rounded-3xl relative overflow-hidden border-lux-gold/50 bg-gradient-to-b from-lux-gold/10 to-transparent shadow-[0_0_50px_rgba(212,175,55,0.08)]">
+                <div class="lux-glass p-10 rounded-3xl relative overflow-hidden flex flex-col">
                     <div class="flex items-center justify-between mb-8">
-                        <span class="text-[11px] font-mono tracking-widest text-lux-gold uppercase">AphroHarmony
-                            Ritüeli</span>
-                        <i data-lucide="check-circle-2" class="w-5 h-5 text-lux-gold"></i>
+                        <h3 class="text-[11px] font-mono tracking-widest text-slate-300 uppercase">İçermez</h3>
+                        <i data-lucide="circle-slash" class="w-5 h-5 text-lux-gold"></i>
                     </div>
-                    <ul class="space-y-6 text-sm text-slate-200">
-                        <li class="flex items-start gap-4">
-                            <div class="w-1.5 h-1.5 rounded-full bg-lux-gold mt-2 shrink-0"></div>
-                            <div><strong class="text-white block mb-0.5">Dengeli Biyolojik Sinerji:</strong> Zihinsel
-                                berraklık ve fiziksel dayanıklılığı gün boyunca sabit ve doğal seviyede tutar.</div>
-                        </li>
-                        <li class="flex items-start gap-4">
-                            <div class="w-1.5 h-1.5 rounded-full bg-lux-gold mt-2 shrink-0"></div>
-                            <div><strong class="text-white block mb-0.5">Yan Etkisiz Güven:</strong> Saf bitkisel kökler
-                                ve adaptojenlerle kalp ritmini zorlamadan doğal canlılığı destekler.</div>
-                        </li>
-                        <li class="flex items-start gap-4">
-                            <div class="w-1.5 h-1.5 rounded-full bg-lux-gold mt-2 shrink-0"></div>
-                            <div><strong class="text-white block mb-0.5">%100 İsimsiz & Gizli Kargo:</strong> Dış kutuda
-                                hiçbir logo, amblem veya ürün içeriği bulunmaz; tam gizlilik.</div>
-                        </li>
+                    <ul class="grid grid-cols-2 gap-x-6 gap-y-3 text-sm text-slate-300">
+                        <li>Şeker</li><li>Tuz</li><li>Nişasta</li><li>Maya</li>
+                        <li>Buğday</li><li>Glüten</li><li>Soya</li><li>Süt ürünleri</li>
+                        <li>Aroma</li><li>Renklendirici</li><li>Tatlandırıcı</li><li>Koruyucu</li>
                     </ul>
+                    <div class="mt-auto pt-8 border-t border-lux-border/40 flex items-center gap-3 text-sm text-slate-300">
+                        <i data-lucide="sprout" class="w-5 h-5 text-emerald-400 shrink-0"></i>
+                        Vegan ve vejetaryen bireylerin kullanımına uygundur.
+                    </div>
                 </div>
-
             </div>
 
         </div>
     </section>
 
-    <!-- Collection / Pricing Section -->
-    <section id="koleksiyon" class="py-32 relative z-10">
+    <!-- Kullanım & Uyarılar -->
+    <section id="kullanim" class="py-32 relative z-10 border-t border-lux-border/40">
+        <div class="max-w-5xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="lux-glass p-10 rounded-3xl">
+                <span class="text-xs font-mono tracking-[0.3em] text-lux-gold uppercase">Kullanım</span>
+                <h2 class="font-serif text-3xl font-bold text-white mt-4 mb-4">Günde 1 Tablet</h2>
+                <p class="text-sm text-slate-400 leading-relaxed">18 yaş ve üzeri yetişkinler için günde 1 tablet tüketilmesi tavsiye edilir. Karmaşık programlar yok; günlük rutine eklenen tek bir adım.</p>
+            </div>
+            <div class="lux-glass p-10 rounded-3xl">
+                <span class="text-xs font-mono tracking-[0.3em] text-lux-gold uppercase">Uyarılar</span>
+                <ul class="mt-5 space-y-3 text-sm text-slate-300">
+                    <li class="flex gap-3"><i data-lucide="info" class="w-4 h-4 text-lux-gold shrink-0 mt-0.5"></i>Tavsiye edilen günlük porsiyonu aşmayın.</li>
+                    <li class="flex gap-3"><i data-lucide="info" class="w-4 h-4 text-lux-gold shrink-0 mt-0.5"></i>Takviye edici gıdalar günlük beslenmenin yerine geçemez.</li>
+                    <li class="flex gap-3"><i data-lucide="info" class="w-4 h-4 text-lux-gold shrink-0 mt-0.5"></i>Çocukların ulaşamayacağı yerde saklayın.</li>
+                    <li class="flex gap-3"><i data-lucide="info" class="w-4 h-4 text-lux-gold shrink-0 mt-0.5"></i>Hamilelik ve emzirme dönemiyle, hastalık veya ilaç kullanılması durumlarında doktorunuza danışınız.</li>
+                    <li class="flex gap-3"><i data-lucide="info" class="w-4 h-4 text-lux-gold shrink-0 mt-0.5"></i>Hastalıkların önlenmesi veya tedavi edilmesi amacıyla kullanılmaz.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Paketler — fiyatlar ve kargo koşulları işletme tarafından doğrulanmalı -->
+    <section id="koleksiyon" class="py-32 relative z-10 border-t border-lux-border/40">
         <div class="max-w-7xl mx-auto px-6">
 
             <div class="text-center max-w-xl mx-auto mb-20 space-y-4">
-                <span class="text-xs font-mono tracking-[0.3em] text-lux-gold uppercase">Lüks Rezervasyon</span>
-                <h2 class="font-serif text-3xl sm:text-5xl font-bold text-white">Ritüelinizi Seçin.</h2>
-                <p class="text-sm text-slate-400">Özel kapalı kutuda, doğrudan WhatsApp danışmanlığı ile güvenli
-                    teslimat.</p>
+                <span class="text-xs font-mono tracking-[0.3em] text-lux-gold uppercase">Paketler</span>
+                <h2 class="font-serif text-3xl sm:text-5xl font-bold text-white">Paketinizi Seçin.</h2>
+                <p class="text-sm text-slate-400">Tüm gönderiler, dışında ürün adı veya logo bulunmayan sade bir kutuyla gönderilir.</p>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
-
-                <!-- 1 Kutu -->
                 <div class="lux-glass p-10 rounded-3xl space-y-8">
                     <div>
-                        <h3 class="font-serif font-bold text-xl text-white">Tanışma Ritüeli</h3>
-                        <p class="text-xs text-slate-400 mt-1">İlk kez canlılığı deneyimleyenler için.</p>
+                        <h3 class="font-serif font-bold text-xl text-white">Tanışma</h3>
+                        <p class="text-xs text-slate-400 mt-1">İlk kez deneyecekler için.</p>
                     </div>
-                    <div class="font-serif text-3xl font-bold text-white">
-                        1.290 <span class="text-sm font-sans font-normal text-slate-400">TL</span>
-                    </div>
+                    <div class="font-serif text-3xl font-bold text-white">1.290 <span class="text-sm font-sans font-normal text-slate-400">TL</span></div>
                     <ul class="space-y-3.5 text-xs text-slate-300 border-t border-lux-border/40 pt-6">
-                        <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-lux-gold"></i> 1
-                            Aylık Tam Biyolojik Kür</li>
-                        <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-lux-gold"></i>
-                            %100 Mühürlü Gizli Ambalaj</li>
-                        <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-lux-gold"></i>
-                            Standart Hızlı Teslimat</li>
+                        <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-lux-gold"></i> 1 Kutu</li>
+                        <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-lux-gold"></i> Gizli Paketleme</li>
+                        <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-lux-gold"></i> Standart Kargo</li>
                     </ul>
-                    <button onclick="selectAndScroll('1 Kutu Tanışma Ritüeli (1.290 TL)')"
-                        class="w-full py-4 rounded-xl border border-lux-border hover:border-lux-gold text-white font-serif text-xs tracking-[0.2em] uppercase transition-all">
-                        Seçimi Başlat
+                    <button type="button" data-package="1"
+                        class="pkg-btn w-full py-4 rounded-xl border border-lux-border hover:border-lux-gold text-white font-serif text-xs tracking-[0.2em] uppercase transition-all">
+                        Paketi Seç
                     </button>
                 </div>
 
-                <!-- 2 Kutu Highlight -->
-                <div
-                    class="relative lux-glass p-12 rounded-3xl space-y-8 border-lux-gold/60 bg-gradient-to-b from-lux-gold/15 to-transparent shadow-[0_20px_60px_rgba(212,175,55,0.15)] lg:-translate-y-4">
-                    <div
-                        class="absolute -top-3.5 left-1/2 -translate-x-1/2 px-5 py-1 rounded-full bg-gradient-to-r from-lux-gold to-lux-goldLight text-black font-mono font-bold text-[10px] tracking-[0.25em] uppercase">
+                <div class="relative lux-glass p-12 rounded-3xl space-y-8 border-lux-gold/60 bg-gradient-to-b from-lux-gold/15 to-transparent shadow-[0_20px_60px_rgba(212,175,55,0.15)] lg:-translate-y-4">
+                    <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 px-5 py-1 rounded-full bg-gradient-to-r from-lux-gold to-lux-goldLight text-black font-mono font-bold text-[10px] tracking-[0.25em] uppercase whitespace-nowrap">
                         En Çok Tercih Edilen
                     </div>
                     <div>
-                        <h3 class="font-serif font-bold text-2xl text-white">Denge & Canlılık Kürü</h3>
-                        <p class="text-xs text-slate-300 mt-1">Kalıcı adaptasyon ve sürdürülebilir enerji.</p>
+                        <h3 class="font-serif font-bold text-2xl text-white">Denge</h3>
+                        <p class="text-xs text-slate-300 mt-1">Rutinini sürdürmek isteyenler için.</p>
                     </div>
                     <div class="font-serif text-4xl font-bold text-lux-gold">
                         2.190 <span class="text-sm font-sans font-normal text-slate-400">TL</span>
-                        <span class="text-xs text-emerald-400 block font-sans font-normal mt-1 tracking-wider">%15
-                            Avantajlı Paket</span>
+                        <span class="text-xs text-emerald-400 block font-sans font-normal mt-1 tracking-wider">Tek tek almaya göre %15 avantajlı</span>
                     </div>
                     <ul class="space-y-3.5 text-xs text-slate-200 border-t border-lux-border pt-6">
-                        <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-lux-gold"></i> 2
-                            Aylık Kesintisiz Denge Kürü</li>
-                        <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-lux-gold"></i>
-                            Aynı Gün Öncelikli VIP Kargo</li>
-                        <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-lux-gold"></i>
-                            Tamamen İsimsiz Dış Paket</li>
+                        <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-lux-gold"></i> 2 Kutu</li>
+                        <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-lux-gold"></i> Ücretsiz Kargo</li>
+                        <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-lux-gold"></i> Gizli Paketleme</li>
                     </ul>
-                    <button onclick="selectAndScroll('2 Kutu Denge & Canlılık Kürü (2.190 TL)')"
-                        class="w-full py-4 rounded-xl bg-gradient-to-r from-lux-gold to-lux-goldLight text-black font-serif font-bold text-xs tracking-[0.2em] uppercase shadow-[0_0_30px_rgba(212,175,55,0.3)] hover:scale-[1.02] transition-all">
-                        Bu Paketi Rezerve Et
+                    <button type="button" data-package="2"
+                        class="pkg-btn w-full py-4 rounded-xl bg-gradient-to-r from-lux-gold to-lux-goldLight text-black font-serif font-bold text-xs tracking-[0.2em] uppercase shadow-[0_0_30px_rgba(212,175,55,0.3)] hover:scale-[1.02] transition-all">
+                        Bu Paketi Seç
                     </button>
                 </div>
 
-                <!-- 3 Kutu -->
                 <div class="lux-glass p-10 rounded-3xl space-y-8">
                     <div>
-                        <h3 class="font-serif font-bold text-xl text-white">Maksimum Hakimiyet</h3>
-                        <p class="text-xs text-slate-400 mt-1">Uzun vadeli bedensel ve zihinsel zirve.</p>
+                        <h3 class="font-serif font-bold text-xl text-white">Avantaj</h3>
+                        <p class="text-xs text-slate-400 mt-1">En uygun birim fiyat.</p>
                     </div>
-                    <div class="font-serif text-3xl font-bold text-white">
-                        2.990 <span class="text-sm font-sans font-normal text-slate-400">TL</span>
-                    </div>
+                    <div class="font-serif text-3xl font-bold text-white">2.990 <span class="text-sm font-sans font-normal text-slate-400">TL</span></div>
                     <ul class="space-y-3.5 text-xs text-slate-300 border-t border-lux-border/40 pt-6">
-                        <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-lux-gold"></i> 3
-                            Aylık Tam Optimizasyon</li>
-                        <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-lux-gold"></i>
-                            Bireysel Müşteri Temsilcisi</li>
-                        <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-lux-gold"></i>
-                            Ücretsiz Ekspres Teslimat</li>
+                        <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-lux-gold"></i> 3 Kutu</li>
+                        <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-lux-gold"></i> Ücretsiz Kargo</li>
+                        <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-lux-gold"></i> Gizli Paketleme</li>
                     </ul>
-                    <button onclick="selectAndScroll('3 Kutu Maksimum Hakimiyet (2.990 TL)')"
-                        class="w-full py-4 rounded-xl border border-lux-border hover:border-lux-gold text-white font-serif text-xs tracking-[0.2em] uppercase transition-all">
-                        Seçimi Başlat
+                    <button type="button" data-package="3"
+                        class="pkg-btn w-full py-4 rounded-xl border border-lux-border hover:border-lux-gold text-white font-serif text-xs tracking-[0.2em] uppercase transition-all">
+                        Paketi Seç
                     </button>
                 </div>
-
             </div>
 
         </div>
     </section>
 
-    <!-- Luxury Reservation / Order Form -->
+    <!-- SSS -->
+    <section id="sss" class="py-32 relative z-10 border-t border-lux-border/40">
+        <div class="max-w-3xl mx-auto px-6">
+            <div class="text-center mb-14 space-y-4">
+                <span class="text-xs font-mono tracking-[0.3em] text-lux-gold uppercase">Sık Sorulan Sorular</span>
+                <h2 class="font-serif text-3xl sm:text-4xl font-bold text-white">Merak Edilenler</h2>
+            </div>
+            <div class="space-y-3">
+                <details class="lux-glass rounded-2xl p-6">
+                    <summary class="flex justify-between items-center cursor-pointer font-serif text-sm text-white">Nasıl kullanılır?<i data-lucide="chevron-down" class="chev w-4 h-4 text-lux-gold transition-transform"></i></summary>
+                    <p class="mt-4 text-sm text-slate-400">18 yaş ve üzeri yetişkinler için günde 1 tablet tüketilmesi tavsiye edilir. Tavsiye edilen günlük porsiyonu aşmayın.</p>
+                </details>
+                <details class="lux-glass rounded-2xl p-6">
+                    <summary class="flex justify-between items-center cursor-pointer font-serif text-sm text-white">İçinde neler var?<i data-lucide="chevron-down" class="chev w-4 h-4 text-lux-gold transition-transform"></i></summary>
+                    <p class="mt-4 text-sm text-slate-400">L-Arjinin, Demir dikeni (Tribulus terrestris) ekstresi, Epimedium ekstresi, Lepidyum (Maca kökü) ekstresi, Cüce palmiye ekstresi, Ginkgo Biloba ekstresi, E vitamini ve çinko.</p>
+                </details>
+                <details class="lux-glass rounded-2xl p-6">
+                    <summary class="flex justify-between items-center cursor-pointer font-serif text-sm text-white">Vegan mı? Alerjen içeriyor mu?<i data-lucide="chevron-down" class="chev w-4 h-4 text-lux-gold transition-transform"></i></summary>
+                    <p class="mt-4 text-sm text-slate-400">Vegan ve vejetaryen bireylerin kullanımına uygundur. Maya, buğday, glüten, soya ve süt ürünleri gibi potansiyel alerjenleri; şeker, tuz, nişasta, aroma, renklendirici, tatlandırıcı ve koruyucu içermez.</p>
+                </details>
+                <details class="lux-glass rounded-2xl p-6">
+                    <summary class="flex justify-between items-center cursor-pointer font-serif text-sm text-white">Kimler danışmalı?<i data-lucide="chevron-down" class="chev w-4 h-4 text-lux-gold transition-transform"></i></summary>
+                    <p class="mt-4 text-sm text-slate-400">Hamilelik ve emzirme dönemiyle, hastalık veya ilaç kullanılması durumlarında doktorunuza danışınız.</p>
+                </details>
+                <details class="lux-glass rounded-2xl p-6">
+                    <summary class="flex justify-between items-center cursor-pointer font-serif text-sm text-white">Paketin üzerinde ürün adı yazar mı?<i data-lucide="chevron-down" class="chev w-4 h-4 text-lux-gold transition-transform"></i></summary>
+                    <p class="mt-4 text-sm text-slate-400">Hayır. Gönderiler, dışında ürün adı veya logo bulunmayan sade bir kutuyla gönderilir.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sipariş Formu -->
     <section id="rezervasyon" class="py-32 relative z-10 border-t border-lux-border/40">
         <div class="max-w-3xl mx-auto px-6">
 
-            <div class="lux-glass p-10 sm:p-14 rounded-3xl relative overflow-hidden">
-
+            <div class="lux-glass p-8 sm:p-14 rounded-3xl relative overflow-hidden">
                 <div class="text-center space-y-3 mb-10">
-                    <span class="text-xs font-mono tracking-[0.3em] text-lux-gold uppercase">Gizli Gönderim Formu</span>
-                    <h2 class="font-serif text-3xl font-bold text-white">Siparişinizi Onaylayın</h2>
-                    <p class="text-xs text-slate-400 max-w-md mx-auto">
-                        Bilgileriniz uçtan uca şifrelenir. Onayınız için doğrudan WhatsApp danışma hattına
-                        yönlendirileceksiniz.
-                    </p>
+                    <span class="text-xs font-mono tracking-[0.3em] text-lux-gold uppercase">Gizli Paketleme</span>
+                    <h2 class="font-serif text-3xl font-bold text-white">Siparişinizi Oluşturun</h2>
+                    <p class="text-xs text-slate-400 max-w-md mx-auto">Formu doldurun; siparişinizi onaylamak için sizinle iletişime geçelim.</p>
                 </div>
 
-                <form id="orderForm" onsubmit="submitToWhatsApp(event)" class="space-y-6">
+                <form id="orderForm" class="space-y-6" novalidate>
+                    <input type="text" id="website" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true">
+
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <div class="space-y-2">
-                            <label class="text-[11px] font-mono tracking-widest text-slate-400 uppercase">Adınız
-                                Soyadınız</label>
-                            <input type="text" id="custName" required placeholder="Adınız Soyadınız"
+                            <label for="custName" class="text-[11px] font-mono tracking-widest text-slate-400 uppercase">Adınız Soyadınız</label>
+                            <input type="text" id="custName" required autocomplete="name" placeholder="Adınız Soyadınız"
                                 class="w-full px-4 py-3.5 rounded-xl bg-lux-bg/80 border border-lux-border focus:border-lux-gold focus:outline-none text-sm text-white placeholder-slate-600 transition-colors">
                         </div>
                         <div class="space-y-2">
-                            <label class="text-[11px] font-mono tracking-widest text-slate-400 uppercase">Telefon
-                                Numaranız</label>
-                            <input type="tel" id="custPhone" required placeholder="05XX XXX XX XX"
+                            <label for="custPhone" class="text-[11px] font-mono tracking-widest text-slate-400 uppercase">Telefon Numaranız</label>
+                            <input type="tel" id="custPhone" required autocomplete="tel" inputmode="tel" placeholder="05XX XXX XX XX"
                                 class="w-full px-4 py-3.5 rounded-xl bg-lux-bg/80 border border-lux-border focus:border-lux-gold focus:outline-none text-sm text-white placeholder-slate-600 transition-colors">
                         </div>
                     </div>
 
                     <div class="space-y-2">
-                        <label class="text-[11px] font-mono tracking-widest text-slate-400 uppercase">Seçilen
-                            Kür</label>
+                        <label for="custPackage" class="text-[11px] font-mono tracking-widest text-slate-400 uppercase">Seçilen Paket</label>
                         <select id="custPackage"
                             class="w-full px-4 py-3.5 rounded-xl bg-lux-bg/80 border border-lux-border focus:border-lux-gold focus:outline-none text-sm text-white transition-colors">
-                            <option value="2 Kutu Denge & Canlılık Kürü (2.190 TL)">2 Kutu Denge & Canlılık Kürü (2.190
-                                TL) — Tavsiye Edilen</option>
-                            <option value="1 Kutu Tanışma Ritüeli (1.290 TL)">1 Kutu Tanışma Ritüeli (1.290 TL)</option>
-                            <option value="3 Kutu Maksimum Hakimiyet (2.990 TL)">3 Kutu Maksimum Hakimiyet (2.990 TL)
-                            </option>
+                            <option value="2">Denge — 2 Kutu (2.190 TL) — En Çok Tercih Edilen</option>
+                            <option value="1">Tanışma — 1 Kutu (1.290 TL)</option>
+                            <option value="3">Avantaj — 3 Kutu (2.990 TL)</option>
                         </select>
                     </div>
 
                     <div class="space-y-2">
-                        <label class="text-[11px] font-mono tracking-widest text-slate-400 uppercase">Teslimat Adresi
-                            (Gizli Kargo)</label>
-                        <textarea id="custAddress" rows="3" required
-                            placeholder="Paketinizin güvenle ulaştırılacağı teslimat adresi..."
+                        <label for="custAddress" class="text-[11px] font-mono tracking-widest text-slate-400 uppercase">Teslimat Adresi</label>
+                        <textarea id="custAddress" rows="3" required autocomplete="street-address" placeholder="Mahalle, sokak, no, ilçe / il"
                             class="w-full px-4 py-3.5 rounded-xl bg-lux-bg/80 border border-lux-border focus:border-lux-gold focus:outline-none text-sm text-white placeholder-slate-600 transition-colors"></textarea>
                     </div>
 
+                    <label class="flex items-start gap-3 text-xs text-slate-400 cursor-pointer">
+                        <input type="checkbox" id="kvkkConsent" required class="mt-0.5 w-4 h-4 accent-[#D4AF37] shrink-0">
+                        <span><a href="#kvkk" class="text-lux-gold underline">KVKK Aydınlatma Metni</a>'ni okudum; ad, telefon ve adres bilgilerimin siparişimin işlenmesi ve teslimatı amacıyla işlenmesini kabul ediyorum.</span>
+                    </label>
+
                     <div class="p-4 rounded-xl bg-lux-gold/5 border border-lux-border flex items-center gap-3">
                         <i data-lucide="shield-check" class="w-5 h-5 text-lux-gold shrink-0"></i>
-                        <span class="text-xs text-slate-300">
-                            Kargo kutusunda hiçbir amblem veya ürün içeriği bulunmaz. Tamamen tarafsız kurumsal koli ile
-                            teslim edilir.
-                        </span>
+                        <span class="text-xs text-slate-300">Kargo kutusunda ürün adı veya logo bulunmaz. Kart ekstrenizde şirket ticari unvanı görünür.</span>
                     </div>
 
-                    <button type="submit"
-                        class="w-full py-4 rounded-xl bg-gradient-to-r from-lux-gold to-lux-goldLight text-black font-serif font-bold text-xs tracking-[0.2em] uppercase hover:scale-[1.01] transition-all shadow-[0_0_30px_rgba(212,175,55,0.25)] flex items-center justify-center gap-2">
-                        <i data-lucide="message-circle" class="w-4 h-4"></i>
-                        WhatsApp ile Siparişi Tamamla
+                    <p id="formError" class="hidden text-sm text-red-300 bg-red-950/40 border border-red-500/30 rounded-xl p-4" role="alert"></p>
+
+                    <button type="submit" id="submitBtn"
+                        class="w-full py-4 rounded-xl bg-gradient-to-r from-lux-gold to-lux-goldLight text-black font-serif font-bold text-xs tracking-[0.2em] uppercase hover:scale-[1.01] transition-all shadow-[0_0_30px_rgba(212,175,55,0.25)] flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-wait">
+                        <i data-lucide="send" class="w-4 h-4"></i>
+                        <span id="submitLabel">Siparişi Gönder</span>
                     </button>
                 </form>
 
+                <div id="successMsg" class="hidden text-center space-y-3 py-6" role="status">
+                    <i data-lucide="check-circle" class="w-8 h-8 text-lux-gold mx-auto"></i>
+                    <h3 class="font-serif text-2xl font-bold text-white">Talebiniz Alındı</h3>
+                    <p class="text-sm text-slate-400">Siparişinizi onaylamak için en kısa sürede sizinle iletişime geçeceğiz.</p>
+                </div>
             </div>
+
+            <!-- KVKK Aydınlatma Metni — TASLAK: hukuki kontrol ve şirket bilgileri gereklidir -->
+            <details id="kvkk" class="mt-8 lux-glass rounded-2xl p-6 text-xs text-slate-400 leading-relaxed">
+                <summary class="cursor-pointer font-serif text-sm text-white flex justify-between items-center">KVKK Aydınlatma Metni<i data-lucide="chevron-down" class="chev w-4 h-4 text-lux-gold transition-transform"></i></summary>
+                <div class="mt-4 space-y-3">
+                    <p><strong class="text-slate-200">Veri sorumlusu:</strong> [ŞİRKET TİCARİ UNVANI], [ADRES], [MERSİS NO], [E-POSTA].</p>
+                    <p><strong class="text-slate-200">İşlenen veriler:</strong> Ad soyad, telefon numarası, teslimat adresi ve seçilen paket bilgisi.</p>
+                    <p><strong class="text-slate-200">Amaç ve hukuki sebep:</strong> Siparişin alınması, teyidi, faturalandırılması ve teslimatı; 6698 sayılı KVKK m.5/2-c (sözleşmenin kurulması ve ifası) ve m.5/2-ç (hukuki yükümlülük).</p>
+                    <p><strong class="text-slate-200">Aktarım:</strong> Yalnızca teslimat için kargo firmasına ve yasal yükümlülükler kapsamında yetkili kurumlara. WhatsApp ile iletilen siparişlerde mesaj WhatsApp (Meta) altyapısı üzerinden iletilir.</p>
+                    <p><strong class="text-slate-200">Haklarınız:</strong> KVKK m.11 kapsamındaki taleplerinizi [E-POSTA] adresine iletebilirsiniz.</p>
+                </div>
+            </details>
 
         </div>
     </section>
+    </main>
 
-    <!-- Editorial Minimal Footer -->
-    <footer class="py-16 border-t border-lux-border/40 relative z-10 text-center space-y-4">
-        <p class="font-serif tracking-[0.3em] text-white text-xs uppercase">APHROHARMONY — Luxury Wellness</p>
-        <p class="text-[11px] text-slate-500 font-mono">© 2026 Tüm Hakları Saklıdır. Takviye edici gıdadır, ilaç yerine
-            geçmez.</p>
+    <footer class="py-16 border-t border-lux-border/40 relative z-10 text-center space-y-4 px-6">
+        <p class="font-serif tracking-[0.3em] text-white text-xs uppercase">AphroHarmony — Novacolin</p>
+        <p class="text-xs text-slate-400">Takviye edici gıdadır. Hastalıkların önlenmesi veya tedavi edilmesi amacıyla kullanılmaz.</p>
+        <p class="text-[11px] text-slate-500 font-mono">© 2026 Tüm hakları saklıdır.</p>
     </footer>
 
-    <!-- Scripts -->
     <script>
-        // Lucide Icons
-        lucide.createIcons();
+        /*
+         * SİPARİŞ AYARLARI — en az birini doldurun, yoksa form sipariş kabul etmez.
+         *  endpoint : Google Apps Script web uygulaması URL'si (bkz. siparis-apps-script.gs) — siparişler Sheets'e kaydolur
+         *  whatsapp : Ülke koduyla, başında + olmadan (ör. "905XXXXXXXXX")
+         */
+        const ORDER_CONFIG = {
+            endpoint: '',
+            whatsapp: '',
+        };
 
-        // 1. Lenis Smooth Scroll Engine
-        const lenis = new Lenis({
-            duration: 1.2,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-            smoothWheel: true
-        });
-        function raf(time) {
-            lenis.raf(time);
-            requestAnimationFrame(raf);
-        }
-        requestAnimationFrame(raf);
+        const PACKAGES = {
+            '1': 'Tanışma — 1 Kutu (1.290 TL)',
+            '2': 'Denge — 2 Kutu (2.190 TL)',
+            '3': 'Avantaj — 3 Kutu (2.990 TL)',
+        };
 
-        // 2. Cursor Spotlight Effect
-        const cursorGlow = document.getElementById('cursorGlow');
-        window.addEventListener('mousemove', (e) => {
-            cursorGlow.style.left = `${e.clientX}px`;
-            cursorGlow.style.top = `${e.clientY}px`;
-        });
+        if (window.lucide) lucide.createIcons();
 
-        // 3. Product Hover Tilt Depth
-        const productBox = document.getElementById('productBox');
-        if (productBox) {
+        // ---------- Animasyonlar: kütüphaneler yüklenemezse ya da "hareketi azalt" açıksa atlanır ----------
+        const motionOK = window.gsap && window.ScrollTrigger && window.Lenis &&
+            !matchMedia('(prefers-reduced-motion: reduce)').matches;
+        let lenis = null;
+
+        if (motionOK) {
+            lenis = new Lenis({
+                duration: 1.2,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                smoothWheel: true
+            });
+            gsap.registerPlugin(ScrollTrigger);
+            lenis.on('scroll', ScrollTrigger.update);
+            gsap.ticker.add((time) => lenis.raf(time * 1000));
+            gsap.ticker.lagSmoothing(0);
+
+            gsap.from('.hero-reveal > *', {
+                opacity: 0,
+                y: 35,
+                stagger: 0.15,
+                duration: 1.2,
+                ease: 'power3.out'
+            });
+
+            const cursorGlow = document.getElementById('cursorGlow');
+            const productBox = document.getElementById('productBox');
             window.addEventListener('mousemove', (e) => {
-                const xAxis = (window.innerWidth / 2 - e.pageX) / 45;
-                const yAxis = (window.innerHeight / 2 - e.pageY) / 45;
+                cursorGlow.style.left = `${e.clientX}px`;
+                cursorGlow.style.top = `${e.clientY}px`;
+                const xAxis = (window.innerWidth / 2 - e.clientX) / 45;
+                const yAxis = (window.innerHeight / 2 - e.clientY) / 45;
                 productBox.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
             });
         }
 
-        // 4. GSAP Reveal Animations
-        gsap.registerPlugin(ScrollTrigger);
-        gsap.from('.hero-reveal > *', {
-            opacity: 0,
-            y: 35,
-            stagger: 0.15,
-            duration: 1.2,
-            ease: 'power3.out'
+        function scrollToId(id) {
+            if (lenis) lenis.scrollTo(id);
+            else document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // ---------- Paket seçimi ----------
+        document.querySelectorAll('.pkg-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.getElementById('custPackage').value = btn.dataset.package;
+                scrollToId('#rezervasyon');
+            });
         });
 
-        // 5. Select Package and Smooth Scroll
-        function selectAndScroll(pkgName) {
-            const select = document.getElementById('custPackage');
-            for (let i = 0; i < select.options.length; i++) {
-                if (select.options[i].value.includes(pkgName.split(' ')[0])) {
-                    select.selectedIndex = i;
-                    break;
-                }
-            }
-            lenis.scrollTo('#rezervasyon');
+        // ---------- Sipariş formu ----------
+        const $ = (id) => document.getElementById(id);
+
+        function showError(msg) {
+            $('formError').textContent = msg;
+            $('formError').classList.remove('hidden');
         }
 
-        // 6. WhatsApp Direct Order Router
-        function submitToWhatsApp(e) {
+        function normalizePhone(raw) {
+            const d = raw.replace(/\D/g, '');
+            if (/^905\d{9}$/.test(d)) return '0' + d.slice(2);
+            if (/^05\d{9}$/.test(d)) return d;
+            if (/^5\d{9}$/.test(d)) return '0' + d;
+            return null;
+        }
+
+        $('orderForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const name = document.getElementById('custName').value;
-            const phone = document.getElementById('custPhone').value;
-            const pkg = document.getElementById('custPackage').value;
-            const address = document.getElementById('custAddress').value;
+            $('formError').classList.add('hidden');
+            if ($('website').value) return; // bot
 
-            const message = `*APHROHARMONY SİPARİŞ TALEBİ*%0A%0A*Müşteri:* ${name}%0A*Telefon:* ${phone}%0A*Seçilen Kür:* ${pkg}%0A*Adres:* ${address}%0A%0AGizli kargo standardında siparişimi onaylamak istiyorum.`;
+            const name = $('custName').value.trim();
+            const phone = normalizePhone($('custPhone').value);
+            const address = $('custAddress').value.trim();
+            const pkg = PACKAGES[$('custPackage').value];
 
-            // WhatsApp numarası (kendi numaranla güncelleyebilirsin)
-            const waNumber = "905555555555";
-            window.open(`https://wa.me/${waNumber}?text=${message}`, '_blank');
-        }
+            if (name.length < 3) return showError('Lütfen adınızı ve soyadınızı yazın.');
+            if (!phone) return showError('Lütfen geçerli bir cep telefonu numarası girin (05XX XXX XX XX).');
+            if (address.length < 10) return showError('Lütfen teslimat adresinizi eksiksiz yazın.');
+            if (!$('kvkkConsent').checked) return showError('Devam etmek için KVKK Aydınlatma Metni onayı gereklidir.');
+
+            if (!ORDER_CONFIG.endpoint && !ORDER_CONFIG.whatsapp) {
+                console.error('ORDER_CONFIG boş: endpoint veya whatsapp ayarlanmalı.');
+                return showError('Sipariş sistemi şu anda aktif değil. Lütfen daha sonra tekrar deneyin.');
+            }
+
+            const order = { name, phone, address, package: pkg, kvkkConsent: true, createdAt: new Date().toISOString(), page: location.href };
+
+            $('submitBtn').disabled = true;
+            $('submitLabel').textContent = 'Gönderiliyor...';
+            try {
+                if (ORDER_CONFIG.endpoint) {
+                    // text/plain: Apps Script için CORS ön kontrolünü önler
+                    const res = await fetch(ORDER_CONFIG.endpoint, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                        body: JSON.stringify(order),
+                    });
+                    if (!res.ok) throw new Error('HTTP ' + res.status);
+                    const data = await res.json().catch(() => ({}));
+                    if (data.ok === false) throw new Error(data.error || 'Sunucu hatası');
+                } else {
+                    const text = `*AphroHarmony Sipariş Talebi*\n\n*Ad Soyad:* ${name}\n*Telefon:* ${phone}\n*Paket:* ${pkg}\n*Adres:* ${address}`;
+                    window.open(`https://wa.me/${ORDER_CONFIG.whatsapp}?text=${encodeURIComponent(text)}`, '_blank');
+                }
+                $('orderForm').classList.add('hidden');
+                $('successMsg').classList.remove('hidden');
+            } catch (err) {
+                console.error(err);
+                showError('Sipariş gönderilemedi. Lütfen bağlantınızı kontrol edip tekrar deneyin.');
+            } finally {
+                $('submitBtn').disabled = false;
+                $('submitLabel').textContent = 'Siparişi Gönder';
+            }
+        });
     </script>
 </body>
 

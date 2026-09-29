@@ -1,0 +1,10 @@
+#!/bin/sh
+# AphroHarmony uyum kontrolü — sorunlu HTML commit edilmez.
+# Kurulum (her klon için bir kez): git config core.hooksPath .githooks
+if git diff --cached --name-only | grep -qE '\.html$|compliance-rules\.json$'; then
+  node scripts/check-compliance.mjs || {
+    echo ""
+    echo "Commit durduruldu: yukarıdaki uyum sorunlarını düzeltin (bkz. DESIGN_BRIEF.md)."
+    exit 1
+  }
+fi

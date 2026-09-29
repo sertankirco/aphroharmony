@@ -1,35 +1,28 @@
 # APHROHARMONY — LANDING PAGE METNİ
 
-> Bu dosya `index.html` ile birebir aynı metni içerir; tek kaynak budur. Metni değiştirirseniz `index.html`'i de güncelleyin.
+> Bu dosya `index.html` ile birebir aynı metni içerir (tasarımdan bağımsız metin kaynağı; yeniden tasarımda `DESIGN_BRIEF.md` ile birlikte verin); tek kaynak budur. Metni değiştirirseniz `index.html`'i de güncelleyin.
 > Bağlayıcı kurallar: `APHROHARMONY_MASTER_CONTEXT.md` Bölüm 4 (uydurulmayacaklar) ve Bölüm 6 (iletişim sınırları).
 > ⚠️ Fiyatlar ve kargo koşulları kaynak dosyalarda yok; yayından önce işletme tarafından doğrulanmalı.
 
 ---
 
 ## [HERO]
-**Üst satır (H1'in parçası):** AphroHarmony · Takviye Edici Gıda
+**Rozet:** Takviye Edici Gıda • Günde 1 Tablet
 
-**Başlık (H1):** Günün Ritüeli.
+**Başlık (H1):** Yoğun Günlerin Günlük Ritüeli.
 
-**Alt metin:** Bitkisel ekstreler, L-Arjinin, E vitamini ve çinko. Günde tek tablet; güne enerjik başlamak isteyenler için sade bir rutin.
+**Alt metin:** AphroHarmony; bitkisel ekstreler, L-Arjinin, E vitamini ve çinko içeren, günde tek tablet kullanılan bir takviye edici gıdadır. Güne enerjik başlamak isteyenler için sade bir rutin.
 
-**Sağ sütun:** 01 Günde Tek Tablet · 08 Bileşen · 12 İçermediği Madde
+**CTA:** [ Paketleri İncele ] · [ İçinde Ne Var? ]
 
-**Bant:** 08 Bileşen (5 bitki ekstresi, L-Arjinin, E vitamini, çinko) · 0 Şeker · Glüten · Koruyucu · 18+ Yetişkinler İçin
+**Metrik satırı:** 01 Günde Tek Tablet · 08 Bileşen · 18+ Yetişkinler İçin
 
----
-
-## [GÜNÜN RİTMİ — KULLANIM]
-**Başlık:** Günün Ritmi. — Günde tek tablet; yoğun günlerin içine kolayca yerleşen bir alışkanlık.
-
-- **Sabah — Tek Tablet / Güne Başlarken:** 18 yaş ve üzeri yetişkinler için günde 1 tablet tüketilmesi tavsiye edilir. Tavsiye edilen günlük porsiyonu aşmayın.
-- **Gün Boyu — Yoğun Tempo / Sade Bir Rutin:** Toplantılar, yollar, antrenman. Karmaşık programlar yok; günlük rutine eklenen tek bir adım.
-- **Her Gün — Denge / Beslenmenin Yanında:** Takviye edici gıdalar günlük beslenmenin yerine geçemez; dengeli beslenmeyi tamamlayan bir alışkanlıktır.
+**Görsel etiketi:** 60 Tablet • Novacolin
 
 ---
 
 ## [İÇERİK]
-**Başlık:** Etikette Ne Var?
+**Başlık:** Etikette Ne Var? (iki kart: 8 Bileşen · İçermez + vegan)
 5 bitki ekstresi, L-Arjinin, E vitamini ve çinko. Miktarlar için ürün etiketine bakınız.
 
 1. L-Arjinin
@@ -48,7 +41,7 @@
 ---
 
 ## [KULLANIM & UYARILAR]
-**Kullanım:** 18 yaş ve üzeri yetişkinler için günde 1 tablet tüketilmesi tavsiye edilir.
+**Kullanım — Günde 1 Tablet:** 18 yaş ve üzeri yetişkinler için günde 1 tablet tüketilmesi tavsiye edilir. Karmaşık programlar yok; günlük rutine eklenen tek bir adım.
 
 **Uyarılar:**
 - Tavsiye edilen günlük porsiyonu aşmayın.
@@ -80,7 +73,7 @@ Tüm gönderiler, dışında ürün adı veya logo bulunmayan sade bir kutuyla g
 ---
 
 ## [SİPARİŞ]
-**Başlık:** Sipariş
+**Başlık:** Siparişinizi Oluşturun
 Formu doldurun; siparişinizi onaylamak için sizi arayalım.
 Alanlar: Ad Soyad · Telefon · Paket · Teslimat adresi · KVKK onayı (zorunlu)
 
@@ -107,3 +100,6 @@ Takviye edici gıdadır. Hastalıkların önlenmesi veya tedavi edilmesi amacıy
 | "21:00 — Güç / Sarsılmaz Hakimiyet / bedensel özgüven" (tasarım v2) | Cinsel ima |
 | "%100 Biyoyararlanım, anında hücresel emilim", "beyne giden oksijeni optimize eder", "hücresel adaptasyon", "24s enerji", "Sarsılmaz Odak ∞" (tasarım v2) | Onaysız sağlık beyanı |
 | "0 Kimyasal Katkı / yalnızca topraktan gelenler", "faturasız lüks kutu" (tasarım v2) | Doğrulanamaz / yasal risk |
+| "Tükenmeyen Canlılık, Sarsılmaz Hakimiyet" H1; "Geleneksel Sentetik İlaçlar" kartı: tolerans, eczane çekincesi (tasarım v3) | Cinsel ima + ilaç karşılaştırması |
+| "Yan etkisiz", "kalp ritmini zorlamadan", "adaptojen" (tasarım v3) | Onaysız sağlık/güvenlik beyanı |
+| "Bilgileriniz uçtan uca şifrelenir" (tasarım v3) | Yanlış: veri düz metin olarak WhatsApp'a gider |

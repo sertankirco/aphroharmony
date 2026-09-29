@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AphroHarmony — Product Film (16 s loop)</title>
+<style>
+  html, body { margin: 0; background: #FBF9F5; font-family: "Segoe UI", system-ui, -apple-system, Helvetica, Arial, sans-serif; }
+  #stage { display: block; width: 100vw; max-width: calc(100vh * 16 / 9); height: auto; aspect-ratio: 16 / 9; margin: 0 auto; }
+  #ui { display: flex; gap: 12px; align-items: center; padding: 10px 16px; color: #78716C; font-size: 13px; max-width: 1200px; margin: 0 auto; }
+  #ui input { flex: 1; accent-color: #D97706; }
+  body.capture #ui { display: none; }
+  body.capture #stage { width: 1920px; height: 1080px; max-width: none; }
+</style>
+</head>
+<body>
+<canvas id="stage" width="1920" height="1080"></canvas>
+<div id="ui">
+  <span>0.0 s</span>
+  <input id="scrub" type="range" min="0" max="16" step="0.001" value="0" aria-label="Zaman">
+  <span id="tlabel">0.000 s</span>
+</div>
+
+<script>
+/*
+ * AphroHarmony product film — 1920×1080, 120 BPM, 8 bar = 16.0 s kusursuz döngü.
+ * Tamamen deterministik: window.seek(t) verilen t için kareyi baştan çizer.
+ * rAF / CSS transition / setInterval yok. Tüm geçişler kapalı-form sönümlü yay.
+ *
+ * İçerik APHROHARMONY_MASTER_CONTEXT.md'ye bağlıdır: yalnızca ürün etiketindeki 8 bileşen,
+ * "günde 1 tablet", "18 yaş ve üzeri", içermez listesi ve vegan uygunluğu kullanılır.
+ */
+(() => {
+  const canvas = document.getElementById('stage');
+  const ctx = canvas.getContext('2d');
+  const W = 1920, H = 1080, CX = W / 2, CY = H / 2;
+  const LOOP = 16.0, BEAT = 0.5;
+
+  // ---------- Palette & type ----------
+  const C = {
+    bg: '#FBF9F5', card: '#FFFFFF', line: '#E8E5DF', text: '#1C1917', text2: '#78716C',
+    amber: '#D97706', amberDeep: '#B45309', amberTint: '#FEF3E2', amberSoft: '#F6E7CF',
+    ink: '#1C1917', inkHover: '#292524', muted: '#A8A29E', track: '#F1EEE8',
+  };
+  const SANS = '"Inter", "Segoe UI", system-ui, -apple-system, Helvetica, Arial, sans-serif';
+  const SERIF = '"Cormorant Garamond", Georgia, "Times New Roman", serif';
+
+  // ---------- Closed-form damped harmonic oscillator ----------
+  // f(τ) = 1 − e^(−ζωτ) · (cos ω_d τ + (ζω/ω_d) sin ω_d τ)
+  const ZETA = 0.82;
+  const SETTLE = 4.0; // τ > SETTLE ⇒ tam 1 (e^(−ζωτ) < 1e-15)
+  function spring(tau, omega = 2 * Math.PI * 1.7) {
+    if (tau <= 0) return 0;
+    if (tau >= SETTLE) return 1;
+    const zw = ZETA * omega, wd = omega * Math.sqrt(1 - ZETA * ZETA);
+    return 1 - Math.exp(-zw * tau) * (Math.cos(wd * tau) + (zw / wd) * Math.sin(wd * tau));
+  }
+  // Tek darbe (tıklama itmesi): e^(−ζωτ) sin ω_d τ, tepe değeri 1'e normalize
+  function impulse(tau, omega = 2 * Math.PI * 2.4) {
+    if (tau <= 0 || tau >= SETTLE) return 0;
+    const zw = ZETA * omega, wd = omega * Math.sqrt(1 - ZETA * ZETA);
+    const tp = Math.atan(wd / zw) / wd;
+    const peak = Math.exp(-zw * tp) * Math.sin(wd * tp);
+    return Math.exp(-zw * tau) * Math.sin(wd * tau) / peak;
+  }
+  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+  const lerp = (a, b, k) => a + (b - a) * k;
+  const smooth = (e0, e1, x) => { const k = clamp((x - e0) / (e1 - e0)); return k * k * (3 - 2 * k); };
+
+  // Süperpozisyonlu yay izi: v(t) = v0 + Σ (v_i − v_{i−1}) · f(t − t_i)
+  // Son anahtar ilk anahtara eşit ⇒ son yay oturduğunda değer birebir v0 (döngü kusursuz).
+  function track(keys, omega) {
+    const last = keys[keys.length - 1];
+    return (t) => {
+      if (t - last[0] >= SETTLE) return last[1];
+      let v = keys[0][1];
+      for (let i = 1; i < keys.length; i++) v += (keys[i][1] - keys[i - 1][1]) * spring(t - keys[i][0], omega);
+      return v;
+    };
+  }
+  const hex = (h) => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
+  const rgb = (r, g, b, a = 1) => `rgba(${Math.round(clamp(r, 0, 255))},${Math.round(clamp(g, 0, 255))},${Math.round(clamp(b, 0, 255))},${a})`;
+  const mix = (h1, h2, k) => { const a = hex(h1), b = hex(h2); return rgb(lerp(a[0], b[0], k), lerp(a[1], b[1], k), lerp(a[2], b[2], k)); };
+
+  // ---------- Container states (tek kart, asla kesilmez) ----------
+  const T = (bar, beat) => (bar - 1) * 2 + (beat - 1) * BEAT;
+  const STATES = [
+    { id: 'badge',   t: 0.0,        w: 420,  h: 92,  r: 46, fill: C.card, cy: CY },
+    { id: 'cta',     t: T(1, 2),    w: 460,  h: 100, r: 50, fill: C.amber, cy: CY },
+    { id: 'bottle',  t: T(1, 3),    w: 300,  h: 540, r: 64, fill: C.card, cy: CY },
+    { id: 'panel',   t: T(2, 1),    w: 900,  h: 580, r: 28, fill: C.card, cy: CY },
+    { id: 'graph',   t: T(3, 1),    w: 1160, h: 520, r: 28, fill: C.card, cy: CY },
+    { id: 'pills',   t: T(4, 1),    w: 1000, h: 124, r: 62, fill: C.card, cy: CY },
+    { id: 'button',  t: T(4, 3),    w: 660,  h: 108, r: 54, fill: C.ink,  cy: CY },
+    { id: 'toast',   t: T(5, 1),    w: 480,  h: 80,  r: 40, fill: C.ink,  cy: CY },
+    { id: 'toastUp', t: T(5, 2),    w: 400,  h: 68,  r: 34, fill: C.ink,  cy: CY - 100 },
+    { id: 'badge',   t: T(5, 3),    w: 420,  h: 92,  r: 46, fill: C.card, cy: CY },
+  ];
+  const keysOf = (f) => STATES.map(s => [s.t, f(s)]);
+  const card = {
+    w: track(keysOf(s => s.w)), h: track(keysOf(s => s.h)), r: track(keysOf(s => s.r)),
+    cy: track(keysOf(s => s.cy), 2 * Math.PI * 1.4),
+    fr: track(keysOf(s => hex(s.fill)[0])), fg: track(keysOf(s => hex(s.fill)[1])), fb: track(keysOf(s => hex(s.fill)[2])),
+  };
+
+  // İçerik görünürlüğü: yeni durum morf başladıktan hemen sonra bulanıklıktan netleşir,
+  // bir sonraki durum başlarken hızla bulanıklaşıp söner.
+  function contentAlpha(i, t) {
+    const s = STATES[i], n = STATES[i + 1];
+    const aIn = i === 0 ? 1 : smooth(s.t + 0.08, s.t + 0.28, t); // ilk rozet = son rozetin devamı
+    const aOut = n ? 1 - smooth(n.t - 0.03, n.t + 0.10, t) : 1;
+    return clamp(Math.min(aIn, aOut));
+  }
+
+  // ---------- Cursor ----------
+  const CUR0 = [1500, 800];
+  const CURSOR = [
+    [0.00, CUR0],
+    [0.12, [1100, 578]],   // rozete yaklaş
+    [0.62, [1040, 566]],   // CTA hover
+    [1.05, [972, 592]],    // şişe merkezi
+    [2.10, [1560, 846]],   // panelin dışına çekil
+    [4.02, [1500, 720]],
+    [4.80, [1432, 596]],   // son gün düğümü (tepe)
+    [5.62, [1590, 790]],
+    [6.70, [1180, 640]],
+    [7.06, [1000, 566]],   // buton
+    [8.10, [1140, 660]],
+    [9.20, CUR0],          // başlangıç noktasına dönüş
+  ];
+  const curOmega = 2 * Math.PI * 1.25;
+  const cur = {
+    x: track(CURSOR.map(k => [k[0], k[1][0]]), curOmega),
+    y: track(CURSOR.map(k => [k[0], k[1][1]]), curOmega),
+  };
+  const CLICKS = [T(1, 4) + 0.1, T(4, 4) + 0.1]; // 1.6 s şişe, 7.6 s buton
+
+  // ---------- Drawing helpers ----------
+  function rr(x, y, w, h, r) {
+    r = Math.max(0, Math.min(r, w / 2, h / 2));
+    ctx.beginPath();
+    ctx.roundRect(x, y, w, h, r);
+  }
+  function text(str, x, y, { size = 24, weight = 500, color = C.text, align = 'left', font = SANS, spacing = 0, base = 'middle' } = {}) {
+    ctx.font = `${weight} ${size}px ${font}`;
+    ctx.fillStyle = color;
+    ctx.textAlign = align;
+    ctx.textBaseline = base;
+    ctx.letterSpacing = spacing + 'px';
+    ctx.fillText(str, x, y);
+    ctx.letterSpacing = '0px';
+  }
+  function capsule(x, y, len, rad, ang, cA, cB) {
+    ctx.save();
+    ctx.translate(x, y); ctx.rotate(ang);
+    ctx.save();
+    rr(-rad, -len / 2, rad * 2, len, rad); ctx.clip();
+    ctx.fillStyle = cA; ctx.fillRect(-rad, -len / 2, rad * 2, len / 2);
+    ctx.fillStyle = cB; ctx.fillRect(-rad, 0, rad * 2, len / 2);
+    ctx.restore();
+    rr(-rad, -len / 2, rad * 2, len, rad);
+    ctx.lineWidth = 1.5; ctx.strokeStyle = 'rgba(28,25,23,0.10)'; ctx.stroke();
+    ctx.restore();
+  }
+  function tick(x, y, s, p, color, lw = 3) { // p: 0..1 çizim ilerlemesi
+    const pts = [[-8, 0], [-2.5, 6], [9, -6.5]].map(([a, b]) => [x + a * s, y + b * s]);
+    const l1 = Math.hypot(pts[1][0] - pts[0][0], pts[1][1] - pts[0][1]);
+    const l2 = Math.hypot(pts[2][0] - pts[1][0], pts[2][1] - pts[1][1]);
+    let d = clamp(p) * (l1 + l2);
+    if (d <= 0) return;
+    ctx.beginPath(); ctx.moveTo(...pts[0]);
+    if (d <= l1) { const k = d / l1; ctx.lineTo(lerp(pts[0][0], pts[1][0], k), lerp(pts[0][1], pts[1][1], k)); }
+    else { ctx.lineTo(...pts[1]); const k = (d - l1) / l2; ctx.lineTo(lerp(pts[1][0], pts[2][0], k), lerp(pts[1][1], pts[2][1], k)); }
+    ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.lineWidth = lw; ctx.strokeStyle = color; ctx.stroke();
+  }
+  function withAlpha(a, blurPx, fn) {
+    if (a <= 0.002) return;
+    ctx.save();
+    ctx.globalAlpha *= a;
+    if (blurPx > 0.05) ctx.filter = `blur(${blurPx.toFixed(2)}px)`;
+    fn();
+    ctx.restore();
+  }
+
+  // ---------- State contents (kart merkezine göre) ----------
+  const CONTENT = {
+    badge() {
+      // nokta + yazı grubu ölçülüp ortalanır (harf aralığı son harften sonra da eklenir, düşülür)
+      ctx.font = `600 23px ${SERIF}`; ctx.letterSpacing = '5px';
+      const tw = ctx.measureText('APHRO HARMONY').width - 5;
+      ctx.letterSpacing = '0px';
+      const dot = 12, gap = 16, x0 = -(dot + gap + tw) / 2;
+      ctx.fillStyle = C.amber;
+      ctx.beginPath(); ctx.arc(x0 + dot / 2, 0, dot / 2, 0, Math.PI * 2); ctx.fill();
+      text('APHRO HARMONY', x0 + dot + gap, 1, { size: 23, weight: 600, font: SERIF, spacing: 5 });
+    },
+
+    cta(t) {
+      text('Formülü Keşfet', -18, 1, { size: 30, weight: 600, color: '#FFFFFF', align: 'center' });
+      const nudge = 4 * spring(t - 0.75); // hover'da ok hafifçe ilerler
+      ctx.save(); ctx.translate(122 + nudge, 1);
+      ctx.beginPath(); ctx.moveTo(-10, 0); ctx.lineTo(10, 0); ctx.moveTo(3, -7); ctx.lineTo(10, 0); ctx.lineTo(3, 7);
+      ctx.lineWidth = 3; ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.strokeStyle = '#FFFFFF'; ctx.stroke();
+      ctx.restore();
+    },
+
+    bottle() {
+      // şişe silueti (etiket yeniden çizilmez; yalnızca soyut kap + tablet ikonu)
+      rr(-58, -232, 116, 48, 12); ctx.fillStyle = '#F1ECE3'; ctx.fill(); ctx.lineWidth = 1.5; ctx.strokeStyle = C.line; ctx.stroke();
+      rr(-46, -186, 92, 22, 6); ctx.fillStyle = '#F7F4EE'; ctx.fill(); ctx.stroke();
+      rr(-100, -166, 200, 340, 44); ctx.fillStyle = C.bg; ctx.fill(); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(-100, -70); ctx.lineTo(100, -70); ctx.moveTo(-100, 86); ctx.lineTo(100, 86); ctx.strokeStyle = C.line; ctx.stroke();
+      capsule(0, 8, 96, 21, -0.62, C.amber, C.amberSoft);
+      text('APHRO HARMONY', 0, -112, { size: 12, weight: 600, font: SERIF, spacing: 2.5, align: 'center', color: C.text2 });
+      text('60 Tablet', 0, 216, { size: 22, weight: 600, align: 'center' });
+      text('Günde 1 tablet', 0, 246, { size: 18, align: 'center', color: C.text2 });
+    },
+
+    panel(t) {
+      text('Bileşenler', -400, -226, { size: 40, weight: 650 });
+      text('Takviye edici gıda · etikette 8 bileşen', -400, -184, { size: 21, color: C.text2 });
+      const steps = [T(2, 2), T(2, 3), T(2, 4)];
+      const count = t < steps[0] ? 0 : t < steps[1] ? 3 : t < steps[2] ? 5 : 8;
+      text('/ 8', 400, -226, { size: 26, color: C.text2, align: 'right' });
+      text(String(count), 352, -226, { size: 30, weight: 650, color: C.amber, align: 'right' });
+
+      // ilerleme: listelenen bileşen oranı (3/8 → 5/8 → 8/8)
+      const prog = clamp(3 / 8 * spring(t - steps[0], 2 * Math.PI * 1.5) + 2 / 8 * spring(t - steps[1], 2 * Math.PI * 1.5) + 3 / 8 * spring(t - steps[2], 2 * Math.PI * 1.5));
+      rr(-400, -146, 800, 6, 3); ctx.fillStyle = C.track; ctx.fill();
+      if (prog > 0.001) { rr(-400, -146, 800 * prog, 6, 3); ctx.fillStyle = C.amber; ctx.fill(); }
+
+      const rows = [
+        { t: steps[0], title: 'Maca Kökü · Demir Dikeni · Epimedium', sub: 'Bitki ekstreleri', tag: '3 bileşen' },
+        { t: steps[1], title: 'Cüce Palmiye · Ginkgo Biloba', sub: 'Bitki ekstreleri', tag: '2 bileşen' },
+        { t: steps[2], title: 'L-Arjinin · E Vitamini · Çinko', sub: 'Amino asit, vitamin ve mineral', tag: '3 bileşen' },
+      ];
+      rows.forEach((row, i) => {
+        const y = -62 + i * 118;
+        if (i > 0) { ctx.beginPath(); ctx.moveTo(-400, y - 59); ctx.lineTo(400, y - 59); ctx.lineWidth = 1; ctx.strokeStyle = C.line; ctx.stroke(); }
+        const k = spring(t - row.t, 2 * Math.PI * 1.9);
+        const a = smooth(row.t, row.t + 0.22, t);
+        withAlpha(a, (1 - a) * 8, () => {
+          ctx.translate(0, (1 - k) * 26);
+          ctx.fillStyle = C.amberTint; ctx.beginPath(); ctx.arc(-370, y, 28, 0, Math.PI * 2); ctx.fill();
+          capsule(-370, y, 30, 7.5, -0.62, C.amber, C.amberSoft);
+          text(row.title, -322, y - 14, { size: 27, weight: 600 });
+          text(row.sub, -322, y + 20, { size: 19, color: C.text2 });
+          text(row.tag, 400, y, { size: 19, color: C.text2, align: 'right' });
+        });
+      });
+    },
+
+    graph(t) {
+      text('Günlük Ritim', -520, -186, { size: 40, weight: 650 });
+      text('Günde 1 tablet · 18 yaş ve üzeri yetişkinler', -520, -144, { size: 21, color: C.text2 });
+      text('7 gün', 520, -186, { size: 21, color: C.text2, align: 'right' });
+
+      const x0 = -470, x1 = 470, y = 44;
+      ctx.save();
+      ctx.setLineDash([2, 10]); ctx.lineCap = 'round'; ctx.lineWidth = 2.5; ctx.strokeStyle = C.line;
+      ctx.beginPath(); ctx.moveTo(x0, y); ctx.lineTo(x1, y); ctx.stroke();
+      ctx.restore();
+
+      const tDraw = T(3, 2);
+      const p = clamp(spring(t - tDraw, 2 * Math.PI * 0.95));
+      if (p > 0.001) {
+        ctx.beginPath(); ctx.moveTo(x0, y); ctx.lineTo(lerp(x0, x1, p), y);
+        ctx.lineWidth = 3; ctx.lineCap = 'round'; ctx.strokeStyle = C.amber; ctx.stroke();
+      }
+      const days = ['Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt', 'Paz'];
+      days.forEach((d, i) => {
+        const x = lerp(x0, x1, i / 6);
+        const reached = p >= i / 6 - 1e-6 && p > 0.001;
+        const tHit = reached ? tDraw + 0.06 * i : Infinity; // düğüm, çizgi geçerken belirir
+        const k = reached ? spring(t - tHit, 2 * Math.PI * 2.2) : 0;
+        ctx.beginPath(); ctx.arc(x, y, 17, 0, Math.PI * 2);
+        ctx.fillStyle = '#FFFFFF'; ctx.fill();
+        ctx.lineWidth = 2; ctx.strokeStyle = reached ? mix(C.line, C.amber, clamp(k)) : C.line; ctx.stroke();
+        if (k > 0.001) { ctx.beginPath(); ctx.arc(x, y, 6 * k, 0, Math.PI * 2); ctx.fillStyle = C.amber; ctx.fill(); }
+        text(d, x, y + 48, { size: 19, color: i === 6 && t >= T(3, 3) ? C.text : C.text2, align: 'center', weight: i === 6 && t >= T(3, 3) ? 600 : 500 });
+      });
+      text('Takviye edici gıdalar günlük beslenmenin yerine geçemez.', 0, 196, { size: 18, color: C.muted, align: 'center' });
+    },
+
+    pills(t) {
+      const labels = ['Vegan Uygun', 'Glütensiz', 'Koruyucusuz'];
+      const segW = 1000 / 3;
+      labels.forEach((lab, i) => {
+        const cx = -500 + segW * (i + 0.5);
+        if (i > 0) { ctx.beginPath(); ctx.moveTo(-500 + segW * i, -32); ctx.lineTo(-500 + segW * i, 32); ctx.lineWidth = 1; ctx.strokeStyle = C.line; ctx.stroke(); }
+        const tc = T(4, 2) + i * 0.14;
+        const k = spring(t - tc, 2 * Math.PI * 2.0);
+        const ix = cx - 92;
+        ctx.beginPath(); ctx.arc(ix, 0, 18, 0, Math.PI * 2);
+        ctx.fillStyle = mix('#FFFFFF', C.amberTint, clamp(k)); ctx.fill();
+        ctx.lineWidth = 1.5; ctx.strokeStyle = mix(C.line, C.amber, clamp(k)); ctx.stroke();
+        tick(ix, 0.5, 1.05, k, C.amber, 3);
+        text(lab, ix + 34, 1, { size: 27, weight: 600 });
+      });
+    },
+
+    button(t) {
+      ctx.fillStyle = C.amber; ctx.beginPath(); ctx.arc(-268, 0, 22, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.moveTo(-276, 0); ctx.lineTo(-260, 0); ctx.moveTo(-268, -8); ctx.lineTo(-268, 8);
+      ctx.lineWidth = 3; ctx.lineCap = 'round'; ctx.strokeStyle = '#FFFFFF'; ctx.stroke();
+      text('Günlük Rutine Ekle', -228, 1, { size: 30, weight: 600, color: '#FFFFFF' });
+      text('60 Tablet', 290, 1, { size: 22, color: C.muted, align: 'right' });
+    },
+
+    toast() {
+      ctx.fillStyle = C.amber; ctx.beginPath(); ctx.arc(-172, 0, 17, 0, Math.PI * 2); ctx.fill();
+      tick(-172, 0.5, 0.95, 1, '#FFFFFF', 3);
+      text('Günlük rutine eklendi', -140, 1, { size: 26, weight: 550, color: '#FFFFFF' });
+    },
+
+    toastUp() { /* içerik yok: toast yukarı süzülürken çözülür */ },
+  };
+
+  // ---------- Frame ----------
+  function draw(t) {
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.globalAlpha = 1; ctx.filter = 'none';
+    ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, H);
+
+    // zorunlu uyarı (MASTER_CONTEXT §6 — her reklam/videoda)
+    text('Takviye edici gıdadır. Hastalıkların önlenmesi veya tedavi edilmesi amacıyla kullanılmaz.', CX, H - 46, { size: 19, color: C.text2, align: 'center' });
+
+    const w = card.w(t), h = card.h(t), r = card.r(t), cy = card.cy(t);
+    const fill = rgb(card.fr(t), card.fg(t), card.fb(t));
+    const lum = (card.fr(t) + card.fg(t) + card.fb(t)) / (3 * 255);
+
+    // tıklama itmesi + hover tonlaması
+    let scale = 1;
+    scale -= 0.035 * impulse(t - CLICKS[0]);
+    scale -= 0.045 * impulse(t - CLICKS[1]);
+    const ctaHover = clamp(spring(t - 0.72, 2 * Math.PI * 2) - spring(t - T(1, 3), 2 * Math.PI * 2));
+    const btnHover = clamp(spring(t - 7.22, 2 * Math.PI * 2) - spring(t - T(5, 1), 2 * Math.PI * 2));
+
+    ctx.save();
+    ctx.translate(CX, cy); ctx.scale(scale, scale);
+
+    // kart: yumuşak gölge + hairline
+    ctx.save();
+    ctx.shadowColor = 'rgba(0,0,0,0.06)'; ctx.shadowBlur = 40; ctx.shadowOffsetY = 14;
+    rr(-w / 2, -h / 2, w, h, r); ctx.fillStyle = fill; ctx.fill();
+    ctx.restore();
+    if (ctaHover > 0.001) { rr(-w / 2, -h / 2, w, h, r); ctx.fillStyle = `rgba(180,83,9,${0.55 * ctaHover})`; ctx.fill(); }
+    if (btnHover > 0.001) { rr(-w / 2, -h / 2, w, h, r); ctx.fillStyle = `rgba(68,64,60,${0.45 * btnHover})`; ctx.fill(); }
+    rr(-w / 2 + 0.5, -h / 2 + 0.5, w - 1, h - 1, r);
+    ctx.lineWidth = 1; ctx.strokeStyle = `rgba(232,229,223,${clamp((lum - 0.5) * 2)})`; ctx.stroke();
+
+    // içerik: kart içine kırpılır, durum değişiminde bulanık-sönük geçiş
+    ctx.save();
+    rr(-w / 2, -h / 2, w, h, r); ctx.clip();
+    STATES.forEach((s, i) => {
+      const a = contentAlpha(i, t);
+      withAlpha(a, (1 - a) * 10, () => CONTENT[s.id](t));
+    });
+    ctx.restore();
+    ctx.restore();
+
+    // tooltip (kartın üstünde yüzer; kırpılmaz)
+    const tipIn = spring(t - T(3, 3), 2 * Math.PI * 2.1);
+    const tipOut = smooth(T(3, 4), T(3, 4) + 0.22, t);
+    const tip = clamp(tipIn) * (1 - tipOut);
+    if (tip > 0.002) {
+      const nx = CX + 470 * scale, ny = cy + 44 * scale;
+      ctx.save();
+      ctx.globalAlpha = tip;
+      ctx.translate(nx, ny - 40); ctx.scale(0.92 + 0.08 * tipIn, 0.92 + 0.08 * tipIn);
+      ctx.save(); ctx.shadowColor = 'rgba(0,0,0,0.06)'; ctx.shadowBlur = 18; ctx.shadowOffsetY = 6;
+      rr(-128, -66, 256, 54, 14); ctx.fillStyle = C.ink; ctx.fill(); ctx.restore();
+      ctx.beginPath(); ctx.moveTo(-8, -12); ctx.lineTo(8, -12); ctx.lineTo(0, -3); ctx.closePath(); ctx.fillStyle = C.ink; ctx.fill();
+      text('Her gün 1 tablet', 0, -38, { size: 21, weight: 600, color: '#FFFFFF', align: 'center' });
+      ctx.restore();
+    }
+
+    drawCursor(t);
+  }
+
+  function drawCursor(t) {
+    const x = cur.x(t), y = cur.y(t);
+    // tıklama halkası
+    CLICKS.forEach(tc => {
+      const tau = t - tc;
+      if (tau < 0 || tau > 0.55) return;
+      const k = spring(tau, 2 * Math.PI * 2.4);
+      ctx.beginPath(); ctx.arc(x, y, 8 + 34 * k, 0, Math.PI * 2);
+      ctx.lineWidth = 2; ctx.strokeStyle = `rgba(217,119,6,${0.45 * Math.pow(1 - tau / 0.55, 2)})`; ctx.stroke();
+    });
+    const press = CLICKS.reduce((s, tc) => s + impulse(t - tc), 0);
+    const sc = 1.5 * (1 - 0.14 * press);
+    ctx.save();
+    ctx.translate(x, y); ctx.scale(sc, sc);
+    ctx.shadowColor = 'rgba(0,0,0,0.10)'; ctx.shadowBlur = 6; ctx.shadowOffsetY = 2;
+    ctx.beginPath();
+    ctx.moveTo(0, 0); ctx.lineTo(0, 24); ctx.lineTo(6, 18.5); ctx.lineTo(10.2, 27.6); ctx.lineTo(13.9, 25.9);
+    ctx.lineTo(9.8, 17); ctx.lineTo(17.6, 17); ctx.closePath();
+    ctx.fillStyle = C.ink; ctx.fill();
+    ctx.shadowColor = 'transparent';
+    ctx.lineWidth = 1.6; ctx.lineJoin = 'round'; ctx.strokeStyle = '#FFFFFF'; ctx.stroke();
+    ctx.restore();
+  }
+
+  // ---------- Public API ----------
+  function norm(t) {
+    t = Number(t) || 0;
+    t = ((t % LOOP) + LOOP) % LOOP; // 16.0 ≡ 0.0
+    return t;
+  }
+  window.seek = (t) => { draw(norm(t)); return norm(t); };
+  window.FILM = { duration: LOOP, fps: 60, bpm: 120 };
+
+  // Önizleme: kaydırıcı ile zamanda gezinme (zamanlayıcı yok). ?capture → UI gizli, 1920×1080
+  if (new URLSearchParams(location.search).has('capture')) document.body.classList.add('capture');
+  const scrub = document.getElementById('scrub'), lab = document.getElementById('tlabel');
+  scrub.addEventListener('input', () => { const t = window.seek(parseFloat(scrub.value)); lab.textContent = t.toFixed(3) + ' s'; });
+  window.seek(0);
+})();
+</script>
+</body>
+</html>

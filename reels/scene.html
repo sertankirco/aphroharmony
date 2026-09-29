@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="tr"><head><meta charset="utf-8">
+<!-- local fonts: rendering never depends on the network -->
+<link rel="stylesheet" href="node_modules/@fontsource/inter-tight/500.css">
+<link rel="stylesheet" href="node_modules/@fontsource/inter-tight/700.css">
+<link rel="stylesheet" href="node_modules/@fontsource/inter-tight/800.css">
+<link rel="stylesheet" href="node_modules/@fontsource/inter-tight/900.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden}
+#stage{position:relative;width:1080px;height:1920px;overflow:hidden;font-family:'Inter Tight',sans-serif;-webkit-font-smoothing:antialiased}
+.abs{position:absolute}
+#key{inset:0}
+#floor{left:0;width:1080px}
+#num{left:0;width:1080px;text-align:center;font-weight:900;font-size:1150px;line-height:1;letter-spacing:-40px}
+#occl{border-radius:50%;filter:blur(6px)}
+.bw{position:absolute}
+.bw img{position:absolute;inset:0;width:100%;height:100%}
+.shadowImg{filter:brightness(0) blur(18px)}
+#sweep{position:absolute;inset:0;overflow:hidden;mix-blend-mode:screen;-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+#bar{position:absolute;top:-25%;left:0;width:90px;height:150%;background:linear-gradient(90deg,transparent,rgba(255,248,235,.7),transparent);filter:blur(9px)}
+.txt{left:90px;white-space:nowrap;font-weight:800;letter-spacing:-3px;transform-origin:left bottom}
+#counter{left:90px;font-weight:700;font-size:30px;letter-spacing:8px}
+#cta{left:90px;top:300px;height:120px;padding:0 60px;border-radius:60px;display:flex;align-items:center;font-weight:700;font-size:56px;letter-spacing:-1px;transform-origin:left center}
+#legal{left:90px;top:470px;width:810px;font-weight:500;font-size:40px;line-height:54px}
+#wipe{left:0;width:1080px;height:1920px}
+#qc{left:0;top:0;width:1080px;height:1920px;pointer-events:none;display:none}
+#qc .g{position:absolute;border:0 dashed rgba(230,40,40,.8)}
+#qcT{position:absolute;left:24px;top:24px;padding:6px 14px;background:rgba(0,0,0,.75);color:#ff7b7b;font:700 34px 'Inter Tight',sans-serif}
+</style></head>
+<body><div id="stage">
+  <div id="key" class="abs"></div>
+  <div id="floor" class="abs"></div>
+  <div id="num" class="abs"></div>
+  <div id="occl" class="abs"></div>
+  <div id="bottle" class="bw"><img class="shadowImg" id="shadowImg"><img id="lit"><div id="sweep"><div id="bar"></div></div></div>
+  <div id="slices"></div>
+  <div id="counter" class="abs"></div>
+  <div id="l1" class="abs txt"></div>
+  <div id="l2" class="abs txt"></div>
+  <div id="cta" class="abs"></div>
+  <div id="legal" class="abs"></div>
+  <div id="wipe" class="abs"></div>
+  <div id="qc" class="abs"><div class="g" style="left:90px;top:0;height:1920px;border-left-width:2px"></div>
+    <div class="g" style="left:900px;top:0;height:1920px;border-left-width:2px"></div>
+    <div class="g" style="top:250px;left:0;width:1080px;border-top-width:2px"></div>
+    <div class="g" style="top:1500px;left:0;width:1080px;border-top-width:2px"></div><div id="qcT"></div></div>
+</div>
+<script>
+const $=s=>document.querySelector(s);
+const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const seg=(t,a,b)=>cl((t-a)/(b-a));
+const expo=x=>x>=1?1:1-Math.pow(2,-10*x);            // snappy ease-out
+const eio=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const lerp=(a,b,x)=>a+(b-a)*x;
+let C,B,BR,QC=false;
+
+// ---------------- choreography, all in beats (1 beat = 60/bpm s) ----------------
+// bottle moves: [beat, x, baseY, scale, duration(s), ease]
+const MOVES=[[0,540,1400,1,0],[8,360,1400,1,.3],[10,720,1400,1,.3],[12,540,1420,1,0],
+  [14,500,1420,1,.25],[16,580,1420,1,.25],[18,500,1420,1,.25],[20,540,1420,1,.3],[20.6,540,1420,1.06,1.6,'io'],
+  [24,540,1420,1,0],[28,610,1420,1,.3],[32,540,1400,1,0],[36,540,1440,.97,.6,'io'],[37.2,556,1440,1,4.2,'io']];
+const POPS=[[0,.12],[4,.1],[12,.05],[24,.05],[32,.1]];        // slams on section downbeats
+const BOUNCE_UNTIL=36;                                         // tiny pulse on every beat before the legal outro
+const WIPES=[[12,'gold'],[24,'gold'],[32,'navy']];             // full-screen cover exactly on the beat
+const SWEEPS=[4,20,32];                                         // light sweep across the bottle
+const SLICE=[6,6.8];                                            // 3-strip slice between these beats
+// text cues: [el, text, fromBeat, toBeat, size]
+function cues(){const k=C.copy;return [
+  ['l1',k.hook.b1,1,2,124],['l1',k.hook.b3,3,4,124],
+  ['l1',k.category[0],8,11.5,110],['l2',k.category[1],9,11.5,110],
+  ['l1',k.recap[0],20,24,110],['l2',k.recap[1],21,24,110],
+  ['l1',k.usage[0],24,28,124],['l2',k.usage[2],26,28,124],
+  ['l1',k.age[0],28,32,80],['l2',k.age[1],29,32,80]];}
+function numCues(){const k=C.copy;return [[k.hook.b0,0,2,0],[k.hook.b2,2,4,270],[k.usage[1],25,28,270]]}
+
+function bottleAt(t){
+  const b=t/B;let cur={x:MOVES[0][1],y:MOVES[0][2],s:MOVES[0][3]};
+  for(const [bt,x,y,s,d,e] of MOVES){const t0=bt*B;if(t<t0)break;const prev={...cur};
+    const k=d?(e==='io'?eio:expo)(seg(t,t0,t0+d)):1;cur={x:lerp(prev.x,x,k),y:lerp(prev.y,y,k),s:lerp(prev.s,s,k)};}
+  let pop=0;for(const [bt,a] of POPS){const dt=t-bt*B;if(dt>=0&&dt<.6)pop+=a*(1-expo(dt/.25))}
+  let bounce=0;if(b<BOUNCE_UNTIL){const dt=t-Math.floor(b)*B;bounce=.012*Math.exp(-dt*14)}
+  return {x:cur.x,y:cur.y,s:cur.s*(1+pop+bounce)};
+}
+
+async function cutout(src){
+  const img=new Image();img.src=src;await img.decode();
+  const w=img.naturalWidth,h=img.naturalHeight,c=document.createElement('canvas');c.width=w;c.height=h;
+  const x=c.getContext('2d');x.drawImage(img,0,0);const d=x.getImageData(0,0,w,h),p=d.data;
+  const lum=i=>.299*p[i]+.587*p[i+1]+.114*p[i+2];
+  const sat=i=>Math.max(p[i],p[i+1],p[i+2])-Math.min(p[i],p[i+1],p[i+2]);
+  const bg=new Uint8Array(w*h),st=[];
+  const ok=k=>{const i=k*4;return lum(i)>105&&sat(i)<34};
+  for(let X=0;X<w;X++){st.push(X,(h-1)*w+X)}for(let Y=0;Y<h;Y++){st.push(Y*w,Y*w+w-1)}
+  while(st.length){const k=st.pop();if(bg[k]||!ok(k))continue;bg[k]=1;const X=k%w,Y=(k/w)|0;
+    if(X>0)st.push(k-1);if(X<w-1)st.push(k+1);if(Y>0)st.push(k-w);if(Y<h-1)st.push(k+w);}
+  const a=new Float32Array(w*h);
+  for(let k=0;k<w*h;k++){if(bg[k]){a[k]=0;continue}
+    const X=k%w,Y=(k/w)|0;let edge=false;
+    for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++){const xx=X+dx,yy=Y+dy;if(xx>=0&&yy>=0&&xx<w&&yy<h&&bg[yy*w+xx])edge=true}
+    a[k]=edge?cl((255-lum(k*4))/90,0.25,1):1;}
+  {const b=new Float32Array(w*h);for(let Y=0;Y<h;Y++)for(let X=0;X<w;X++){let s=0,n=0;for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++){const xx=X+dx,yy=Y+dy;if(xx>=0&&yy>=0&&xx<w&&yy<h){s+=a[yy*w+xx];n++}}b[Y*w+X]=Math.min(a[Y*w+X],s/n+.15)}a.set(b)}
+  for(let k=0;k<w*h;k++)p[k*4+3]=Math.round(a[k]*255);
+  x.putImageData(d,0,0);
+  let x0=w,x1=0,y0=h,y1=0;for(let k=0;k<w*h;k++)if(a[k]>.5){const X=k%w,Y=(k/w)|0;x0=Math.min(x0,X);x1=Math.max(x1,X);y0=Math.min(y0,Y);y1=Math.max(y1,Y)}
+  const o=document.createElement('canvas');o.width=x1-x0+1;o.height=y1-y0+1;o.getContext('2d').drawImage(c,x0,y0,o.width,o.height,0,0,o.width,o.height);
+  return {url:o.toDataURL('image/png'),w:o.width,h:o.height};
+}
+
+window.init=async(cfg,productUrl,qc)=>{
+  C=cfg;B=60/C.bpm;QC=!!qc;const k=C.colors;
+  $('#stage').style.background=k.cream;document.body.style.background=k.cream;
+  $('#key').style.background='radial-gradient(70% 45% at 30% 30%,rgba(255,255,255,.55),transparent 70%)';
+  $('#num').style.color=k.gold;
+  ['#l1','#l2'].forEach(s=>$(s).style.color=k.navy);$('#counter').style.color=k.gold;
+  $('#cta').textContent=C.copy.cta;$('#cta').style.background=k.navy;$('#cta').style.color=k.cream;
+  $('#legal').textContent=C.copy.legal;$('#legal').style.color=k.ink;
+  $('#occl').style.background='radial-gradient(closest-side,rgba(40,28,15,.55),rgba(40,28,15,.2) 60%,transparent)';
+  const b=await cutout(productUrl);BR=b.w/b.h;
+  for(const id of ['#shadowImg','#lit']){$(id).src=b.url;await $(id).decode()}
+  $('#sweep').style.webkitMaskImage=`url(${b.url})`;$('#sweep').style.maskImage=`url(${b.url})`;
+  // three vertical strips of the same bottle for the slice beat
+  $('#slices').innerHTML=[0,1,2].map(i=>`<div class="bw sl"><img src="${b.url}" style="clip-path:inset(0 ${(2-i)*33.34}% 0 ${i*33.33}%)"></div>`).join('');
+  if(QC)$('#qc').style.display='block';
+  await document.fonts.ready;
+  return {cropW:b.w,cropH:b.h,BR};
+};
+
+function place(el,x,y,w,h){Object.assign(el.style,{left:x+'px',top:y+'px',width:w+'px',height:h+'px'})}
+
+window.render=t=>{
+  const k=C.colors,b=t/B,P=bottleAt(t),W=C.product.bottleWidth*P.s,H=W/BR,top=P.y-H,left=P.x-W/2;
+  // floor: soft studio cove, horizon just behind the base
+  Object.assign($('#floor').style,{top:(P.y-70)+'px',height:(1920-P.y+70)+'px',background:`linear-gradient(180deg,rgba(228,218,201,0) 0,${k.creamDeep} 110px,#d6c9b3 100%)`});
+  place($('#bottle'),left,top,W,H);
+  $('#shadowImg').style.transform='translate(24px,-4px)';$('#shadowImg').style.opacity=.22;
+  place($('#occl'),P.x-W*.55,P.y-15,W*1.1,32);
+  // light sweeps
+  let sw=0;for(const s of SWEEPS){const t0=s*B;if(t>=t0&&t<=t0+.6)sw=eio(seg(t,t0,t0+.6))}
+  $('#bar').style.transform=`translateX(${lerp(-130,W+60,sw)}px) rotate(15deg)`;$('#sweep').style.opacity=sw>0&&sw<1?1:0;
+  // slice beat: bottle splits into three strips that snap back
+  const sl=b>=SLICE[0]&&b<SLICE[1];$('#bottle').style.visibility=sl?'hidden':'visible';
+  document.querySelectorAll('.sl').forEach((e,i)=>{e.style.display=sl?'block':'none';if(!sl)return;
+    const d=[-70,55,-35][i]*(1-expo(seg(t,SLICE[0]*B+.05,SLICE[0]*B+.35)));place(e,left,top+d,W,H)});
+  // giant numeral behind the bottle
+  const nc=numCues().find(([,a,z])=>b>=a&&b<z),num=$('#num');
+  if(nc){num.textContent=nc[0];const a=expo((t-nc[1]*B)/.18);num.style.opacity=1;
+    num.style.top=(P.y-H-160)+'px';num.style.transform=`translateX(${P.x-540+nc[3]}px) scale(${lerp(1.25,1,a)})`;}
+  else num.style.opacity=0;
+  // text lines: slam in on the beat, cut out on the next cue
+  const lh={124:128,110:116,80:92};
+  ['l1','l2'].forEach(id=>{const el=$('#'+id),c=cues().find(q=>q[0]===id&&b>=q[2]&&b<q[3]);
+    if(!c){el.style.opacity=0;return}
+    const a=expo((t-c[2]*B)/.16);el.textContent=c[1];el.style.fontSize=c[4]+'px';el.style.lineHeight=lh[c[4]]+'px';
+    el.style.top=(id==='l1'?300:300+lh[c[4]])+'px';el.style.opacity=a;el.style.transform=`translateY(${(1-a)*34}px) scale(${lerp(1.06,1,a)})`;});
+  // ingredients: one name per beat, same simple slam for all
+  const I=C.copy.ingredients,ib=Math.floor(b-12),ing=$('#l1');
+  if(b>=12&&b<12+I.length){const a=expo((t-(12+ib)*B)/.14);ing.textContent=I[ib];ing.style.fontSize='112px';ing.style.lineHeight='120px';
+    ing.style.top='330px';ing.style.opacity=a;ing.style.transform=`translateY(${(1-a)*30}px) scale(${lerp(1.05,1,a)})`;
+    $('#counter').textContent=`${String(ib+1).padStart(2,'0')} / ${String(I.length).padStart(2,'0')}`;$('#counter').style.top='280px';$('#counter').style.opacity=1;}
+  else $('#counter').style.opacity=0;
+  // CTA pill and legal text
+  { const a=expo((t-33*B)/.2);$('#cta').style.opacity=b>=33?a:0;$('#cta').style.transform=`scale(${lerp(.85,1,a)})`; }
+  { const a=eio(seg(t,36.2*B,36.2*B+.35));$('#legal').style.opacity=a;$('#legal').style.transform=`translateY(${(1-a)*16}px)`; }
+  // wipes: panel fully covers the frame exactly on the beat
+  let wv=null;for(const [wb,c] of WIPES){const t0=wb*B;if(t>=t0-.22&&t<t0+.22){const u=t<t0?1-expo(seg(t,t0-.22,t0)):-expo(seg(t,t0,t0+.22));wv={y:u*1920,c}}}
+  if(wv){$('#wipe').style.display='block';$('#wipe').style.background=k[wv.c];$('#wipe').style.transform=`translateY(${wv.y}px)`}else $('#wipe').style.display='none';
+  if(QC)$('#qcT').textContent='t='+t.toFixed(2)+'  b'+b.toFixed(1);
+};
+
+// QC helper: visible text that leaves the safe area
+window.overflow=()=>{
+  const s=C.safe,out=[];
+  document.querySelectorAll('.txt,#cta,#legal,#counter').forEach(el=>{
+    if(+el.style.opacity<.05)return;
+    const rng=document.createRange();rng.selectNodeContents(el);const r=rng.getBoundingClientRect();
+    if(r.width===0)return;
+    if(r.left<s.left-1||r.right>s.right+1||r.top<s.top-1||r.bottom>s.bottom+1)
+      out.push(`${el.id}: ${Math.round(r.left)}-${Math.round(r.right)} x, ${Math.round(r.top)}-${Math.round(r.bottom)} y`);
+  });
+  return out;
+};
+</script>
+</body></html>

@@ -1,0 +1,30 @@
+# Video ve Medya Dosyaları
+*.mp4
+*.mov
+*.avi
+*.mkv
+
+# Python Cache
+__pycache__/
+*.pyc
+
+# Log ve Cache
+*.log
+.cache/
+node_modules/
+
+# Ortam Değişkenleri
+.env
+.env.local
+
+# İşletim Sistemi Dosyaları
+.DS_Store
+Thumbs.db
+
+# Kişisel/çok projeli hafıza dökümü (memanto) — herkese açık repoya girmemeli
+MEMORY.md
+
+# Render ara çıktıları
+reels/out/
+brag-output*/work/
+*.wav

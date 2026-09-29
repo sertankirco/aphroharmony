@@ -1,0 +1,15 @@
+{
+  "name": "aphroharmony-reels",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "APHROHARMONY Reels: automatic 22 s vertical video from aphroharmonyproduct.png",
+  "scripts": {
+    "qc": "node build.mjs --qc",
+    "build": "node build.mjs"
+  },
+  "dependencies": {
+    "@fontsource/inter-tight": "5.2.5",
+    "playwright-core": "1.63.0"
+  }
+}

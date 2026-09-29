@@ -1,0 +1,121 @@
+# AphroHarmony (Novacolin) — Landing Page & Reklam Projesi
+
+**Ürün:** AphroHarmony 30/60 Tablet (Novacolin marka, üretici kod: NOVAPRO)
+**Site:** https://pharmacolin.com/aphroharmony-30-tablet
+**Kategori:** Takviye edici gıda (Tarım ve Orman Bakanlığı onaylı, Türk Gıda Kodeksi Takviye Edici Gıdalar Yönetmeliği'ne tabi)
+
+---
+
+## 1. Ürün Bilgileri (Doğrulanmış)
+
+### İçindekiler (kullanıcı tarafından paylaşıldı)
+- L-Arjinin
+- Demir dikeni (Tribulus terrestris) ekstresi
+- Epimedium (Azgın çiçek otu) ekstresi
+- Lepidyum (Maca kökü) ekstresi
+- Cüce palmiye ekstresi
+- Ginkgo Biloba ekstresi
+- E vitamini ve Çinko
+
+### Kullanım Önerisi (web'den doğrulandı — bayi sitesi Hüma Medikal üzerinden)
+> 18 yaş ve üzeri yetişkinler için günde 1 tablet tüketilmesi tavsiye edilir.
+
+### Uyarılar (web'den doğrulandı)
+> Tavsiye edilen günlük porsiyonu aşmayın. Takviye edici gıdalar (TEG) günlük beslenmenin yerine geçemez. Çocukların ulaşamayacağı yerde saklayın. Hamilelik ve emzirme dönemiyle, hastalık veya ilaç kullanılması durumlarında doktorunuza danışınız. Hastalıkların önlenmesi veya tedavi edilmesi amacıyla kullanılmaz. Ek bilgi: Şeker, tuz, nişasta içermez. Maya, buğday, glüten, soya ve süt ürünleri gibi potansiyel alerjenleri içermez. Aroma, renklendirici, tatlandırıcı ve koruyucu içermez. Vegan ve vejetaryen bireylerin kullanımına uygundur.
+
+### Doğrulanamayan / Eksik Bilgi
+- "DİĞER İÇERİKLER" (yardımcı maddeler/dolgu maddeleri) metni görülemedi
+- Bileşenlerin tekil dozajları (mg cinsinden) görülemedi
+- Gıda takviyesi onay numarası görülemedi
+- Mevcut pazarlama/açıklama metni (varsa) görülemedi — sayfa JS sekmelerinde yükleniyor, otomatik erişimle çekilemedi
+
+---
+
+## 2. Mevcut Sayfa — Tespit Edilen Sorunlar
+
+| Sorun | Önem | Not |
+|---|---|---|
+| Meta description / og:description tamamen alakasız bir ürünü (Novacolin Lipozomal Demir) tanımlıyor | Yüksek | SEO ve olası yanıltıcılık riski — ilk düzeltilmesi gereken teknik hata |
+| Title/H1 "60 Tablet" derken URL/breadcrumb "30 tablet" diyor | Orta | Adet tutarsızlığı — hangisi doğruysa ona göre birleştirilmeli |
+| SSS bölümünde 6 soru var, cevaplar görünmüyor | Orta | JS render sorunu olabilir ama gerçekten boşsa doldurulmalı |
+| Ürün adı "AphroHarmony" + olası "cinsel sağlığı desteklediği bilinen" tarzı ifadeler | Yüksek | Türk Gıda Kodeksi'nde onaylı sağlık beyanı listesi dışına çıkan cinsel performans/afrodizyak iddiaları yasak. Kullanıcının paylaştığı taslak metinde bu ifade net şekilde tespit edildi ve kaldırılması önerildi. |
+| Yorumlar bölümü boş | Düşük | Sosyal kanıt eksikliği, dönüşümü etkiler |
+
+---
+
+## 3. Konumlandırma & Mesaj Stratejisi
+
+**Çekirdek yaklaşım:** Ürünü "cinsel sağlık ürünü" değil, **enerji / zindelik / özgüven** kategorisinde konumlandır. Bileşenler zaten hedef kitlenin neden aradığını ima ediyor — doğrudan iddia gerekmiyor.
+
+**Mesaj hiyerarşisi:**
+1. Neden önemsemeli? → Yoğun tempo, stres, yorgunluk → düşük enerji/özgüven
+2. Çözüm ne? → Bitkisel ekstreler + mineral desteğiyle formüle edilmiş günlük takviye
+3. Neden bu ürün? → Bakanlık onaylı, doğal içerik, alerjen içermez, vegan uyumlu
+4. Ne yapmalı? → Sipariş / düzenli kullanıma başla
+
+**Kaçınılacak kelimeler:** cinsel sağlık, libido, performans (cinsel bağlamda), afrodizyak, ereksiyon, cinsel güç
+**Kullanılabilir kelimeler:** enerji, dinçlik, zindelik, dayanıklılık, özgüven, canlılık, günlük performans (spor/iş bağlamında)
+
+---
+
+## 4. Hedef Kitle
+
+- **Birincil:** 25-50 yaş arası erkekler, aktif yaşam tarzı veya yoğun iş temposu olan, genel enerji/zindelik takviyesi arayan
+- **Motivasyon:** Yorgunluk, düşük enerji, "eskisi gibi hissetmeme" — dolaylı olarak cinsel özgüvenle bağlantılı ama reklamda asla açıkça belirtilmiyor
+- **Satın alma aşaması:** Farkındalık düşük, çözüm arıyor → reklam önce durumu adlandırıp sonra çözümü sunmalı
+
+---
+
+## 5. Landing Page Stratejisi (Yapı)
+
+1. **Hero** — Güçlü görsel + tek cümlelik vaat ("Günlük enerjini ve zindeliğini desteklemek için doğal formül") + CTA
+2. **Sorun/Empati bloğu** — Yoğun tempo, stres, yorgunluk hissini adlandır (iddia içermeden)
+3. **Bileşenler bloğu** — Her bileşen ayrı kart, kısa ve onaylı ifadelerle; "geleneksel olarak kullanılır" tarzı tarihsel çerçeveleme, bilimsel iddia değil
+4. **Kullanım & güven unsurları** — Bakanlık onayı, alerjen bilgisi, vegan/vejetaryen uygunluk
+5. **Sosyal kanıt** — Yorum/puan alanı (şu an boş, doldurulmalı)
+6. **SSS** — Mevcut başlıklar var, cevaplar eklenmeli
+7. **Son CTA + aciliyet** — Stok/kargo unsurları
+
+**Teknik öncelik:** Meta açıklaması düzeltilmeden reklam trafiği yönlendirilmemeli.
+
+---
+
+## 6. Meta Reklam Stratejisi
+
+**Kampanya yapısı:**
+- Üst huni (Awareness/Traffic): Geniş kitle, enerji/zindelik temalı video/karusel — problem odaklı
+- Alt huni (Conversion): Landing page ziyaretçilerini retarget eden ürün odaklı reklam
+
+**Kreatif varyantlar (test edilecek):**
+1. Bileşen odaklı — "6 doğal bileşen, tek tablet"
+2. Yaşam tarzı odaklı — aktif/enerjik gün görseli, ürün ikincil planda
+3. Güven odaklı — Bakanlık onayı, alerjen-free, vegan rozetleri öne çıkan tasarım
+
+**Meta politika riskleri:**
+- Kişisel Sağlık politikası: kullanıcıda "eksiklik" ima eden ikinci tekil şahıs ifadelerinden kaçının ("Sen de mi enerjin düşük?" → "Güne enerjik başlamak isteyenler için")
+- Hedeflemede sağlık/cinsel sağlık ilgi alanı kategorilerinden kaçının; geniş wellness/fitness kategorileri kullanın
+- Ürün adı "AphroHarmony" otomatik moderasyonda bayrak kaldırabilir — ilk testlerde küçük bütçeyle deneyin, gerekirse kreatifte marka adını (Pharmacolin/Novacolin) öne çıkarın
+
+---
+
+## 7. Risk & Önlem Tablosu
+
+| Risk | Önlem |
+|---|---|
+| Meta reklamı "cinsel sağlık" kategorisinde reddedilir | Kreatif ve metinde sadece enerji/zindelik çerçevesi, küçük bütçeyle test |
+| Reklam Kurulu mesnetsiz sağlık beyanı incelemesi | Tüm bileşen iddiaları onaylı beyan listesine sadık kalınarak yazılmalı |
+| Düşük dönüşüm (SSS boş, yorum yok) | SSS doldurulmalı, yorum toplama akışı kurulmalı |
+
+---
+
+## 8. Sonraki Adımlar (Henüz Yapılmadı)
+
+- [ ] Landing page tam metin taslağı (hero → CTA)
+- [ ] Meta reklam metinleri (3 kreatif varyantı için başlık + açıklama)
+- [ ] Meta description düzeltmesi (pharmacolin.com sitesinde teknik güncelleme)
+- [ ] SSS cevaplarının yazılması
+- [ ] Gerçek dozaj/DİĞER İÇERİKLER bilgisinin siteden/tedarikçiden teyit edilmesi
+
+---
+
+*Bu dosya, Claude ile yapılan bir marka/içerik inceleme görüşmesinin özetidir. Sonraki adımlarda kullanılacak araçlarda (Claude Code vb.) bağlam olarak referans alınabilir.*

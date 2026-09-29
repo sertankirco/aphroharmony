@@ -1,0 +1,10 @@
+import { chromium } from 'playwright-core';
+import path from 'node:path'; import { existsSync, readdirSync } from 'node:fs'; import { pathToFileURL } from 'node:url';
+const base = path.join(process.env.LOCALAPPDATA || '', 'ms-playwright');
+const d = readdirSync(base).filter(d => /^chromium-\d+$/.test(d)).sort().reverse()[0];
+const browser = await chromium.launch({ executablePath: path.join(base, d, 'chrome-win64', 'chrome.exe'), args: ['--allow-file-access-from-files'] });
+const page = await browser.newPage({ viewport: { width: 1200, height: 630 } });
+await page.goto(pathToFileURL(path.resolve('og/og.html')).href, { waitUntil: 'networkidle' });
+await page.evaluate(() => document.fonts.ready);
+await page.screenshot({ path: '../og-image.png' });
+await browser.close(); console.log('ok');

@@ -7,30 +7,29 @@
 ---
 
 ## [HERO]
-**Rozet:** Takviye Edici Gıda • Günde 1 Tablet
+**Üst satır (H1'in parçası):** AphroHarmony · Takviye Edici Gıda
 
-**Başlık:** Yoğun Günlerin Günlük Ritüeli.
+**Başlık (H1):** Günün Ritüeli.
 
-**Alt başlık:** AphroHarmony; bitkisel ekstreler, L-Arjinin, E vitamini ve çinko içeren, günde tek tablet kullanılan bir takviye edici gıdadır. Güne enerjik başlamak isteyenler için sade bir rutin.
+**Alt metin:** Bitkisel ekstreler, L-Arjinin, E vitamini ve çinko. Günde tek tablet; güne enerjik başlamak isteyenler için sade bir rutin.
 
-**CTA:** [ Paketleri İncele ] · [ İçinde Ne Var? ]
+**Sağ sütun:** 01 Günde Tek Tablet · 08 Bileşen · 12 İçermediği Madde
 
-**Güven satırı:** 8 Bileşen • Vegan & Vejetaryen Uygun • Gizli Paketleme
+**Bant:** 08 Bileşen (5 bitki ekstresi, L-Arjinin, E vitamini, çinko) · 0 Şeker · Glüten · Koruyucu · 18+ Yetişkinler İçin
 
 ---
 
-## [KİMLER İÇİN? — DURUM]
-**Başlık:** Tempo Yüksek, Rutin Sade.
-İş, spor ve günlük koşuşturma arasında kendine basit bir alışkanlık arayan yetişkinler için.
+## [GÜNÜN RİTMİ — KULLANIM]
+**Başlık:** Günün Ritmi. — Günde tek tablet; yoğun günlerin içine kolayca yerleşen bir alışkanlık.
 
-- **Yoğun İş Temposu:** Toplantılar, yollar, uzun mesailer. Güne enerjik başlamak isteyenler için günlük bir adım.
-- **Aktif Yaşam:** Spor ve hareketle geçen günlerde beslenme rutinini tamamlamak isteyenler için.
-- **Tek Tablet, Tek Adım:** Günde 1 tablet. Karmaşık programlar yok, günlük rutine kolayca eklenir.
+- **Sabah — Tek Tablet / Güne Başlarken:** 18 yaş ve üzeri yetişkinler için günde 1 tablet tüketilmesi tavsiye edilir. Tavsiye edilen günlük porsiyonu aşmayın.
+- **Gün Boyu — Yoğun Tempo / Sade Bir Rutin:** Toplantılar, yollar, antrenman. Karmaşık programlar yok; günlük rutine eklenen tek bir adım.
+- **Her Gün — Denge / Beslenmenin Yanında:** Takviye edici gıdalar günlük beslenmenin yerine geçemez; dengeli beslenmeyi tamamlayan bir alışkanlıktır.
 
 ---
 
 ## [İÇERİK]
-**Başlık:** 8 Bileşen.
+**Başlık:** Etikette Ne Var?
 5 bitki ekstresi, L-Arjinin, E vitamini ve çinko. Miktarlar için ürün etiketine bakınız.
 
 1. L-Arjinin
@@ -65,9 +64,9 @@ Tüm gönderiler, dışında ürün adı veya logo bulunmayan sade bir kutuyla g
 
 | Paket | İçerik | Fiyat | Koşul |
 |---|---|---|---|
-| Tanışma | 1 Kutu | 1.290 TL | Standart kargo, gizli paketleme |
-| **Denge Paketi** (En çok tercih edilen) | 2 Kutu | 2.190 TL (tek tek almaya göre %15 avantajlı) | Ücretsiz kargo, gizli paketleme |
-| Avantaj Paketi | 3 Kutu | 2.990 TL (en uygun birim fiyat) | Ücretsiz kargo, gizli paketleme |
+| Tanışma (I. Edisyon) | 1 Kutu | 1.290 TL | Standart kargo, gizli paketleme |
+| **Denge (II. Edisyon)** — En çok tercih edilen | 2 Kutu | 2.190 TL (tek tek almaya göre %15 avantajlı) | Ücretsiz kargo, gizli paketleme |
+| Avantaj (III. Edisyon) | 3 Kutu | 2.990 TL (en uygun birim fiyat) | Ücretsiz kargo, gizli paketleme |
 
 ---
 
@@ -81,7 +80,7 @@ Tüm gönderiler, dışında ürün adı veya logo bulunmayan sade bir kutuyla g
 ---
 
 ## [SİPARİŞ]
-**Başlık:** Siparişini Oluştur
+**Başlık:** Sipariş
 Formu doldurun; siparişinizi onaylamak için sizi arayalım.
 Alanlar: Ad Soyad · Telefon · Paket · Teslimat adresi · KVKK onayı (zorunlu)
 
@@ -104,3 +103,7 @@ Takviye edici gıdadır. Hastalıkların önlenmesi veya tedavi edilmesi amacıy
 | "Koşulsuz Memnuniyet Garantisi", "Aynı Gün VIP Kargo", "Batch #01", "Awwwards" | Kaynakta yok, uydurma (§4) |
 | "1 Aylık Tam Kür" | Adet 30/60 çelişkili (§5); "kür" tıbbi çağrışım |
 | "Eskisi kadar dinamik değilim" ve benzeri 2. tekil eksiklik imaları | §6 |
+| "Ginseng" (tasarım v2) | Ürün içeriğinde yok — olgusal hata |
+| "21:00 — Güç / Sarsılmaz Hakimiyet / bedensel özgüven" (tasarım v2) | Cinsel ima |
+| "%100 Biyoyararlanım, anında hücresel emilim", "beyne giden oksijeni optimize eder", "hücresel adaptasyon", "24s enerji", "Sarsılmaz Odak ∞" (tasarım v2) | Onaysız sağlık beyanı |
+| "0 Kimyasal Katkı / yalnızca topraktan gelenler", "faturasız lüks kutu" (tasarım v2) | Doğrulanamaz / yasal risk |

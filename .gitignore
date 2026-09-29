@@ -28,3 +28,6 @@ MEMORY.md
 reels/out/
 brag-output*/work/
 *.wav
+
+# Film render çıktıları
+film/out/

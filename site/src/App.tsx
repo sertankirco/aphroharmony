@@ -1,9 +1,9 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Botanical } from './components/Botanical';
 import { BottleAnchor } from './components/Bottle';
-import { ArrowIcon, BagIcon, InstagramIcon, LeafIcon, ShieldIcon, TabletIcon } from './components/Icons';
+import { ArrowIcon, BagIcon, CheckIcon, CopyIcon, InstagramIcon, LeafIcon, ShieldIcon, TabletIcon } from './components/Icons';
 import { Split } from './components/Split';
-import { ORDER_URL, initOrderTracking } from './lib/order';
+import { ORDER_URL, PROMO_CODE, PROMO_RATE, copyPromo, initOrderTracking } from './lib/order';
 
 const INSTAGRAM = 'https://www.instagram.com/alvione.official/';
 
@@ -39,9 +39,53 @@ const STEPS = [
   },
 ];
 
+/** Kampanya şeridi: tıklayınca kodu kopyalar ve Alvione'yi açar */
+function PromoBar() {
+  if (!PROMO_CODE) return null;
+  return (
+    <a
+      className="promo-bar"
+      href={ORDER_URL}
+      target="_blank"
+      rel="noopener"
+      data-track="kampanya-serit"
+      data-promo
+      aria-label={`${PROMO_CODE} koduyla ${PROMO_RATE} indirimli al. Kod kopyalanır, Alvione yeni sekmede açılır.`}
+    >
+      <span className="promo-code">{PROMO_CODE}</span>
+      <span>koduyla {PROMO_RATE} indirimli al</span>
+      <ArrowIcon className="h-3.5 w-3.5" />
+    </a>
+  );
+}
+
+/** Kod rozeti: tıklayınca panoya kopyalar */
+function PromoCode() {
+  const [copied, setCopied] = useState(false);
+  if (!PROMO_CODE) return null;
+  return (
+    <button
+      type="button"
+      className="btn-ghost promo-chip"
+      onClick={async () => {
+        if (await copyPromo()) {
+          setCopied(true);
+          setTimeout(() => setCopied(false), 1800);
+        }
+      }}
+      aria-label={`İndirim kodu ${PROMO_CODE}, kopyala`}
+    >
+      <span className="promo-code">{PROMO_CODE}</span>
+      {copied ? <CheckIcon className="h-4 w-4" /> : <CopyIcon className="h-4 w-4" />}
+      <span aria-live="polite">{copied ? 'Kopyalandı' : 'Kopyala'}</span>
+    </button>
+  );
+}
+
 function Nav() {
   return (
     <header className="fixed inset-x-0 top-0 z-30 bg-canvas/85 backdrop-blur-[2px]">
+      <PromoBar />
       <nav className="mx-auto grid max-w-[1440px] grid-cols-[1fr_auto_1fr] items-center gap-3 px-4 py-3 md:px-8" aria-label="Ana menü">
         <div className="flex gap-2">
           <a className="btn-ghost hidden md:inline-flex" href="#hikaye">Hikaye</a>
@@ -61,7 +105,7 @@ function Nav() {
 
 function Hero() {
   return (
-    <section id="hero" className="relative flex min-h-svh flex-col items-center overflow-hidden px-4 pt-24 text-center md:px-8 md:pt-28">
+    <section id="hero" className="relative flex min-h-svh flex-col items-center overflow-hidden px-4 pt-32 text-center md:px-8 md:pt-36">
       <Botanical />
       <p className="hero-fade t-caption relative z-10">NOVACOLIN · Takviye edici gıda · 60 tablet</p>
       <Split as="h1" text="DENGENİ BUL" className="hero-title t-display relative z-10 mt-4 md:mt-5" />
@@ -211,15 +255,30 @@ function Order() {
             sayfası yeni sekmede açılır. Sorularınız için Instagram'dan yazabilirsiniz.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
-            <a className="btn-fill" href={ORDER_URL} target="_blank" rel="noopener" data-track="siparis-bolumu">
-              <BagIcon className="h-[18px] w-[18px]" />
-              Sipariş ver
-              <ArrowIcon className="h-4 w-4" />
-            </a>
-            <a className="btn-ghost normal-case" href={INSTAGRAM} target="_blank" rel="noopener noreferrer">
-              <InstagramIcon className="h-4 w-4" /> @alvione.official
-            </a>
+            {PROMO_CODE ? (
+              <a className="btn-fill" href={ORDER_URL} target="_blank" rel="noopener" data-track="kampanya-siparis" data-promo>
+                <BagIcon className="h-[18px] w-[18px]" />
+                {PROMO_RATE} indirimli al
+                <ArrowIcon className="h-4 w-4" />
+              </a>
+            ) : (
+              <a className="btn-fill" href={ORDER_URL} target="_blank" rel="noopener" data-track="siparis-bolumu">
+                <BagIcon className="h-[18px] w-[18px]" />
+                Sipariş ver
+                <ArrowIcon className="h-4 w-4" />
+              </a>
+            )}
+            <PromoCode />
           </div>
+          {PROMO_CODE && (
+            <p className="t-small mt-4 max-w-[46ch] opacity-80">
+              {PROMO_CODE} kodu butona tıklayınca kopyalanır. Alvione sepetinde "Promosyon Kodu Kullan" alanına
+              yapıştırın; {PROMO_RATE} indirim uygulanır. Kampanya Alvione'de geçerlidir, süre sınırı yoktur.
+            </p>
+          )}
+          <a className="btn-ghost normal-case mt-6" href={INSTAGRAM} target="_blank" rel="noopener noreferrer">
+            <InstagramIcon className="h-4 w-4" /> Sorular için @alvione.official
+          </a>
         </div>
         <div className="flex justify-center">
           <BottleAnchor id="a-order" sizes="(max-width: 767px) 34vw, 24vh" className="h-[40svh] aspect-[709/1366] md:h-[50svh]" />
@@ -255,7 +314,7 @@ function FloatingActions() {
       <a className="icon-btn" href={INSTAGRAM} target="_blank" rel="noopener noreferrer" aria-label="Instagram: @alvione.official">
         <InstagramIcon />
       </a>
-      <a className="icon-btn" href={ORDER_URL} target="_blank" rel="noopener" data-track="yuzen-buton" aria-label="Sipariş ver (Alvione, yeni sekmede açılır)">
+      <a className="icon-btn" href={ORDER_URL} target="_blank" rel="noopener" data-track="yuzen-buton" data-promo={PROMO_CODE ? '' : undefined} aria-label={PROMO_CODE ? `${PROMO_RATE} indirimli al: ${PROMO_CODE} kodu kopyalanır, Alvione yeni sekmede açılır` : 'Sipariş ver (Alvione, yeni sekmede açılır)'}>
         <BagIcon />
       </a>
     </div>

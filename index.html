@@ -90,6 +90,14 @@
 
 <body class="font-sans antialiased selection:bg-brand-primary selection:text-white">
 
+    <!-- Kampanya Şeridi: tıklayınca SRTN kodu kopyalanır ve Alvione açılır -->
+    <a href="https://alvione.com.tr/novacolin-aphroharmony-60-tablet-alvione" target="_blank" rel="noopener"
+        data-track="kampanya-serit" data-promo
+        class="block bg-brand-accent text-brand-text text-xs font-semibold py-2 px-4 text-center tracking-wide hover:bg-brand-accent/90 transition-all">
+        <span class="inline-block px-2 py-0.5 mr-1 rounded-full border border-dashed border-brand-text font-bold tracking-widest">SRTN</span>
+        koduyla %5 indirimli al <span aria-hidden="true">→</span>
+    </a>
+
     <!-- Üst Bilgi Şeridi -->
     <div
         class="bg-brand-primary text-white text-[11px] font-medium py-2.5 px-4 text-center tracking-wide flex items-center justify-center gap-4">
@@ -148,9 +156,9 @@
                     </p>
 
                     <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2">
-                        <a href="https://alvione.com.tr/novacolin-aphroharmony-60-tablet-alvione" target="_blank" rel="noopener" data-track="hero"
+                        <a href="https://alvione.com.tr/novacolin-aphroharmony-60-tablet-alvione" target="_blank" rel="noopener" data-track="kampanya-hero" data-promo
                             class="px-8 py-4 rounded-xl bg-brand-primary text-white text-sm font-semibold tracking-wide text-center hover:bg-brand-primary/95 transition-all flex items-center justify-center gap-2">
-                            Sipariş Ver
+                            %5 İndirimli Al
                             <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
                         </a>
                         <a href="#bilesenler"
@@ -274,12 +282,21 @@
             <h2 class="font-serif text-3xl text-brand-text">Sipariş</h2>
             <p class="text-sm text-brand-muted leading-relaxed">AphroHarmony (60 tablet) siparişleri yetkili satış
                 noktamız Alvione üzerinden alınır. Güncel fiyat, kargo ve ödeme seçenekleri ürün sayfasında yer alır.</p>
-            <a href="https://alvione.com.tr/novacolin-aphroharmony-60-tablet-alvione" target="_blank" rel="noopener" data-track="siparis-bolumu"
-                class="inline-flex items-center justify-center gap-2 px-10 py-4 rounded-xl bg-brand-primary text-white text-sm font-semibold tracking-wide hover:bg-brand-primary/95 transition-all">
-                Sipariş Ver
-                <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
-            </a>
-            <p class="text-[11px] text-brand-muted">Bağlantı alvione.com.tr ürün sayfasını yeni sekmede açar.</p>
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3">
+                <a href="https://alvione.com.tr/novacolin-aphroharmony-60-tablet-alvione" target="_blank" rel="noopener" data-track="kampanya-siparis" data-promo
+                    class="inline-flex items-center justify-center gap-2 px-10 py-4 rounded-xl bg-brand-primary text-white text-sm font-semibold tracking-wide hover:bg-brand-primary/95 transition-all">
+                    %5 İndirimli Al
+                    <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                </a>
+                <button type="button" data-promo-copy aria-label="İndirim kodu SRTN, kopyala"
+                    class="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl border border-dashed border-brand-primary text-brand-primary text-sm font-semibold hover:bg-brand-subtle transition-all">
+                    <span class="font-bold tracking-widest">SRTN</span>
+                    <span data-promo-label aria-live="polite">Kodu kopyala</span>
+                </button>
+            </div>
+            <p class="text-[11px] text-brand-muted leading-relaxed">SRTN kodu butona tıklayınca kopyalanır. Alvione sepetinde
+                "Promosyon Kodu Kullan" alanına yapıştırın; %5 indirim uygulanır. Kampanya Alvione'de geçerlidir, süre sınırı
+                yoktur. Bağlantı alvione.com.tr ürün sayfasını yeni sekmede açar.</p>
         </div>
     </section>
 
@@ -312,6 +329,32 @@
         const lenis = new Lenis({ duration: 1.0, smoothWheel: true });
         function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
         requestAnimationFrame(raf);
+
+        // Kampanya: SRTN kodunu panoya kopyala (Alvione sepetinde yapıştırılır)
+        const PROMO_CODE = 'SRTN';
+        function copyPromo() {
+            if (navigator.clipboard && navigator.clipboard.writeText) return navigator.clipboard.writeText(PROMO_CODE).then(() => true, legacyCopy);
+            return Promise.resolve(legacyCopy());
+        }
+        function legacyCopy() {
+            try {
+                const t = document.createElement('textarea');
+                t.value = PROMO_CODE; t.setAttribute('readonly', ''); t.style.cssText = 'position:fixed;opacity:0';
+                document.body.appendChild(t); t.select();
+                const ok = document.execCommand('copy'); t.remove(); return ok;
+            } catch (e) { return false; }
+        }
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest) return;
+            if (e.target.closest('a[data-promo]')) copyPromo();
+            const btn = e.target.closest('[data-promo-copy]');
+            if (btn) copyPromo().then((ok) => {
+                if (!ok) return;
+                const label = btn.querySelector('[data-promo-label]');
+                label.textContent = 'Kopyalandı ✓';
+                setTimeout(() => { label.textContent = 'Kodu kopyala'; }, 1800);
+            });
+        });
 
         // Sipariş tıklama takibi → takip/tiklama-takip.gs (Google Sheets). Boşsa takip kapalı, linkler yine çalışır.
         const TRACK_ENDPOINT = '';

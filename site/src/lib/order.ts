@@ -4,6 +4,32 @@
 
 export const ORDER_URL = 'https://alvione.com.tr/novacolin-aphroharmony-60-tablet-alvione';
 
+/** Kampanya: Alvione'de tanımlı, süresiz %5 indirim kodu. Kampanya biterse PROMO_CODE'u '' yapın; şerit ve rozet kaybolur. */
+export const PROMO_CODE = 'SRTN';
+export const PROMO_RATE = '%5';
+
+/** Kodu panoya kopyalar (clipboard API yoksa eski yöntem). Başarılıysa true. */
+export async function copyPromo(): Promise<boolean> {
+  try {
+    await navigator.clipboard.writeText(PROMO_CODE);
+    return true;
+  } catch {
+    try {
+      const t = document.createElement('textarea');
+      t.value = PROMO_CODE;
+      t.setAttribute('readonly', '');
+      t.style.cssText = 'position:fixed;opacity:0';
+      document.body.appendChild(t);
+      t.select();
+      const ok = document.execCommand('copy');
+      t.remove();
+      return ok;
+    } catch {
+      return false;
+    }
+  }
+}
+
 /** Apps Script web uygulamasının /exec ile biten adresi. Boşsa takip kapalıdır, linkler yine çalışır. */
 export const TRACK_ENDPOINT = '';
 
@@ -74,6 +100,8 @@ export function initOrderTracking() {
   const onClick = (e: MouseEvent) => {
     const a = (e.target as Element | null)?.closest?.('a[data-track]');
     if (a) send('click', a.getAttribute('data-track') ?? '');
+    // Kampanya butonları Alvione'yi açarken kodu da kopyalar (sepette yapıştırılsın diye)
+    if (a?.hasAttribute('data-promo') && e.type === 'click') void copyPromo();
   };
   // auxclick: orta tık / yeni sekmede aç
   document.addEventListener('click', onClick, true);

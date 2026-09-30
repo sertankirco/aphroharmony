@@ -63,6 +63,7 @@ Buton / rozet / input / ikon kutusu tam hap (`9999px`); 6px radius sadece kartla
 ## Uyum
 
 - Sipariş Alvione ürün sayfasından: `src/lib/order.ts` → `ORDER_URL` (https://alvione.com.tr/novacolin-aphroharmony-60-tablet-alvione). Menü, sipariş bölümü ve yüzen buton bu linke yeni sekmede gider; Instagram (`@alvione.official`) yalnızca sorular için. Sayfada kişisel veri toplayan form **yok**.
+- Kampanya: `src/lib/order.ts` → `PROMO_CODE = 'SRTN'`, `PROMO_RATE = '%5'`. Header'ın üstünde altın şerit (`PromoBar`), sipariş bölümünde "%5 indirimli al" butonu + kopyalanabilir kod rozeti (`PromoCode`). `data-promo` taşıyan linkler tıklanınca kodu panoya kopyalar. Kampanyayı kapatmak için `PROMO_CODE = ''`.
 - Tıklama takibi: `data-track="…"` taşıyan her link tıklandığında `TRACK_ENDPOINT`'e (Google Apps Script → Sheets) kayıt gider; oturum başına bir "view" da gönderilir. Kurulum ve panel: `../takip/README.md`. `TRACK_ENDPOINT` boşsa takip kapalıdır, linkler çalışmaya devam eder.
 - `npm run check` kök kurallarını olduğu gibi uygular (sipariş linki ve `data-track` zorunlu).
 - İçerik bileşenleri yalnızca küçük puntolu formül listesinde; 5 uyarı + footer yasal satırı sayfada.

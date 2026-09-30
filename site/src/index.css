@@ -140,6 +140,35 @@ a { color: inherit; text-decoration: none; }
 }
 .pill-gold { background: var(--gold); color: var(--surface-2); }
 
+/* Kampanya şeridi (header'ın en üstü) ve kod rozeti */
+.promo-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 7px 16px;
+  background: var(--gold);
+  color: var(--surface-2);
+  font-family: var(--font-ui);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  text-align: center;
+  transition: background-color .2s;
+}
+.promo-bar:hover { background: #f0c874; }
+.promo-code {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.25em;
+  letter-spacing: 0.08em;
+  line-height: 1;
+}
+.promo-bar .promo-code { padding: 2px 8px; border: 1px dashed var(--surface-2); border-radius: 9999px; }
+.promo-chip { padding: 14px 20px; border-style: dashed; }
+
 .icon-btn {
   display: grid;
   place-items: center;

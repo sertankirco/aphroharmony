@@ -76,6 +76,15 @@ AphroHarmony (60 tablet) siparişleri yetkili satış noktamız Alvione üzerind
 Sayfadaki her "Sipariş ver" butonu (menü, hero, sipariş bölümü, yüzen buton) aynı linke gider. Sayfada sipariş formu ve kişisel veri toplama yoktur.
 Tıklama sayıları ve zamanları: `takip/README.md`.
 
+## [KAMPANYA] — SRTN %5 (2026-09-30, süresiz, Alvione'de tanımlı)
+- **Üst şerit (sayfanın en üstü, link):** `SRTN` koduyla %5 indirimli al → (tıklayınca kod kopyalanır, Alvione açılır) · `data-track="kampanya-serit"`
+- **Sipariş bölümü ana butonu:** [ %5 İndirimli Al ] (kod kopyalanır + Alvione) · `data-track="kampanya-siparis"`
+- **Kod rozeti (buton):** `SRTN` · Kodu kopyala → "Kopyalandı"
+- **Not metni:** SRTN kodu butona tıklayınca kopyalanır. Alvione sepetinde "Promosyon Kodu Kullan" alanına yapıştırın; %5 indirim uygulanır. Kampanya Alvione'de geçerlidir, süre sınırı yoktur.
+- Eski landing'de hero butonu da "%5 İndirimli Al" (`kampanya-hero`); yeni sitede yüzen çanta butonu da kodu kopyalar.
+- Kampanya biterse: `site/src/lib/order.ts` → `PROMO_CODE = ''` (şerit/rozet kaybolur, butonlar "Sipariş ver"e döner); kök `index.html`'de şerit, hero ve sipariş bölümü elle geri alınır.
+- Gerçek satış sayısı: Alvione panelinde SRTN kodunun kullanım raporu.
+
 ---
 
 ## [FOOTER — ZORUNLU UYARI]

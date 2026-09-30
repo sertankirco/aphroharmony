@@ -62,7 +62,7 @@
 - **Ekranda:** "pharmacolin.com" altın buton + "Ürün sayfasında inceleyin."
 - **Meta buton:** "Alışveriş Yap" veya "Daha Fazla Bilgi Al" (landing page hazırlığına göre).
 - **Sipariş (2026-09-30):** Reklam/bio linki landing sayfasına (UTM'li) gider; landing'deki "Sipariş ver" → https://alvione.com.tr/novacolin-aphroharmony-60-tablet-alvione. Mevcut `APHROHARMONY_REELS_FINAL.mp4` kapanış kartında hâlâ "pharmacolin.com" yazıyor; yeni render'da güncellenmeli.
-- **Kullanılmaz:** Stok, fiyat, indirim ya da aciliyet ifadeleri. Kaynakta yok.
+- **Kullanılmaz:** Stok, fiyat, indirim ya da aciliyet ifadeleri. (SRTN %5 kampanyası yalnızca landing sayfalarında gösterilir, videoya yazılmaz.)
 
 ### Reklam metni (açıklama)
 > 8 bileşen, tek tablet: L-Arjinin, demir dikeni, epimedium, maca kökü, cüce palmiye, ginkgo biloba, E vitamini ve çinko. Şeker, glüten ve koruyucu içermez; vegan ve vejetaryenlere uygundur. Günde 1 tablet, 18 yaş ve üzeri yetişkinler için. Novacolin AphroHarmony — pharmacolin.com

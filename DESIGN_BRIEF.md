@@ -20,6 +20,7 @@
   5. Hastalıkların önlenmesi veya tedavi edilmesi amacıyla kullanılmaz.
 - **Footer'da zorunlu:** "Takviye edici gıdadır. Hastalıkların önlenmesi veya tedavi edilmesi amacıyla kullanılmaz."
 - **Sipariş:** yalnızca Alvione ürün sayfası — https://alvione.com.tr/novacolin-aphroharmony-60-tablet-alvione. Sayfada kendi paket/fiyat tablosu yok (eski 1.290 / 2.190 / 2.990 TL paketleri kullanılmaz); fiyat ve kargo Alvione'da.
+- **Kampanya (süresiz):** `SRTN` kodu ile %5 indirim. Metinler `LANDING_PAGE_METNI.md` [KAMPANYA]: üst şerit + "%5 İndirimli Al" butonu + kopyalanabilir kod rozeti + nasıl kullanılır notu. Kampanya linkleri `data-promo` taşır (tıklayınca kod panoya kopyalanır). Başka indirim/aciliyet ifadesi eklenmez.
 
 ## 2. Asla yazılmayacaklar
 Tam liste: `compliance-rules.json`. Özetle:

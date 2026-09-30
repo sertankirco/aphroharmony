@@ -25,6 +25,19 @@ export const BagIcon = ({ className }: P) => (
   </svg>
 );
 
+export const CopyIcon = ({ className }: P) => (
+  <svg {...base} className={className}>
+    <rect x="8" y="8" width="12" height="12" rx="2" />
+    <path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" />
+  </svg>
+);
+
+export const CheckIcon = ({ className }: P) => (
+  <svg {...base} className={className}>
+    <path d="M5 12.5l4.5 4.5L19 7.5" />
+  </svg>
+);
+
 export const ArrowIcon = ({ className }: P) => (
   <svg {...base} className={className}>
     <path d="M5 12h14M13 6l6 6-6 6" />

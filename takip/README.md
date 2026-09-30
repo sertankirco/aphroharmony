@@ -8,8 +8,10 @@ Landing sayfalarındaki her "Sipariş ver" tıklamasını **zamanıyla** kaydede
 
 | Landing | Kod | `landing` adı | Butonlar (`data-track`) |
 |---|---|---|---|
-| Poster sitesi (aphroharmonyv2.vercel.app) | `site/src/lib/order.ts` | `aphroharmonyv2` | `nav`, `siparis-bolumu`, `yuzen-buton` |
-| Eski landing (kök `index.html`) | `index.html` en alttaki betik | `aphroharmony-v1` | `nav`, `hero`, `siparis-bolumu` |
+| Poster sitesi (aphroharmonyv2.vercel.app) | `site/src/lib/order.ts` | `aphroharmonyv2` | `nav`, `yuzen-buton`, `kampanya-serit`, `kampanya-siparis` (kampanya kapalıyken `siparis-bolumu`) |
+| Eski landing (kök `index.html`) | `index.html` en alttaki betik | `aphroharmony-v1` | `nav`, `kampanya-serit`, `kampanya-hero`, `kampanya-siparis` |
+
+`kampanya-*` butonları SRTN %5 indirim kampanyasına aittir; paneldeki "Buton" tablosunda kampanya tıklamaları ayrı görünür. Kodun kaç siparişte kullanıldığını ise Alvione panelindeki kupon raporu gösterir.
 
 ## Kurulum (bir kez, ~5 dakika)
 

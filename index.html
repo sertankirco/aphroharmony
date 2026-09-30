@@ -36,9 +36,10 @@
     "offers": {
       "@type": "Offer",
       "priceCurrency": "TRY",
-      "price": "1290",
+      "price": "2200.00",
       "availability": "https://schema.org/InStock",
-      "url": "https://aphroharmony.vercel.app/"
+      "url": "https://alvione.com.tr/novacolin-aphroharmony-60-tablet-alvione",
+      "seller": { "@type": "Organization", "name": "Alvione" }
     }
   }
   </script>
@@ -113,12 +114,12 @@
                 class="hidden md:flex items-center gap-8 text-xs font-semibold tracking-wider text-brand-muted uppercase">
                 <a href="#bilesenler" class="hover:text-brand-primary transition-colors">Bileşenler</a>
                 <a href="#kullanim" class="hover:text-brand-primary transition-colors">Kullanım Şekli</a>
-                <a href="#paketler" class="hover:text-brand-primary transition-colors">Paket Seçenekleri</a>
+                <a href="#siparis" class="hover:text-brand-primary transition-colors">Sipariş</a>
             </nav>
 
-            <a href="#siparis"
+            <a href="https://alvione.com.tr/novacolin-aphroharmony-60-tablet-alvione" target="_blank" rel="noopener" data-track="nav"
                 class="px-5 py-2.5 rounded-full bg-brand-primary text-white text-xs font-semibold tracking-wide hover:bg-brand-primary/90 transition-all flex items-center gap-2">
-                <span>Sipariş Formu</span>
+                <span>Sipariş Ver</span>
                 <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
             </a>
         </div>
@@ -147,10 +148,10 @@
                     </p>
 
                     <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2">
-                        <a href="#siparis"
+                        <a href="https://alvione.com.tr/novacolin-aphroharmony-60-tablet-alvione" target="_blank" rel="noopener" data-track="hero"
                             class="px-8 py-4 rounded-xl bg-brand-primary text-white text-sm font-semibold tracking-wide text-center hover:bg-brand-primary/95 transition-all flex items-center justify-center gap-2">
-                            Paketleri İnceleyin
-                            <i data-lucide="arrow-down" class="w-4 h-4"></i>
+                            Sipariş Ver
+                            <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
                         </a>
                         <a href="#bilesenler"
                             class="px-8 py-4 rounded-xl bg-brand-surface border border-brand-border text-brand-text text-sm font-semibold tracking-wide text-center hover:bg-brand-subtle transition-all">
@@ -267,130 +268,18 @@
         </div>
     </section>
 
-    <!-- Paket Seçenekleri -->
-    <section id="paketler" class="py-20 bg-brand-surface border-t border-brand-border">
-        <div class="max-w-5xl mx-auto px-6">
-
-            <div class="text-center max-w-xl mx-auto mb-12 space-y-2">
-                <h2 class="font-serif text-3xl text-brand-text">Paket Seçenekleri</h2>
-                <p class="text-xs text-brand-muted">Siparişleriniz isimsiz ambalajla teslim edilir.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-                <div class="bg-brand-bg p-6 rounded-2xl border border-brand-border flex flex-col justify-between">
-                    <div>
-                        <h3 class="font-serif text-lg font-bold text-brand-text">1 Adet Kutu</h3>
-                        <p class="text-xs text-brand-muted mt-1">30 Tablet (30 Günlük)</p>
-                        <div class="my-5">
-                            <span class="text-2xl font-bold text-brand-text">1.290 TL</span>
-                        </div>
-                        <ul class="space-y-2 text-xs text-brand-text border-t border-brand-border pt-4">
-                            <li>• Orijinal Mühürlü Şişe</li>
-                            <li>• Tarafsız Kargo Kolisi</li>
-                        </ul>
-                    </div>
-                    <button onclick="selectPackage('1 Adet Kutu (1.290 TL)')"
-                        class="mt-6 w-full py-3 rounded-xl border border-brand-border hover:border-brand-primary text-brand-primary text-xs font-bold uppercase transition-all">
-                        Bu Paketi Seç
-                    </button>
-                </div>
-
-                <div
-                    class="bg-brand-surface p-6 rounded-2xl border-2 border-brand-primary shadow-md flex flex-col justify-between">
-                    <div>
-                        <span
-                            class="text-[10px] font-bold tracking-widest uppercase text-brand-primary bg-brand-subtle px-2 py-0.5 rounded">Avantajlı
-                            Paket</span>
-                        <h3 class="font-serif text-xl font-bold text-brand-text mt-2">2 Adet Kutu</h3>
-                        <p class="text-xs text-brand-muted mt-1">60 Tablet (60 Günlük)</p>
-                        <div class="my-5">
-                            <span class="text-3xl font-bold text-brand-primary">2.190 TL</span>
-                        </div>
-                        <ul class="space-y-2 text-xs text-brand-text border-t border-brand-border pt-4">
-                            <li>• 2 Kutu AphroHarmony</li>
-                            <li>• Tarafsız Kargo Kolisi</li>
-                        </ul>
-                    </div>
-                    <button onclick="selectPackage('2 Adet Kutu (2.190 TL)')"
-                        class="mt-6 w-full py-3 rounded-xl bg-brand-primary text-white text-xs font-bold uppercase hover:bg-brand-primary/95 transition-all">
-                        Bu Paketi Seç
-                    </button>
-                </div>
-
-                <div class="bg-brand-bg p-6 rounded-2xl border border-brand-border flex flex-col justify-between">
-                    <div>
-                        <h3 class="font-serif text-lg font-bold text-brand-text">3 Adet Kutu</h3>
-                        <p class="text-xs text-brand-muted mt-1">90 Tablet (90 Günlük)</p>
-                        <div class="my-5">
-                            <span class="text-2xl font-bold text-brand-text">2.990 TL</span>
-                        </div>
-                        <ul class="space-y-2 text-xs text-brand-text border-t border-brand-border pt-4">
-                            <li>• 3 Kutu AphroHarmony</li>
-                            <li>• Tarafsız Kargo Kolisi</li>
-                        </ul>
-                    </div>
-                    <button onclick="selectPackage('3 Adet Kutu (2.990 TL)')"
-                        class="mt-6 w-full py-3 rounded-xl border border-brand-border hover:border-brand-primary text-brand-primary text-xs font-bold uppercase transition-all">
-                        Bu Paketi Seç
-                    </button>
-                </div>
-
-            </div>
-
-            <!-- Sipariş Formu -->
-            <div id="siparis" class="mt-16 max-w-xl mx-auto bg-brand-bg p-8 rounded-2xl border border-brand-border">
-                <h4 class="font-serif text-2xl font-bold text-brand-text text-center mb-1">Sipariş Bilgileri</h4>
-                <p class="text-xs text-brand-muted text-center mb-6">Paketiniz gizli dış ambalaj ile adresinize
-                    gönderilir.</p>
-
-                <form id="orderForm" onsubmit="handleOrderSubmit(event)" class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-semibold text-brand-text mb-1">Adınız Soyadınız</label>
-                        <input type="text" id="orderName" required placeholder="Adınız Soyadınız"
-                            class="w-full px-4 py-2.5 rounded-lg bg-brand-surface border border-brand-border text-sm text-brand-text">
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-semibold text-brand-text mb-1">Telefon Numaranız</label>
-                        <input type="tel" id="orderPhone" required placeholder="05XX XXX XX XX"
-                            class="w-full px-4 py-2.5 rounded-lg bg-brand-surface border border-brand-border text-sm text-brand-text">
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-semibold text-brand-text mb-1">Seçilen Paket</label>
-                        <select id="orderPackage"
-                            class="w-full px-4 py-2.5 rounded-lg bg-brand-surface border border-brand-border text-sm text-brand-text">
-                            <option value="2 Adet Kutu (2.190 TL)">2 Adet Kutu (2.190 TL)</option>
-                            <option value="1 Adet Kutu (1.290 TL)">1 Adet Kutu (1.290 TL)</option>
-                            <option value="3 Adet Kutu (2.990 TL)">3 Adet Kutu (2.990 TL)</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-semibold text-brand-text mb-1">Teslimat Adresi</label>
-                        <textarea id="orderAddress" rows="3" required placeholder="Açık adresiniz..."
-                            class="w-full px-4 py-2.5 rounded-lg bg-brand-surface border border-brand-border text-sm text-brand-text"></textarea>
-                    </div>
-
-                    <!-- KVKK Onayı -->
-                    <div class="flex items-start gap-2 pt-2">
-                        <input type="checkbox" id="kvkkConsent" required
-                            class="mt-1 h-4 w-4 rounded border-brand-border text-brand-primary focus:ring-0">
-                        <label for="kvkkConsent" class="text-xs text-brand-muted leading-tight">
-                            Kişisel verilerimin siparişimin işlenmesi ve teslimatı amacıyla işlenmesine ilişkin <button
-                                type="button" onclick="toggleKvkkModal()" class="text-brand-primary underline">KVKK
-                                Aydınlatma Metni</button>'ni okudum ve kabul ediyorum.
-                        </label>
-                    </div>
-
-                    <button type="submit"
-                        class="w-full py-3.5 rounded-xl bg-brand-primary text-white text-xs font-bold uppercase tracking-wider hover:bg-brand-primary/95 transition-all">
-                        Siparişi Tamamla
-                    </button>
-                </form>
-            </div>
-
+    <!-- Sipariş -->
+    <section id="siparis" class="py-20 bg-brand-surface border-t border-brand-border">
+        <div class="max-w-xl mx-auto px-6 text-center space-y-5">
+            <h2 class="font-serif text-3xl text-brand-text">Sipariş</h2>
+            <p class="text-sm text-brand-muted leading-relaxed">AphroHarmony (60 tablet) siparişleri yetkili satış
+                noktamız Alvione üzerinden alınır. Güncel fiyat, kargo ve ödeme seçenekleri ürün sayfasında yer alır.</p>
+            <a href="https://alvione.com.tr/novacolin-aphroharmony-60-tablet-alvione" target="_blank" rel="noopener" data-track="siparis-bolumu"
+                class="inline-flex items-center justify-center gap-2 px-10 py-4 rounded-xl bg-brand-primary text-white text-sm font-semibold tracking-wide hover:bg-brand-primary/95 transition-all">
+                Sipariş Ver
+                <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+            </a>
+            <p class="text-[11px] text-brand-muted">Bağlantı alvione.com.tr ürün sayfasını yeni sekmede açar.</p>
         </div>
     </section>
 
@@ -416,81 +305,40 @@
         <p>© 2026 AphroHarmony. Tüm hakları saklıdır.</p>
     </footer>
 
-    <!-- KVKK Aydınlatma Metni Modalı -->
-    <div id="kvkkModal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl max-w-lg w-full p-6 max-h-[80vh] overflow-y-auto space-y-4">
-            <div class="flex justify-between items-center border-b pb-3">
-                <h4 class="font-serif font-bold text-lg text-brand-text">KVKK Aydınlatma Metni</h4>
-                <button type="button" onclick="toggleKvkkModal()" class="text-brand-muted text-xl">&times;</button>
-            </div>
-            <div class="text-xs text-brand-muted space-y-3 leading-relaxed">
-                <p>Bu metin, 6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) kapsamında tarafınıza sunulmaktadır.
-                </p>
-                <p>Sipariş formunda ilettiğiniz ad, soyad, telefon ve adres verileriniz yalnızca siparişin doğrulanması,
-                    paketlenmesi ve kargo aracılığıyla adresinize ulaştırılması amacıyla işlenir.</p>
-                <p>Verileriniz üçüncü taraf reklam ağlarıyla veya ilgisiz taraflarla paylaşılmaz; yasal zorunluluklar ve
-                    teslimat sağlayıcıları haricinde aktarılmaz.</p>
-            </div>
-            <div class="pt-2 text-right">
-                <button type="button" onclick="toggleKvkkModal()"
-                    class="px-4 py-2 bg-brand-primary text-white text-xs rounded-lg font-semibold">Kapat</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Yapılandırma ve Betikler -->
+    <!-- Betikler -->
     <script>
-        // Sipariş Yapılandırması
-        const ORDER_CONFIG = {
-            brandName: "AphroHarmony",
-            defaultPackage: "2 Adet Kutu (2.190 TL)",
-            supportChannel: "direct_order",
-            whatsappNumber: ""
-        };
-
         lucide.createIcons();
 
         const lenis = new Lenis({ duration: 1.0, smoothWheel: true });
         function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
         requestAnimationFrame(raf);
 
-        function selectPackage(pkgName) {
-            const select = document.getElementById('orderPackage');
-            for (let i = 0; i < select.options.length; i++) {
-                if (select.options[i].value.includes(pkgName.split(' ')[0])) {
-                    select.selectedIndex = i;
-                    break;
+        // Sipariş tıklama takibi → takip/tiklama-takip.gs (Google Sheets). Boşsa takip kapalı, linkler yine çalışır.
+        const TRACK_ENDPOINT = '';
+        (function () {
+            if (!TRACK_ENDPOINT) return;
+            const ss = (() => { try { return window.sessionStorage; } catch (e) { return null; } })();
+            const get = (k) => (ss ? ss.getItem(k) : null), set = (k, v) => { if (ss) ss.setItem(k, v); };
+            const q = new URLSearchParams(location.search);
+            ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'].forEach((k) => { if (q.get(k)) set('aph_' + k, q.get(k)); });
+            if (get('aph_ref') === null) set('aph_ref', document.referrer ? new URL(document.referrer).hostname : '');
+            if (!get('aph_sid')) set('aph_sid', Math.random().toString(36).slice(2, 10) + Date.now().toString(36));
+            function send(type, button) {
+                const body = JSON.stringify({
+                    type, landing: 'aphroharmony-v1', page: location.hostname + location.pathname, button: button || '',
+                    sid: get('aph_sid') || '', device: matchMedia('(max-width: 767px)').matches ? 'mobil' : 'masaüstü',
+                    utm_source: get('aph_utm_source') || '', utm_medium: get('aph_utm_medium') || '',
+                    utm_campaign: get('aph_utm_campaign') || '', utm_content: get('aph_utm_content') || '', ref: get('aph_ref') || '',
+                });
+                if (!(navigator.sendBeacon && navigator.sendBeacon(TRACK_ENDPOINT, new Blob([body], { type: 'text/plain;charset=UTF-8' })))) {
+                    fetch(TRACK_ENDPOINT, { method: 'POST', mode: 'no-cors', keepalive: true, body }).catch(() => {});
                 }
             }
-            lenis.scrollTo('#siparis');
-        }
-
-        function toggleKvkkModal() {
-            const modal = document.getElementById('kvkkModal');
-            modal.classList.toggle('hidden');
-        }
-
-        function handleOrderSubmit(e) {
-            e.preventDefault();
-            const consent = document.getElementById('kvkkConsent').checked;
-            if (!consent) {
-                alert("Lütfen KVKK Aydınlatma Metni'ni kabul ediniz.");
-                return;
-            }
-
-            const name = document.getElementById('orderName').value;
-            const phone = document.getElementById('orderPhone').value;
-            const pkg = document.getElementById('orderPackage').value;
-            const address = document.getElementById('orderAddress').value;
-
-            const message = `*APHROHARMONY SİPARİŞİ*%0A%0A*Müşteri:* ${name}%0A*Telefon:* ${phone}%0A*Seçilen Paket:* ${pkg}%0A*Teslimat Adresi:* ${address}%0A%0AGizli paketleme standardında sipariş talebimi iletiyorum.`;
-
-            if (ORDER_CONFIG.whatsappNumber) {
-                window.open(`https://wa.me/${ORDER_CONFIG.whatsappNumber}?text=${message}`, '_blank');
-            } else {
-                alert("Sipariş talebiniz alındı. Yetkili temsilcimiz en kısa sürede sizinle iletişime geçecektir.");
-            }
-        }
+            if (!get('aph_viewed')) { set('aph_viewed', '1'); send('view'); }
+            const onClick = (e) => { const a = e.target.closest && e.target.closest('a[data-track]'); if (a) send('click', a.dataset.track); };
+            document.addEventListener('click', onClick, true);
+            document.addEventListener('auxclick', onClick, true);
+        })();
     </script>
 </body>
 

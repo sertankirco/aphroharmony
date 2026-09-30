@@ -62,6 +62,8 @@ Buton / rozet / input / ikon kutusu tam hap (`9999px`); 6px radius sadece kartla
 
 ## Uyum
 
-- Sipariş Instagram DM ile (`@alvione.official`); sayfada kişisel veri toplayan form **yok**. Bu yüzden `npm run check`, kök kontrolündeki üç form kalemini (KVKK kutusu, KVKK metni, `ORDER_CONFIG`) kapsam dışı sayar; diğer tüm kurallar uygulanır.
+- Sipariş Alvione ürün sayfasından: `src/lib/order.ts` → `ORDER_URL` (https://alvione.com.tr/novacolin-aphroharmony-60-tablet-alvione). Menü, sipariş bölümü ve yüzen buton bu linke yeni sekmede gider; Instagram (`@alvione.official`) yalnızca sorular için. Sayfada kişisel veri toplayan form **yok**.
+- Tıklama takibi: `data-track="…"` taşıyan her link tıklandığında `TRACK_ENDPOINT`'e (Google Apps Script → Sheets) kayıt gider; oturum başına bir "view" da gönderilir. Kurulum ve panel: `../takip/README.md`. `TRACK_ENDPOINT` boşsa takip kapalıdır, linkler çalışmaya devam eder.
+- `npm run check` kök kurallarını olduğu gibi uygular (sipariş linki ve `data-track` zorunlu).
 - İçerik bileşenleri yalnızca küçük puntolu formül listesinde; 5 uyarı + footer yasal satırı sayfada.
 - Canonical/OG adresleri `https://aphroharmonyv2.vercel.app/` — başka bir alan adına yayınlanırsa `index.html`'de güncelleyin.

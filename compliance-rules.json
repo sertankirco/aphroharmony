@@ -78,8 +78,7 @@
     { "label": "SEO", "text": "property=\"og:image\"" },
     { "label": "SEO", "text": "name=\"twitter:card\"" },
     { "label": "SEO", "text": "application/ld+json" },
-    { "label": "KVKK onay kutusu", "text": "id=\"kvkkConsent\"" },
-    { "label": "KVKK metni", "text": "KVKK Aydınlatma Metni" },
-    { "label": "Sipariş ayarı", "text": "ORDER_CONFIG" }
+    { "label": "Sipariş linki (Alvione)", "text": "https://alvione.com.tr/novacolin-aphroharmony-60-tablet-alvione" },
+    { "label": "Sipariş tıklama takibi", "text": "data-track=" }
   ]
 }

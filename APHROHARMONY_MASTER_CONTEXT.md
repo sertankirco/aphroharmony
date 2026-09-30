@@ -11,6 +11,7 @@ Yalnızca `aphroharmony-proje.txt` içinde yazan bilgiler.
 
 - Ürün: AphroHarmony 30/60 Tablet, Novacolin markası, üretici kodu NOVAPRO.
 - Ürün sayfası: https://pharmacolin.com/aphroharmony-30-tablet
+- **Sipariş linki (2026-09-30, bağlayıcı):** https://alvione.com.tr/novacolin-aphroharmony-60-tablet-alvione — tüm "Sipariş ver" butonları ve sipariş CTA'ları yalnızca bu adrese gider (Alvione, yetkili satış noktası; 30.09.2026'da sayfadaki fiyat 60 tablet 2.200 TL). Landing sayfalarında kendi fiyat/paket tablosu ve sipariş formu yok. Landing → Alvione tıklamaları `takip/` altındaki sistemle sayılır.
 - Kategori: Takviye edici gıda. Türk Gıda Kodeksi Takviye Edici Gıdalar Yönetmeliği'ne tabi.
 - Kaynak ürünü "Tarım ve Orman Bakanlığı onaylı" olarak tanımlıyor; ancak onay numarası görülmemiş (bkz. Bölüm 5).
 - İçerik listesi kullanıcı tarafından paylaşılmış.
@@ -152,7 +153,7 @@ Yalnızca `aphroharmonyproduct.png` içinde görülenler. Görsel küçük boyut
 1. Durum: yoğun tempo, stres, yorgunluk (iddia içermeden, genel ifade).
 2. Ürün: bitkisel ekstreler + E vitamini ve çinko içeren, günde 1 tablet takviye.
 3. Neden bu ürün: içermedikleri, vegan uygunluk (onay bilgisi doğrulanana kadar hariç).
-4. Eylem: pharmacolin.com / sipariş.
+4. Eylem: landing sayfası → "Sipariş ver" → https://alvione.com.tr/novacolin-aphroharmony-60-tablet-alvione
 
 **Landing page yapısı:** Hero + CTA → Sorun/empati → Bileşen kartları → Kullanım ve güven unsurları → Sosyal kanıt (şu an boş) → SSS (cevaplar eksik) → Son CTA.
 

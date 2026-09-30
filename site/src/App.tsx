@@ -3,6 +3,7 @@ import { Botanical } from './components/Botanical';
 import { BottleAnchor } from './components/Bottle';
 import { ArrowIcon, BagIcon, InstagramIcon, LeafIcon, ShieldIcon, TabletIcon } from './components/Icons';
 import { Split } from './components/Split';
+import { ORDER_URL, initOrderTracking } from './lib/order';
 
 const INSTAGRAM = 'https://www.instagram.com/alvione.official/';
 
@@ -51,7 +52,7 @@ function Nav() {
           AphroHarmony
         </a>
         <div className="flex justify-end">
-          <a className="btn-ghost" href="#siparis">Sipariş</a>
+          <a className="btn-ghost" href={ORDER_URL} target="_blank" rel="noopener" data-track="nav">Sipariş ver</a>
         </div>
       </nav>
     </header>
@@ -204,19 +205,19 @@ function Order() {
       <div className="relative z-10 mx-auto grid min-h-svh max-w-[1440px] items-center gap-10 px-4 pb-20 md:grid-cols-[1.4fr_1fr] md:px-8">
         <div>
           <p className="t-caption mb-5">04 — Sipariş</p>
-          <Split as="h2" text="SİPARİŞ İÇİN YAZIN" className="t-heading-lg" />
+          <Split as="h2" text="SİPARİŞ VERİN" className="t-heading-lg" />
           <p className="t-body mt-7 max-w-[42ch] opacity-90">
-            Siparişlerinizi Instagram üzerinden, direkt mesajla alıyoruz. Size dönüş yapıp siparişinizi birlikte
-            netleştirelim.
+            AphroHarmony siparişleri yetkili satış noktamız Alvione üzerinden alınır. Butona tıklayınca ürün
+            sayfası yeni sekmede açılır. Sorularınız için Instagram'dan yazabilirsiniz.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
-            <a className="btn-fill" href={INSTAGRAM} target="_blank" rel="noopener noreferrer">
-              <InstagramIcon className="h-[18px] w-[18px]" />
-              Instagram'dan sipariş ver
+            <a className="btn-fill" href={ORDER_URL} target="_blank" rel="noopener" data-track="siparis-bolumu">
+              <BagIcon className="h-[18px] w-[18px]" />
+              Sipariş ver
               <ArrowIcon className="h-4 w-4" />
             </a>
             <a className="btn-ghost normal-case" href={INSTAGRAM} target="_blank" rel="noopener noreferrer">
-              @alvione.official
+              <InstagramIcon className="h-4 w-4" /> @alvione.official
             </a>
           </div>
         </div>
@@ -254,7 +255,7 @@ function FloatingActions() {
       <a className="icon-btn" href={INSTAGRAM} target="_blank" rel="noopener noreferrer" aria-label="Instagram: @alvione.official">
         <InstagramIcon />
       </a>
-      <a className="icon-btn" href="#siparis" aria-label="Sipariş bölümüne git">
+      <a className="icon-btn" href={ORDER_URL} target="_blank" rel="noopener" data-track="yuzen-buton" aria-label="Sipariş ver (Alvione, yeni sekmede açılır)">
         <BagIcon />
       </a>
     </div>
@@ -282,9 +283,11 @@ export default function App() {
     import('./lib/motion').then(({ initMotion }) => {
       if (!cancelled) dispose = initMotion();
     });
+    const stopTracking = initOrderTracking();
     return () => {
       cancelled = true;
       dispose?.();
+      stopTracking();
     };
   }, []);
 

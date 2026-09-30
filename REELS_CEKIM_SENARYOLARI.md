@@ -46,7 +46,8 @@
 
 1. **Trafik:** Reels / Shorts / TikTok. Meta hedeflemede sağlık/cinsel sağlık ilgi alanları kullanılmaz; geniş wellness/fitness (§6).
 2. **Kanca:** Yorumlara **"İÇERİK"** yazana otomatik DM ile link (veya doğrudan bio linki).
-3. **Link:** `index.html` (metin kaynağı: `LANDING_PAGE_METNI.md`).
+3. **Link:** landing sayfası (https://aphroharmonyv2.vercel.app/). Linke kaynak ekleyin ki panelde ayrı görünsün, ör. `?utm_source=instagram&utm_medium=reels&utm_campaign=<kampanya>&utm_content=<video-adı>`.
+3a. **Sipariş:** landing'deki "Sipariş ver" → https://alvione.com.tr/novacolin-aphroharmony-60-tablet-alvione (tıklama sayısı/zamanı: `takip/README.md`).
 4. **Sayfa içi güven:** İçerik şeffaflığı, kullanım/uyarılar, gizli paketleme.
 5. **Moderasyon:** "AphroHarmony" adı risk oluşturabilir; küçük bütçeyle test edilip gerekirse Novacolin öne çıkarılır (§7).
 

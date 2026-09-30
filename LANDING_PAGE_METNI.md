@@ -52,14 +52,8 @@
 
 ---
 
-## [PAKETLER]
-Tüm gönderiler, dışında ürün adı veya logo bulunmayan sade bir kutuyla gönderilir.
-
-| Paket | İçerik | Fiyat | Koşul |
-|---|---|---|---|
-| Tanışma (I. Edisyon) | 1 Kutu | 1.290 TL | Standart kargo, gizli paketleme |
-| **Denge (II. Edisyon)** — En çok tercih edilen | 2 Kutu | 2.190 TL (tek tek almaya göre %15 avantajlı) | Ücretsiz kargo, gizli paketleme |
-| Avantaj (III. Edisyon) | 3 Kutu | 2.990 TL (en uygun birim fiyat) | Ücretsiz kargo, gizli paketleme |
+## [PAKETLER] — KALDIRILDI (2026-09-30)
+Kendi paket/fiyat tablomuz yok. Fiyat, kargo ve ödeme bilgisi Alvione ürün sayfasındadır (30.09.2026 itibarıyla 60 tablet: 2.200 TL). Sayfada fiyat yazmayın; eski 1.290 / 2.190 / 2.990 TL paketleri kullanılmaz.
 
 ---
 
@@ -73,11 +67,14 @@ Tüm gönderiler, dışında ürün adı veya logo bulunmayan sade bir kutuyla g
 ---
 
 ## [SİPARİŞ]
-**Başlık:** Siparişinizi Oluşturun
-Formu doldurun; siparişinizi onaylamak için sizi arayalım.
-Alanlar: Ad Soyad · Telefon · Paket · Teslimat adresi · KVKK onayı (zorunlu)
+**Sipariş linki (tek ve zorunlu):** https://alvione.com.tr/novacolin-aphroharmony-60-tablet-alvione
 
-**CTA:** [ Siparişi Gönder ]
+**Başlık:** Sipariş
+AphroHarmony (60 tablet) siparişleri yetkili satış noktamız Alvione üzerinden alınır. Güncel fiyat, kargo ve ödeme seçenekleri ürün sayfasında yer alır.
+
+**CTA:** [ Sipariş Ver ] → yukarıdaki link, yeni sekmede, `data-track="…"` ile tıklama takibi.
+Sayfadaki her "Sipariş ver" butonu (menü, hero, sipariş bölümü, yüzen buton) aynı linke gider. Sayfada sipariş formu ve kişisel veri toplama yoktur.
+Tıklama sayıları ve zamanları: `takip/README.md`.
 
 ---
 

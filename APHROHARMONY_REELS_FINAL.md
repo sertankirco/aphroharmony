@@ -61,6 +61,7 @@
 ### CTA
 - **Ekranda:** "pharmacolin.com" altın buton + "Ürün sayfasında inceleyin."
 - **Meta buton:** "Alışveriş Yap" veya "Daha Fazla Bilgi Al" (landing page hazırlığına göre).
+- **Sipariş (2026-09-30):** Reklam/bio linki landing sayfasına (UTM'li) gider; landing'deki "Sipariş ver" → https://alvione.com.tr/novacolin-aphroharmony-60-tablet-alvione. Mevcut `APHROHARMONY_REELS_FINAL.mp4` kapanış kartında hâlâ "pharmacolin.com" yazıyor; yeni render'da güncellenmeli.
 - **Kullanılmaz:** Stok, fiyat, indirim ya da aciliyet ifadeleri. Kaynakta yok.
 
 ### Reklam metni (açıklama)
